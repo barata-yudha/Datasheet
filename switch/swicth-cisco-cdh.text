@@ -1,0 +1,182 @@
+switch-dist-2-cdh#show running-config
+Building configuration...
+
+Current configuration : 4210 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname switch-dist-2-cdh
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$ZEaF$Fy0mTuJrAUgMyKzzb7x3c1
+enable password LU6HBTkeyEGw8
+!
+username bitsnet privilege 15 password 0 LU6HBTkeyEGw8
+no aaa new-model
+system mtu routing 1500
+ip subnet-zero
+!
+!
+!
+crypto pki trustpoint TP-self-signed-209213568
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-209213568
+ revocation-check none
+ rsakeypair TP-self-signed-209213568
+!
+!
+crypto pki certificate chain TP-self-signed-209213568
+ certificate self-signed 01
+  30820248 308201B1 A0030201 02020101 300D0609 2A864886 F70D0101 04050030
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 32303932 31333536 38301E17 0D393330 33303130 30303035
+  305A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3230 39323133
+  35363830 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100
+  B11C487F A2B97E3D 78BE1A3A 31E253C8 FF5C3CA0 52E2DBAA 31DE8F68 AEF1D4B7
+  61F4C3B6 43C17AFE D030A68E F6012EC4 F6B4039E 16882487 D168FC8C 51C468D6
+  57D0E593 319309F3 D44F85D5 08D7A16D C6C2D2D0 3DF019B2 F536B531 2485C975
+  D5D9D1D1 17CA33B6 9D816E80 84318EBC E5D20901 D402A872 28C4CDB5 87D6FB37
+  02030100 01A37230 70300F06 03551D13 0101FF04 05300301 01FF301D 0603551D
+  11041630 14821273 77697463 682D6469 73742D32 2D636468 2E301F06 03551D23
+  04183016 8014FC17 20299EF6 AA2E095D 01737491 E3901419 441A301D 0603551D
+  0E041604 14FC1720 299EF6AA 2E095D01 737491E3 90141944 1A300D06 092A8648
+  86F70D01 01040500 03818100 861D04EB B025AD97 FCB6647D F4D63859 E437BE7E
+  044B1345 FE5A71FA D9E6E388 74894103 E599BA19 1F9D888F 1646563D CE2512C7
+  5CC3F2F9 BB9CB86C B45E41E9 0B756220 878AC999 B5762C8E 2DCACBB1 A7EE4834
+  499FBCEE B4BF4931 831D9D90 2A70EA4D 4C1120B1 56CF884F 3A272196 C72A9596
+  8B2A0C57 DA990885 7428186D
+  quit
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+interface FastEthernet0/1
+ description CDH-TSM
+ switchport trunk allowed vlan 1,248
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ description CDH-MTH
+ switchport trunk allowed vlan 1,225
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ description CDH-AKPER
+ switchport trunk allowed vlan 1,211
+ switchport mode trunk
+!
+interface FastEthernet0/4
+ description MGT-HUAWEI-CDH
+ switchport access vlan 90
+!
+interface FastEthernet0/5
+ switchport trunk allowed vlan 1,239
+ switchport mode trunk
+ shutdown
+!
+interface FastEthernet0/6
+ description MGT-CERA-CDH
+ switchport access vlan 793
+ switchport mode access
+!
+interface FastEthernet0/7
+ description CDH-MAKRUS-MOTOR
+ switchport trunk allowed vlan 1,219
+ switchport mode trunk
+!
+interface FastEthernet0/8
+ description CDH-OFFICE
+ switchport trunk allowed vlan 1
+ switchport mode trunk
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+ description CDH-AMARISHOTEL
+ switchport trunk allowed vlan 1,222
+ switchport mode trunk
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+ description TRUNK-TO-SW-HP-CDH
+ switchport trunk allowed vlan 1,90,92,211,219,222,225,229,239,248,793
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+!
+interface Vlan92
+ ip address 10.202.0.42 255.255.255.252
+ no ip route-cache
+!
+interface Vlan225
+ no ip address
+ no ip route-cache
+!
+interface Vlan248
+ no ip address
+ no ip route-cache
+!
+ip default-gateway 10.202.0.41
+ip http server
+ip http secure-server
+snmp-server community cirebon RO
+!
+control-plane
+!
+!
+line con 0
+line vty 0 4
+ password AZ@ceh7m
+ login
+line vty 5 15
+ password AZ@ceh7m
+ login
+!
+end
+
