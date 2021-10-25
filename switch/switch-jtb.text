@@ -1,0 +1,183 @@
+SW-BITSNET-JTB#show running-config
+Building configuration...
+
+Current configuration : 3140 bytes
+!
+version 12.2
+no service pad
+service timestamps debug uptime
+service timestamps log uptime
+service password-encryption
+!
+hostname SW-BITSNET-JTB
+!
+enable secret 5 $1$vdaf$y91He1U9FLYqd92tAw22c0
+enable password 7 094A7D1B4E523B3E12542A
+!
+no aaa new-model
+system mtu routing 1500
+vtp mode transparent
+ip subnet-zero
+!
+no ip domain-lookup
+!
+!
+!
+no file verify auto
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 34
+!
+vlan 95
+ name 95-MGT-SW-JTB
+!
+vlan 812
+ name 812-TARUNA
+!
+vlan 814
+ name 814-TEST-INET-JTB
+!
+vlan 816
+ name 816-IMY-NATA
+!
+vlan 817
+ name 817-IMY-KRISYANTO
+!
+vlan 820
+ name 820-IMY-YUSUF
+!
+vlan 821
+ name 821-IMY-NURIN-VIA-JTB
+!
+vlan 822
+ name 822-IMY-HARDI
+!
+vlan 902
+ name 902-IIX-IMY-VIA-TARUNA
+!
+vlan 1011
+ name 1011-BITS-TELERING
+!
+vlan 1515
+ name 1515-UPLINK-HSP
+!
+interface GigabitEthernet0/1
+ description IMY-NATA
+ switchport access vlan 816
+ switchport mode access
+!
+interface GigabitEthernet0/2
+ description IMY-YUSUF
+ switchport access vlan 820
+ switchport mode access
+!
+interface GigabitEthernet0/3
+ description IMY-KRISYANTO/GILANG
+ switchport access vlan 817
+ switchport mode access
+!
+interface GigabitEthernet0/4
+ description EX-TARUNA
+ switchport trunk allowed vlan 812,902
+ switchport mode trunk
+!
+interface GigabitEthernet0/5
+ description IMY-HARDY
+ switchport access vlan 822
+ switchport mode access
+!
+interface GigabitEthernet0/6
+ description IMY-SAMSUL/TARUNA
+ switchport trunk allowed vlan 812,902
+ switchport mode trunk
+!
+interface GigabitEthernet0/7
+ description PDA-TELERING
+ switchport trunk allowed vlan 1,1011
+ switchport mode trunk
+!
+interface GigabitEthernet0/8
+ shutdown
+!
+interface GigabitEthernet0/9
+!
+interface GigabitEthernet0/10
+!
+interface GigabitEthernet0/11
+!
+interface GigabitEthernet0/12
+!
+interface GigabitEthernet0/13
+!
+interface GigabitEthernet0/14
+!
+interface GigabitEthernet0/15
+!
+interface GigabitEthernet0/16
+!
+interface GigabitEthernet0/17
+!
+interface GigabitEthernet0/18
+ description TO-HSP-CCR
+ switchport access vlan 1515
+ switchport trunk allowed vlan 1,95,812,816,817,820-822,902,1011
+ switchport mode trunk
+!
+interface GigabitEthernet0/19
+ description TO-CCR
+ switchport access vlan 814
+ switchport trunk allowed vlan 1515
+ switchport mode trunk
+!
+interface GigabitEthernet0/20
+ description TRUNK-TO-CERAGON-UPLINK
+ switchport trunk allowed vlan 95,812,814,816-825,902
+ switchport mode trunk
+!
+interface GigabitEthernet0/21
+!
+interface GigabitEthernet0/22
+!
+interface GigabitEthernet0/23
+ switchport access vlan 1515
+ switchport mode access
+!
+interface GigabitEthernet0/24
+ description IMY-NURIN
+ switchport access vlan 821
+ switchport mode access
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+!
+interface Vlan95
+ ip address 10.202.0.38 255.255.255.252
+ no ip route-cache
+!
+interface Vlan816
+ ip address 193.193.1.1 255.255.255.252
+ no ip route-cache
+!
+ip default-gateway 10.202.0.37
+ip http server
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 30 0
+ password 7 013F33527329320424556B2E0E5D
+ login
+line vty 0 4
+ exec-timeout 30 0
+ password 7 04773E50270378450C0020300553
+ login
+line vty 5 15
+ login
+!
+end
+
