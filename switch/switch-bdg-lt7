@@ -1,0 +1,385 @@
+switch-bdg-lt7-bitsnet.id#show running-config
+
+ Being processed.This may take a few minutes,please wait......
+
+ System current configuration:
+!command in view_mode
+!
+!command in config_mode first-step
+create vlan 10,26-28,56,350-351,421-423,531,536,573,581,584,600-601,604-607,613,615-617,621,624-628,702,883-884,986,1304,1401-1404,1512,1576-1578,2000,2088,2338-2339,2377,2387-2388,4001-4003 active
+ipv6 dhcp client mode normal
+!
+!command in qos mapping mode
+!
+!command in sred mode
+!
+!command in vrf_mode
+!
+!command in acl-ipv4-basic mode
+!
+!command in acl-ipv4-advanced mode
+!
+!command in acl-mac mode
+!
+!command in acl-map mode
+!
+!command in acl-ipv6 mode
+!
+!command in acl-advanced mode
+!
+!command in filter-vlanlist mode
+!
+!command in traffic policer mode
+!
+!command in cmap_mode
+!
+!command in pmap_mode
+!
+!command in bandwidth profile mode
+!
+!command in hcos_mode
+!
+!command in hvlan_mode
+!
+!command in enable_mode
+enable password cipher $@!!92db2f495087f23ed0aafea83193ff7f
+user name ageng password cipher $@!!dab73ac88f165aa047b981af78852363 confirm
+user name bitsnet password cipher $@!!92db2f495087f23ed0aafea83193ff7f confirm
+user name support password cipher $@!!248c5b65af9b3e059db8746a69630bff confirm
+user name support privilege 4
+hostname switch-bdg-lt7-bitsnet.id
+clock timezone + 7 0 Jakarta
+clock display utc
+!
+!command in region_mode
+!
+!command in ip igmp profile mode
+!
+!command in mld profile mode
+!
+!command in outband_mode
+!
+interface fastethernet 1/0/1
+ip address 10.254.11.22 255.255.255.252
+!
+!command in NULL_mode
+!
+!command in l2cp profile mode
+!
+!command in aggregation_mode
+!
+!command in vlan configuration mode
+!
+vlan 26
+name 26-MGT-LT6
+!
+vlan 27
+name 27-MGT-SW-LT8
+!
+vlan 28
+name 28-MGT-SW-CNDC
+!
+vlan 56
+name 536-JABARMAYA
+!
+vlan 350
+name 350-AP-INTERCON
+!
+vlan 351
+name 351-ST-INTERCON
+!
+vlan 421
+name 421-POS-OFFICE
+!
+vlan 422
+name 422-CITY-SQUARE
+!
+vlan 423
+name 423-KARANTINA-PERTANIAN
+!
+vlan 531
+name 531-JABARMAYA
+!
+vlan 536
+name 536-JABARMAYA
+!
+vlan 573
+name 573-BACKBONE-FIBERSTAR
+!
+vlan 581
+name 581-VPS-BITSNET
+!
+vlan 584
+name 584-IPTR-SANBE
+!
+vlan 600
+name 600-INTERCON-VIA-BACKUP
+!
+vlan 601
+name 601-JABRIX
+!
+vlan 604
+name 604-LPSE
+!
+vlan 605
+name 605-MOXY-HOTEL
+!
+vlan 606
+name 606-HOLIDAY-BITEK
+!
+vlan 607
+name 607-TGI
+!
+vlan 613
+name 613-CGS-FENGTAY
+!
+vlan 615
+name 615-GHUNIVERSAL
+!
+vlan 616
+name 616-INTERCONTINENTAL_Ex-VAQUEST
+!
+vlan 617
+name 617-AITI
+!
+vlan 621
+name 621-IPCAM
+!
+vlan 624
+name 624-U-JAVANELLA
+!
+vlan 625
+name 625-HOTEL-MOXY-GOESAR
+!
+vlan 626
+name 626-KAMBOTI-GOESAR
+!
+vlan 627
+name 627-KYTOS-GOESAR
+!
+vlan 628
+name 628-BOD-GOESAR-BDG
+!
+vlan 702
+name 702-SEKRE-APJII
+!
+vlan 883
+name 883-PULMAN-VIA-MSN
+!
+vlan 884
+name 884-MSN-GD-SATE
+!
+vlan 986
+name 986-VARNION-PULMAN
+!
+vlan 1304
+name 1304-INTEGRASIA
+!
+vlan 1401
+name 1401-INTERGASIA
+!
+vlan 1402
+name 1402-INTERGASIA
+!
+vlan 1403
+name 1403-INTERGASIA
+!
+vlan 1404
+name 1404-INTERGASIA
+!
+vlan 1512
+name IFORTE-CYBER1
+!
+vlan 1576
+name 1576-JLM-FIBERCONN
+!
+vlan 1577
+name 1577-METRO-JLM
+!
+vlan 1578
+name 1578-PT-AMBA
+!
+vlan 2000
+name 2000-GOR-CITRA-PASIFIK
+!
+vlan 2088
+name 2088-TO-TELKOM-P2P
+!
+vlan 2338
+name 2338-LINTAS-SATU-VISI
+!
+vlan 2339
+name 2339-COLLOCATION-JLM
+!
+vlan 2377
+name COLLOCATION-AMBA
+!
+vlan 2387
+name 2387-COLOCATION-PSAT
+!
+vlan 2388
+name 2388-COLOCATION-PSAT
+!
+vlan 4001
+name 4001-OFFICE-BITS-BDG-LT7
+!
+vlan 4002
+name 4002-RB-MONITORING
+!
+vlan 4003
+name 4003-RB-FIBERCONN
+!
+!command in tunnel interface mode
+!
+!command in port_mode
+!
+interface gigaethernet 1/1/1
+description CCTV-KANTOR
+switchport access vlan 621
+!
+interface gigaethernet 1/1/2
+description IP-CCTV
+switchport access vlan 621
+!
+interface gigaethernet 1/1/3
+description TO-FIBERCONNECT-1G
+switchport trunk allowed vlan 531,573,581,584,1576,2000,4003
+switchport mode trunk
+!
+interface gigaethernet 1/1/4
+description BIRMS
+switchport access vlan 604
+!
+interface gigaethernet 1/1/5
+description IFORTE-CYBER
+switchport access vlan 1512
+!
+interface gigaethernet 1/1/6
+description LPSE
+switchport access vlan 604
+!
+interface gigaethernet 1/1/7
+shutdown
+!
+interface gigaethernet 1/1/8
+description JABARMAYA
+shutdown
+!
+interface gigaethernet 1/1/10
+description METRO-JLM
+switchport access vlan 1577
+!
+interface gigaethernet 1/1/11
+description IPTV-SERVER
+switchport access vlan 702
+!
+interface gigaethernet 1/1/12
+shutdown
+!
+interface gigaethernet 1/1/13
+shutdown
+!
+interface gigaethernet 1/1/15
+description TO-AMBA-TEKNOLOGI-INDONESIA
+switchport access vlan 1578
+switchport trunk allowed vlan remove 1-4094
+!
+interface gigaethernet 1/1/19
+description COLOCATION-PSAT
+switchport trunk allowed vlan 2387-2388
+switchport mode trunk
+!
+interface gigaethernet 1/1/20
+description LINTAS-SATU-VISI
+switchport trunk allowed vlan 2338
+switchport mode trunk
+!
+interface gigaethernet 1/1/21
+shutdown
+!
+interface gigaethernet 1/1/22
+description "PSAT TO JABRIX"
+switchport access vlan 601
+switchport trunk allowed vlan remove 1-4094
+!
+interface gigaethernet 1/1/23
+switchport trunk allowed vlan 581
+switchport mode trunk
+!
+interface gigaethernet 1/1/24
+description TO-OFFICE-LT7
+switchport access vlan 4001
+!
+interface tengigabitethernet 1/1/25
+description TRUNK-TO-CCR
+switchport trunk allowed vlan 26-28,350-351,421-423,535-536,584,600-601,604-608,612-613,615-617,621,624-628,702,883-884,986,1578,2000,2088,4001,4003
+switchport mode trunk
+!
+interface tengigabitethernet 1/1/26
+description TRUNK-TO-LT8-JABRIX
+switchport trunk allowed vlan 27-28,421-423,531,534-536,581,584,601,604-608,613,615-617,624-628,702,986,1401-1404,1512,1576-1578,2000,2088,2338-2339,2387-2388
+switchport mode trunk
+!
+interface tengigabitethernet 1/1/27
+description TRUNKING-TO-LT6
+switchport trunk native vlan 10
+switchport trunk allowed vlan 26-27,350-351,883-884
+switchport mode trunk
+!
+interface tengigabitethernet 1/1/28
+description TO-FIBERCONNECT
+switchport access vlan 4003
+switchport trunk allowed vlan 531,573,581,584,1576,2000,4003
+switchport mode trunk
+!
+!command in isf_mode
+!
+!command in dhcp-pool mode
+!
+!command in loopback interface mode
+!
+interface loopback 0
+!
+!command in vlan interface mode
+!
+interface vlan 1
+shutdown
+!
+interface vlan 1512
+ip address 172.16.11.10 255.255.255.0
+!
+!command in sub_interface mode
+!
+!command in tdm port mode
+!
+!command in vxlan_interface mode
+!
+!command in routemap_mode
+!
+!command in ospf_mode
+!
+!command in rip_mode
+!
+!command in keychain_mode
+!
+!command in bfd_template_mode
+!
+!command in iccp mode
+!
+!command in service_mode
+!
+!command in mlacp_mode
+!
+!command in config_mode
+dot1x enable
+snmp-server location BBU-Bandung-LT7
+snmp-server contact noc@bits.net.id
+snmp-server community encryption 0x7266ca10ff56ddab ro
+snmp-server community encryption 0xae46c4be7fc99191 ro
+ip route 0.0.0.0 0.0.0.0 10.254.11.21
+console baud-rate 115200
+!
+!command in linktrace_mode
+!
+!command in clkmgmt_mode
+!
