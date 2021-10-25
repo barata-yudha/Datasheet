@@ -1,0 +1,763 @@
+sw-cdc.bitsnet.id# show running-config
+
+!Command: show running-config
+!Time: Mon Oct 25 12:34:59 2021
+
+version 6.0(2)U2(9Z)
+hostname sw-cdc.bitsnet.id
+
+feature telnet
+feature interface-vlan
+feature lacp
+feature lldp
+
+username admin password 5 $1$AuIhvwBX$kO8gj1l8sgU2Qulkfdc400  role network-admin
+username bitsnet password 5 $1$LRqNDtea$HpYDMNYC9teU8Tu2Ko77T/  role network-admin
+username support password 5 $1$h1gvyXSu$NqqonHWqWjYpfiuKIfAfw1  role network-operator
+ip domain-lookup
+logging event link-status default
+errdisable recovery interval 30
+no errdisable detect cause link-flap
+errdisable recovery cause link-flap
+ip access-list copp-system-acl-eigrp
+  10 permit eigrp any 224.0.0.10/32
+ipv6 access-list copp-system-acl-eigrp6
+  10 permit 88 any ff02::000a/128
+ip access-list copp-system-acl-ftp
+  10 permit tcp any any eq ftp-data
+  20 permit tcp any any eq ftp
+  30 permit tcp any eq ftp-data any
+  40 permit tcp any eq ftp any
+ip access-list copp-system-acl-http
+  10 permit tcp any any eq www
+  20 permit tcp any any eq 443
+ip access-list copp-system-acl-icmp
+  10 permit icmp any any
+ip access-list copp-system-acl-igmp
+  10 permit igmp any any
+ip access-list copp-system-acl-ntp
+  10 permit udp any any eq ntp
+  20 permit udp any eq ntp any
+ip access-list copp-system-acl-pimreg
+  10 permit pim any any
+ip access-list copp-system-acl-ping
+  10 permit icmp any any echo
+  20 permit icmp any any echo-reply
+ip access-list copp-system-acl-routingproto1
+  10 permit tcp any gt 1024 any eq bgp
+  20 permit tcp any eq bgp any gt 1024
+  30 permit udp any 224.0.0.0/24 eq rip
+  40 permit tcp any gt 1024 any eq 639
+  50 permit tcp any eq 639 any gt 1024
+  70 permit ospf any any
+  80 permit ospf any 224.0.0.5/32
+  90 permit ospf any 224.0.0.6/32
+ip access-list copp-system-acl-routingproto2
+  10 permit udp any 224.0.0.0/24 eq 1985
+  20 permit 112 any 224.0.0.0/24
+ip access-list copp-system-acl-snmp
+  10 permit udp any any eq snmp
+  20 permit udp any any eq snmptrap
+ip access-list copp-system-acl-ssh
+  10 permit tcp any any eq 22
+  20 permit tcp any eq 22 any
+ip access-list copp-system-acl-stftp
+  10 permit udp any any eq tftp
+  20 permit udp any any eq 1758
+  30 permit udp any eq tftp any
+  40 permit udp any eq 1758 any
+  50 permit tcp any any eq 115
+  60 permit tcp any eq 115 any
+ip access-list copp-system-acl-tacacsradius
+  10 permit tcp any any eq tacacs
+  20 permit tcp any eq tacacs any
+  30 permit udp any any eq 1812
+  40 permit udp any any eq 1813
+  50 permit udp any any eq 1645
+  60 permit udp any any eq 1646
+  70 permit udp any eq 1812 any
+  80 permit udp any eq 1813 any
+  90 permit udp any eq 1645 any
+  100 permit udp any eq 1646 any
+ip access-list copp-system-acl-telnet
+  10 permit tcp any any eq telnet
+  20 permit tcp any any eq 107
+  30 permit tcp any eq telnet any
+  40 permit tcp any eq 107 any
+ipv6 access-list copp-system-acl-v6routingProto2
+  10 permit udp any ff02::0066/128 eq 2029
+  20 permit udp any ff02::00fb/128 eq 5353
+ipv6 access-list copp-system-acl-v6routingproto1
+  10 permit 89 any ff02::0005/128
+  20 permit 89 any ff02::0006/128
+  30 permit udp any ff02::0009/128 eq 521
+ip access-list copp-system-dhcp-relay
+  10 permit udp any eq bootps any eq bootps
+policy-map type qos Metro-1Gbps
+class-map type network-qos jumbomtu
+policy-map type network-qos jumbomtu
+  class type network-qos class-default
+    mtu 9216
+system qos
+  service-policy type network-qos jumbomtu
+class-map type control-plane match-any copp-icmp
+  match access-group name copp-system-acl-icmp
+class-map type control-plane match-any copp-ntp
+  match access-group name copp-system-acl-ntp
+class-map type control-plane match-any copp-s-arp
+class-map type control-plane match-any copp-s-bfd
+class-map type control-plane match-any copp-s-bpdu
+class-map type control-plane match-any copp-s-dai
+class-map type control-plane match-any copp-s-default
+class-map type control-plane match-any copp-s-dhcpreq
+class-map type control-plane match-any copp-s-dhcpresp
+  match access-group name copp-system-dhcp-relay
+class-map type control-plane match-any copp-s-dpss
+class-map type control-plane match-any copp-s-eigrp
+  match access-group name copp-system-acl-eigrp
+  match access-group name copp-system-acl-eigrp6
+class-map type control-plane match-any copp-s-glean
+class-map type control-plane match-any copp-s-igmp
+  match access-group name copp-system-acl-igmp
+class-map type control-plane match-any copp-s-ipmcmiss
+class-map type control-plane match-any copp-s-l2switched
+class-map type control-plane match-any copp-s-l3destmiss
+class-map type control-plane match-any copp-s-l3mtufail
+class-map type control-plane match-any copp-s-l3slowpath
+class-map type control-plane match-any copp-s-pimautorp
+class-map type control-plane match-any copp-s-pimreg
+  match access-group name copp-system-acl-pimreg
+class-map type control-plane match-any copp-s-ping
+  match access-group name copp-system-acl-ping
+class-map type control-plane match-any copp-s-ptp
+class-map type control-plane match-any copp-s-routingProto1
+  match access-group name copp-system-acl-routingproto1
+  match access-group name copp-system-acl-v6routingproto1
+class-map type control-plane match-any copp-s-routingProto2
+  match access-group name copp-system-acl-routingproto2
+class-map type control-plane match-any copp-s-selfIp
+class-map type control-plane match-any copp-s-ttl1
+class-map type control-plane match-any copp-s-v6routingProto2
+  match access-group name copp-system-acl-v6routingProto2
+class-map type control-plane match-any copp-s-vxlan
+class-map type control-plane match-any copp-snmp
+  match access-group name copp-system-acl-snmp
+class-map type control-plane match-any copp-ssh
+  match access-group name copp-system-acl-ssh
+class-map type control-plane match-any copp-stftp
+  match access-group name copp-system-acl-stftp
+class-map type control-plane match-any copp-tacacsradius
+  match access-group name copp-system-acl-tacacsradius
+class-map type control-plane match-any copp-telnet
+  match access-group name copp-system-acl-telnet
+policy-map type control-plane copp-system-policy
+  class copp-s-selfIp
+    police pps 500
+  class copp-s-default
+    police pps 400
+  class copp-s-l2switched
+    police pps 200
+  class copp-s-ping
+    police pps 100
+  class copp-s-l3destmiss
+    police pps 100
+  class copp-s-glean
+    police pps 500
+  class copp-s-l3mtufail
+    police pps 100
+  class copp-s-ttl1
+    police pps 100
+  class copp-s-ipmcmiss
+    police pps 400
+  class copp-s-l3slowpath
+    police pps 100
+  class copp-s-dhcpreq
+    police pps 300
+  class copp-s-dhcpresp
+    police pps 300
+  class copp-s-dai
+    police pps 300
+  class copp-s-igmp
+    police pps 400
+  class copp-s-eigrp
+    police pps 200
+  class copp-s-pimreg
+    police pps 200
+  class copp-s-pimautorp
+    police pps 200
+  class copp-s-routingProto2
+    police pps 1300
+  class copp-s-v6routingProto2
+    police pps 1300
+  class copp-s-routingProto1
+    police pps 1000
+  class copp-s-arp
+    police pps 200
+  class copp-s-ptp
+    police pps 1000
+  class copp-s-vxlan
+    police pps 1000
+  class copp-s-bfd
+    police pps 350
+  class copp-s-bpdu
+    police pps 12000
+  class copp-s-dpss
+    police pps 1000
+  class copp-icmp
+    police pps 200
+  class copp-telnet
+    police pps 500
+  class copp-ssh
+    police pps 500
+  class copp-snmp
+    police pps 500
+  class copp-ntp
+    police pps 100
+  class copp-tacacsradius
+    police pps 400
+  class copp-stftp
+    police pps 400
+control-plane
+  service-policy input copp-system-policy
+hardware profile portmode 48x10G+4x40G
+
+snmp-server user admin network-admin auth md5 0xd3d17e4fdc494c1f3325827766d24ee9 priv 0xd3d17e4fdc494c1f3325827766d24ee9 localizedkey
+snmp-server user bitsnet network-admin auth md5 0xd3d17e4fdc494c1f3325827766d24ee9 priv 0xd3d17e4fdc494c1f3325827766d24ee9 localizedkey
+snmp-server user support network-operator auth md5 0xc6b8121ee78f32c165543c39e79fc972 priv 0xc6b8121ee78f32c165543c39e79fc972 localizedkey
+snmp-server host 10.254.7.10 informs version 2c jakarta
+snmp-server enable traps callhome event-notify
+snmp-server enable traps callhome smtp-send-fail
+snmp-server enable traps cfs state-change-notif
+snmp-server enable traps lldp lldpRemTablesChange
+snmp-server enable traps cfs merge-failure
+snmp-server enable traps aaa server-state-change
+snmp-server enable traps upgrade UpgradeOpNotifyOnCompletion
+snmp-server enable traps upgrade UpgradeJobStatusNotify
+snmp-server enable traps feature-control FeatureOpStatusChange
+snmp-server enable traps sysmgr cseFailSwCoreNotifyExtended
+snmp-server enable traps config ccmCLIRunningConfigChanged
+snmp-server enable traps snmp authentication
+snmp-server enable traps link cisco-xcvr-mon-status-chg
+snmp-server enable traps vtp notifs
+snmp-server enable traps vtp vlancreate
+snmp-server enable traps vtp vlandelete
+snmp-server enable traps bridge newroot
+snmp-server enable traps bridge topologychange
+snmp-server enable traps stpx inconsistency
+snmp-server enable traps stpx root-inconsistency
+snmp-server enable traps stpx loop-inconsistency
+snmp-server enable traps poe portonoff
+snmp-server enable traps poe pwrusageon
+snmp-server enable traps poe pwrusageoff
+snmp-server enable traps poe police
+snmp-server community raisecom group network-operator
+snmp-server community jakarta group network-operator
+
+vrf context management
+  ip route 0.0.0.0/0 10.254.7.9
+  ip route 103.19.56.0/22 10.254.7.9
+vlan 1
+vlan 59
+  name 59-BITS-OIXP-10G
+vlan 95
+  name 95-IPVPN-ICON
+vlan 305
+  name 305-GGC-JLM
+vlan 498
+  name 498-SERVER-UNTANGLE-TEST
+vlan 499
+  name 499-UNTANGLE-TO-CIREBON
+vlan 500
+  name 500-MGT-APJII
+vlan 501
+  name MGT-SVR
+vlan 502
+  name 502-MGT-MMR-NTT
+vlan 503
+  name 503-PTP-DISTRIBUSI-1-2
+vlan 504
+  name 504-PTP-DISTRIBUSI-1-3
+vlan 505
+  name 505-PTP-DISTRIBUSI-2-3
+vlan 506
+  name 506-PTP-DISTRIBUSI-1-5
+vlan 507
+  name 507-PTP-DISTRIBUSI-2-5
+vlan 508
+  name 508-PTP-DISTRIBUSI-3-5
+vlan 510
+  name 510-PTP-DISTRUBUSI-1-4
+vlan 511
+  name 511-PTP-DISTRUBUSI-2-4
+vlan 513
+  name 513-UPLINK-MPLS
+vlan 514
+  name 514-PTP-DISTRIBUSI-3-1
+vlan 515
+  name 515-PTP-DISTRIBUSI-3-2
+vlan 516
+  name 516-MGT-TO-DIST3-CRB
+vlan 536
+  name 536-test-ip-dummy-jabarmaya
+vlan 573
+  name 573-BDG-FS
+vlan 579
+  name 579-LPSEJABAR
+vlan 580
+  name 580-BRIMS
+vlan 581
+  name 581-VPS-IP-PUBLIC
+vlan 582
+  name 582-SERVER-UNTANGLE-TEST
+vlan 583
+  name 583-UNTANGEL-WAN
+vlan 584
+  name 584-SANBE
+vlan 585
+  name 585-RB-MONITORING-LISTRIK
+vlan 587
+  name 587-LDP-CANGGU
+vlan 588
+  name FS-MADIUN
+vlan 589
+  name 589-FS-IFORTE-DUMMY-TESTER
+vlan 701
+  name 701-IPTR-PUSKIM
+vlan 752
+  name 752-OIXP
+vlan 880
+  name 880-HERY-CILACAP-ICON
+vlan 881
+  name 881-PT-SANO-ICON
+vlan 882
+  name 882-BITSNET-MADIUN-ICON
+vlan 883
+  name 883-NURKHOLIS-ICON-BWI
+vlan 884
+  name 884-DAVID-SODIQ-ICON-TULUNGAGUNG
+vlan 885
+  name 885-BINTANGMEDIA-ICON
+vlan 886
+  name 886-WINS-NGANJUK-ICON
+vlan 887
+  name 887-SRAGEN-MEJER-ICON
+vlan 888
+  name 888-LPFNET-SUJI-ICON-BWI
+vlan 889
+  name 889-SELOREJO-MAGETAN-ICON-MDN
+vlan 890
+  name 890-ICON-MADURA
+vlan 891
+  name 891-FBC-HARSO-ICON
+vlan 952
+  name 952-AGUS-KETAHUN
+vlan 953
+  name 953-PTP-XL-TO-RUDI-BKL
+vlan 1100
+  name 1100-CDIX
+vlan 1106
+  name 1106-IX-DIST03-MIKRO
+vlan 1107
+  name 1107-IX-DIS05
+vlan 1108
+  name 1108-IX-DIS04
+vlan 1110
+  name 1110-IX-DIS01
+vlan 1112
+  name 1112-PTP-DST-1
+vlan 1115
+  name 1116-PTP-DST2
+vlan 1116
+  name 1116-PTP-DST1
+vlan 1117
+  name 1117-PTP-DIST3-MIKRO
+vlan 1246
+  name 1246-BTN-BKL
+vlan 1247
+  name 1247-BTN-MED
+vlan 1248
+  name 1248-BTN-MED-PEMUDA
+vlan 1249
+  name 1249-BTN-MADIUN
+vlan 1250
+  name 1250-BTN-IMY
+vlan 1251
+  name 1251-BTN-CNJR
+vlan 1252
+  name 1252-BTN-TASIK
+vlan 1253
+  name 1253-BTN-PALEMBANG-SDM
+vlan 1254
+  name 1254-BTN-CIKAMPEK
+vlan 1255
+  name 1255-BTN-PALEMBANG-KCS
+vlan 1256
+  name 1256-BTN-CIJERAH
+vlan 1257
+  name 1257-BTN-SUBANG
+vlan 1258
+  name 1258-BTN-PURWAKARTA
+vlan 1259
+  name 1259-BTN-BENGKULU-KCS
+vlan 1260
+  name 1260-BTN-SYARIAH-PALEMBANG
+vlan 1261
+  name 1261-BTN-KC-CIREBON
+vlan 1301
+  name 1301-SIAP-KGX-CRB
+vlan 1302
+  name 1302-KGX-MAJALENGKA
+vlan 1303
+  name 1303-KGX-JATIBARANG
+vlan 1304
+  name 1304-INTEGRASIA
+vlan 1346
+  name 1346-FS-KNSIGMA-KAMPUNG-KALI
+vlan 1401
+  name 1401-INTERGASIA
+vlan 1402
+  name 1402-INTERGASIA
+vlan 1403
+  name 1403-INTERGASIA
+vlan 1404
+  name 1404-INTERGASIA
+vlan 1510
+  name 1510-FSCRB
+vlan 1512
+  name 1512-IFORTE-BANDUNG
+vlan 1513
+  name 1513-IFORTE-CIREBON-NEW
+vlan 1514
+  name 1514-HSP-PATROL
+vlan 1515
+  name 1515-HSP-JATIBARANG
+vlan 1516
+  name 1516-BITS-IFORTE-MADIUN
+vlan 1575
+  name 1575-IPTR-JLM
+vlan 1577
+  name 1577-METRO-JLM
+vlan 1600
+  name 1600-BITSNET-NTT
+vlan 1601
+  name 1601-JKT-IX
+vlan 1602
+  name 1602-FB-2
+vlan 1700
+  name 1700-FB-NEW-DIST-1
+vlan 1701
+  name 1701-FB-NEW-DIST-2
+vlan 1703
+  name 1703-FB-NEW-DIST-4
+vlan 1704
+  name 1704-FB-NEW-DIST-5
+vlan 1705
+  name 1705-FB-NEW-DIST-3-MIKRO
+vlan 1801
+  name 1801-OIXP-DIST-5
+vlan 1802
+  name 1802-OIXP-DIST-4
+vlan 1803
+  name 1803-OIXP-DIST-3-MIKRO
+vlan 2000
+  name 2000-GOR-CITRA-PASIFIK
+vlan 2010
+  name 2010-PEMKOT-CIREBON
+vlan 2041
+  name 2041-ICONPOLAR
+vlan 2100
+  name 2100-BITS-IIX-10G
+vlan 2222
+  name 2222-TES-UPLINK-OLT
+vlan 2591
+  name 2591-IPTR-MVNET
+vlan 3000
+  name 3000-GGC
+vlan 3145
+  name 3145-INTEGRASIA
+vlan 3146
+  name 3146-INTEGRASIA
+vlan 3500
+  name 3500-MGT-JNP
+vlan 3501
+  name 3501-MGT-JNP
+vlan 3502
+  name 3502-MGT-JNP
+vlan 3600
+  name 3600-DIST4-TO-TENDA
+vlan 4090
+  name 4090-VPS-IP-PRIVATE
+no spanning-tree vlan 1-3967,4048-4093
+
+
+interface Vlan1
+
+interface Vlan514
+  ip address 192.192.192.2/29
+
+interface Vlan1512
+  no shutdown
+  ip address 172.16.11.8/24
+
+interface Vlan1577
+  no shutdown
+  ip address 172.8.8.2/29
+
+interface Ethernet1/1
+  switchport access vlan 1100
+  speed 1000
+
+interface Ethernet1/2
+  description TO-DIST3-NEW-ether6
+  switchport mode trunk
+  switchport trunk allowed vlan 305,536,752,1801-1803
+  speed 1000
+
+interface Ethernet1/3
+  description TO-JLM-1G
+  speed 1000
+
+interface Ethernet1/4
+  description TO-IX-OLD-ether1
+  speed 1000
+
+interface Ethernet1/5
+  description TO-DIST3-ether4
+  shutdown
+  switchport mode trunk
+  switchport trunk allowed vlan 513
+  speed 1000
+
+interface Ethernet1/6
+  description TO-DIST1-OLD-ether1
+  switchport access vlan 504
+  speed 1000
+
+interface Ethernet1/7
+  description LPSEJABAR
+  switchport access vlan 579
+  speed 1000
+
+interface Ethernet1/8
+  description BRIMS
+  switchport access vlan 580
+  speed 1000
+
+interface Ethernet1/9
+  speed 1000
+
+interface Ethernet1/10
+  description TO-CORE-MPLS-ether12
+  switchport mode trunk
+  switchport trunk allowed vlan 95,1246-1261,1301-1303
+  speed 1000
+
+interface Ethernet1/11
+  description NGFirewal-WAN
+  switchport access vlan 583
+  speed 1000
+
+interface Ethernet1/12
+  description NGFirewal-LAN
+  switchport mode trunk
+  switchport trunk allowed vlan 498-499,579-580,582
+  speed 1000
+
+interface Ethernet1/13
+  description VPS-IP-PRIVATE
+  switchport mode trunk
+  switchport trunk allowed vlan 498,582,4090
+  speed 1000
+
+interface Ethernet1/14
+  no switchport
+  speed 1000
+
+interface Ethernet1/15
+  description TO-VPS-IP-PUBLIK-AND-MGMT-VPS
+  switchport access vlan 581
+  speed 1000
+
+interface Ethernet1/16
+  description PTSANOKOMUNIKASI-SID-01000067140
+  switchport mode trunk
+  switchport trunk allowed vlan 881
+  speed 1000
+
+interface Ethernet1/17
+  description RB-MONITOIRNG-LISTRIK
+  switchport access vlan 585
+  speed 100
+
+interface Ethernet1/18
+  speed 1000
+
+interface Ethernet1/19
+  description TO-CORE-MPLS
+  switchport mode trunk
+  switchport access vlan 589
+  switchport trunk allowed vlan none
+  speed 1000
+
+interface Ethernet1/20
+  description UPLINK-MPLS
+  switchport mode trunk
+  switchport trunk allowed vlan 513
+  speed 1000
+
+interface Ethernet1/21
+  switchport access vlan 3600
+  speed 100
+
+interface Ethernet1/22
+  description TO-DIST3-ether2
+  shutdown
+  switchport mode trunk
+  switchport trunk allowed vlan 514-515,887-888,1106,1117,1705,1803
+  speed 1000
+
+interface Ethernet1/23
+  description TO-DIST3-ether3
+  shutdown
+  switchport mode trunk
+  switchport trunk allowed vlan 95,500-501,504,579-580,583,585,588,882-883,885,889,891,952,1512,3500
+  speed 1000
+
+interface Ethernet1/24
+  speed 1000
+
+interface Ethernet1/25
+  description TO-JUNOS-xe-0/1/6
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+  description TO-JUNOS-xe-0/1/4
+  switchport mode trunk
+  switchport trunk allowed vlan 1703-1704
+
+interface Ethernet1/28
+  description TO-JUNOS-xe-0/1/5
+  switchport mode trunk
+  switchport trunk allowed vlan 1115-1116,1801-1802
+
+interface Ethernet1/29
+  description TO-JUNOS-xe-0/1/2
+  switchport mode trunk
+  switchport trunk allowed vlan 1575,2591
+
+interface Ethernet1/30
+  description TO-JUNOS-xe-0/1/3
+  switchport mode trunk
+  switchport trunk allowed vlan 1107-1108
+
+interface Ethernet1/31
+  description TO-JUNOS-xe-0/1/0
+  switchport mode trunk
+  switchport trunk allowed vlan 506,508,510-511,514-515,581,3500-3501,3600
+
+interface Ethernet1/32
+  description TO-JUNOS-xe-0/1/1
+  switchport mode trunk
+  switchport trunk allowed vlan 1601
+
+interface Ethernet1/33
+  description TO-DIST3-NEW-MIKRO
+  switchport mode trunk
+  switchport trunk allowed vlan 95,500-501,504,513-516,579-580,583,585,588,882-883,885,887-889,891,952,1106,1117,1512,1705,1801,1803,3500
+
+interface Ethernet1/34
+  description TO-GGC-NODE-1
+  switchport access vlan 3000
+
+interface Ethernet1/35
+  description TO-GGC-NODE-2
+  switchport access vlan 3000
+
+interface Ethernet1/36
+  description TO-CDN-sfp-sfpplus2
+  switchport mode trunk
+  switchport trunk allowed vlan 59,305,1100,2100
+
+interface Ethernet1/37
+  description TO-MVNET
+  switchport mode trunk
+  switchport trunk allowed vlan 752,2591
+
+interface Ethernet1/38
+  description TO-IX-OLD-sfp-sfpplus2
+
+interface Ethernet1/39
+  description TO-DISTRIBUSI-1
+  switchport mode trunk
+  switchport trunk allowed vlan 95,584,590,701,1110,1112,2000,2222,3502
+
+interface Ethernet1/40
+  description PTP-ICON-INTERKONEKSI-BARU
+  switchport mode trunk
+  switchport trunk allowed vlan 887-891
+
+interface Ethernet1/41
+  description TO-ROUTER_INTERNASIONAL
+  switchport mode trunk
+  switchport trunk allowed vlan 1106-1108,1110
+
+interface Ethernet1/42
+  description TO-CDN-sfp-sfpplus1
+  switchport mode trunk
+  switchport trunk allowed vlan 1115-1116
+
+interface Ethernet1/43
+  description FB-TO-DST-1
+  switchport mode trunk
+  switchport trunk allowed vlan 502-504,506,510,1600,1602,1700
+
+interface Ethernet1/44
+  description FB-TO-DST-2
+  switchport mode trunk
+  switchport trunk allowed vlan 503,505,507,511,1600,1701
+
+interface Ethernet1/45
+  description PTP-ICON-INTERKONEKSI-LAMA
+  switchport mode trunk
+  switchport trunk allowed vlan 95,880-886,890
+
+interface Ethernet1/46
+
+interface Ethernet1/47
+  description CDC-TO-APJII
+  switchport mode trunk
+  switchport trunk allowed vlan 500
+
+interface Ethernet1/48
+  description TO-JLM-10G
+  switchport mode trunk
+  switchport trunk allowed vlan 1304,1401-1404,1577,3145-3146
+
+interface Ethernet1/49
+  description CDC-TO-APJII
+  switchport mode trunk
+  switchport trunk allowed vlan 59,105,212-213,344,499,501-502,516,536,572-573,575,581,584-585,587-589,701,890,952-953,1246-1261,1301-1304,1346,1401-1404,1457,1510,1512-1516,1575,1600-1602,17
+00-1701,1703-1705,1888,2000,2010,2041,2100,2222,2363,3145-3146,3501,4090
+
+interface Ethernet1/50
+  description TO-JUNOS
+  switchport mode trunk
+  switchport trunk allowed vlan 573,584,587-589,880,882-891,952-953,1346,1510,1512-1516,1577,2000,2010,2041,3000
+
+interface Ethernet1/51
+  shutdown
+
+interface Ethernet1/52
+  shutdown
+
+interface mgmt0
+  ip address 10.254.7.10/30
+line console
+line vty
+  session-limit 10
+boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U2.9z.bin
+boot system bootflash:/n3000-uk9.6.0.2.U2.9z.bin
+ip route 0.0.0.0/0 10.254.7.9
+
+
