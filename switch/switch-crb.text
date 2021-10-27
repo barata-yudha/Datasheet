@@ -1,8 +1,8 @@
 SWITCH-DISTRIBUSI-CIREBON# show running-config
 
 !Command: show running-config
-!Running configuration last done at: Wed Oct 20 14:08:04 2021
-!Time: Wed Oct 20 19:10:56 2021
+!Running configuration last done at: Fri Oct 22 20:08:05 2021
+!Time: Fri Oct 22 20:09:41 2021
 
 version 7.0(3)I7(6) Bios:version 4.5.0
 hostname SWITCH-DISTRIBUSI-CIREBON
@@ -245,12 +245,6 @@ vlan 10
   name 10-CDH-OFFICE-BEBER
 vlan 12
   name 12-CDH-BEBER
-vlan 25
-  name 25-TEST-TRUNK
-vlan 50
-  name 50-test-qinq
-vlan 80
-  name VLAN-TEST-BYPASS-NEXUS
 vlan 90
   name 90-MGT-SW-DKIS
 vlan 91
@@ -282,6 +276,12 @@ vlan 104
   name 104-PTP-UPLINK
 vlan 105
   name 105-CCTV-MTH
+vlan 150
+  name 150-TO-MTIK-VPS-CIREBON
+vlan 151
+  name 151-IP-PUBLIK-VPS-CIREBON
+vlan 152
+  name 152-IP-PRIVATE-VPS-CIREBON
 vlan 201
   name 210-LEBAKNGOK
 vlan 202
@@ -396,6 +396,8 @@ vlan 265
   name 265-GOESAR-GOASUNYARAGI
 vlan 266
   name 266-GOESAR-SYAM-ASTON
+vlan 268
+  name 268-GOESAR-ITB-WATUBELAH
 vlan 300
   name 300-BROADBAND-IPTV
 vlan 357
@@ -606,7 +608,7 @@ interface Ethernet1/5
 interface Ethernet1/6
   description GOESAR-CCR
   switchport mode trunk
-  switchport trunk allowed vlan 217-218,242,246-247,249-253,257,259-260
+  switchport trunk allowed vlan 217-218,242,246-247,249-253,257,259-260,268
 
 interface Ethernet1/7
   description MW-GRONGGONG
@@ -709,7 +711,9 @@ interface Ethernet1/31
 interface Ethernet1/32
 
 interface Ethernet1/33
-  shutdown
+  description TO-DIST-CRB-SFP+1-UPLINK
+  switchport mode trunk
+  switchport trunk allowed vlan 150-152,1510,1513,3000
 
 interface Ethernet1/34
   description UPLINK-OLT-SFP-1G
@@ -738,9 +742,10 @@ interface Ethernet1/38
   channel-group 3000 mode active
 
 interface Ethernet1/39
-  description UPLINK-OLT-SFP
+  description TO-VPS-10G
   switchport mode trunk
-  switchport trunk allowed vlan 90,245,401,1100,2001-2002,2004,2010,3100
+  switchport trunk allowed vlan 90,150-152,245,401,1100,2001-2002,2004,2010,3100
+  speed 10000
 
 interface Ethernet1/40
   description IFORTE-2G-INN
@@ -772,7 +777,7 @@ interface Ethernet1/44
 interface Ethernet1/45
   description GOESAR-IN
   switchport mode trunk
-  switchport trunk allowed vlan 90,217-218,241-242,246-247,249-254,256-263,265-266,382-387,500,1101,1507,2004,2010
+  switchport trunk allowed vlan 90,217-218,241-242,246-247,249-254,256-263,265-266,268,382-387,500,1101,1507,2004,2010
 
 interface Ethernet1/46
   description FIBERSTAR-IN
@@ -787,10 +792,10 @@ interface Ethernet1/47
   speed 100
 
 interface Ethernet1/48
-  description TRUNK-TO-CCR
+  description TO-CCR-CIREBON-DOWNLINK
   switchport mode trunk
-  switchport trunk allowed vlan 1,80,90-100,104,201-202,205-213,216,219,221-225,228-229,232-233,235-240,243-245,248,357,401,420,581,615-616,710-711,793-825,901-903,906-907,1200,1202-1204,1508
--1510,1513,2001,2004,2010,2900,3000,3100,3501-3503,4001
+  switchport trunk allowed vlan 1,90-100,104,201-202,205-213,216,219,221-225,228-229,232-233,235-240,243-245,248,268,357,401,420,581,615-616,710-711,793-825,901-903,906-907,1200,1202-1204,150
+8-1509,2001,2004,2010,2900,3100,3501-3503,4001
 
 interface Ethernet1/49
 
@@ -810,3 +815,4 @@ boot nxos bootflash:/nxos.7.0.3.I7.6.bin
 logging monitor 3
 
 
+SWITCH-DISTRIBUSI-CIREBON#
