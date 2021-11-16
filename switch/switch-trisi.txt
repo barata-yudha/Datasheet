@@ -1,0 +1,233 @@
+SWITCH-BTS-TERISI#show running-config 
+Building configuration...
+
+Current configuration : 5223 bytes
+!
+! Last configuration change at 00:07:01 UTC Mon Mar 1 1993 by bitsnet
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname SWITCH-BTS-TERISI
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 4 r807/ahPPnMnnIHfchG2OHocXDCT3S2kElKh.nDoSnQ
+!
+username bitsnet privilege 15 password 7 02553C79231F043B0D7D1D
+username support privilege 15 password 7 02273E7B0803077641
+no aaa new-model
+system mtu routing 1500
+!
+!
+!
+!
+crypto pki trustpoint TP-self-signed-1548161792
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1548161792
+ revocation-check none
+ rsakeypair TP-self-signed-1548161792
+!
+!
+crypto pki certificate chain TP-self-signed-1548161792
+ certificate self-signed 01
+  3082022B 30820194 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 31353438 31363137 3932301E 170D3933 30333031 30303031 
+  30305A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D31 35343831 
+  36313739 3230819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100C83A 41AAE659 3E2A9F4D 11998800 35F03058 51C3542F 153587E6 735B40FE 
+  AEECF261 0209D34E 954E708E E5BC794C 9A721610 0A3FB87F 0A3BDFA2 7E57A17F 
+  3A1D00F8 92383DB2 A4AEB61D 03B869C9 85DD881D 0D4A3D0F 0B280327 AEA3483B 
+  0E139262 A83148E1 BCD6D88E 7B41BEED 9CCBDF2B 4864F7F4 3E007405 482FB43D 
+  88510203 010001A3 53305130 0F060355 1D130101 FF040530 030101FF 301F0603 
+  551D2304 18301680 14200A81 810B0895 253458F3 ACD8F561 9A6FC68C FD301D06 
+  03551D0E 04160414 200A8181 0B089525 3458F3AC D8F5619A 6FC68CFD 300D0609 
+  2A864886 F70D0101 05050003 8181008F 7A890403 DFC4321B AF8CE101 ADD66B05 
+  39FF7825 822167B5 E618E7D1 E91F112C C1806EA4 A8561CE7 DEF092F4 833A30F7 
+  F1252BAC E21B79E7 BCD953DF 2EC3E9A1 31AFE1E8 4401CD1E BB330048 3EF3AA6F 
+  9FD85BB2 79D0ACF1 723B17E0 07F75456 1BF95F6B 705E6081 1F9AF7D8 C7D69246 
+  3483975A E2201E0A 7BE4F1D8 3B1600
+        quit
+!
+!
+!
+!
+!
+no errdisable detect cause small-frame
+no errdisable detect cause loopback
+no errdisable detect cause gbic-invalid
+no errdisable detect cause sfp-config-mismatch
+no errdisable detect cause pagp-flap
+no errdisable detect cause dtp-flap
+no errdisable detect cause link-flap
+no errdisable detect cause pppoe-ia-rate-limit
+no errdisable detect cause dhcp-rate-limit
+no errdisable detect cause arp-inspection
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+no spanning-tree vlan 1-4094
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ description TO-ABIPRAYA
+ switchport trunk allowed vlan 820,821
+ switchport mode trunk
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+ description TO-RB-MON-LISTRIK
+ switchport access vlan 805
+ switchport mode access
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface FastEthernet0/25
+!
+interface FastEthernet0/26
+!
+interface FastEthernet0/27
+!
+interface FastEthernet0/28
+ description MGNT-MW-TERISI
+ switchport access vlan 798
+ switchport mode access
+!
+interface FastEthernet0/29
+!
+interface FastEthernet0/30
+!
+interface FastEthernet0/31
+!
+interface FastEthernet0/32
+!
+interface FastEthernet0/33
+!
+interface FastEthernet0/34
+!
+interface FastEthernet0/35
+!         
+interface FastEthernet0/36
+!
+interface FastEthernet0/37
+!
+interface FastEthernet0/38
+!
+interface FastEthernet0/39
+!
+interface FastEthernet0/40
+!
+interface FastEthernet0/41
+!
+interface FastEthernet0/42
+!
+interface FastEthernet0/43
+!
+interface FastEthernet0/44
+!
+interface FastEthernet0/45
+!
+interface FastEthernet0/46
+!
+interface FastEthernet0/47
+ description CERA-TERISI-ANJATAN
+ switchport trunk allowed vlan 818
+ switchport mode trunk
+!
+interface FastEthernet0/48
+ description IMY-FANDY
+ switchport access vlan 811
+ switchport mode access
+!
+interface GigabitEthernet0/1
+ description CERA-TERISI-IMY
+ switchport trunk allowed vlan 96,97,797,798,805,810-812,818-822,902,910
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ description IMY-FANDY
+ switchport access vlan 811
+ switchport mode access
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan97
+ ip address 10.202.0.22 255.255.255.252
+!
+interface Vlan822
+ ip address 10.202.0.35 255.255.255.248
+!
+ip default-gateway 10.202.0.34
+ip http server
+ip http secure-server
+snmp-server community terisi RO
+snmp-server location BTS-TERISI
+!
+!
+line con 0
+ password 7 09607B5F312723190E15210D3C7C
+ login
+line vty 0 4
+ password 7 052A3C2F2249465E14
+ logging synchronous
+ login local
+line vty 5 15
+ password 7 09607B5F312723190E15210D3C7C
+ login
+!
+end
