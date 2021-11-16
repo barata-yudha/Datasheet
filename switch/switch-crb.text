@@ -1,10 +1,10 @@
-SWITCH-DISTRIBUSI-CIREBON# show running-config
+SWITCH-DISTRIBUSI-CIREBON# show running-config 
 
 !Command: show running-config
-!Running configuration last done at: Fri Oct 22 20:08:05 2021
-!Time: Fri Oct 22 20:09:41 2021
+!Running configuration last done at: Mon Nov  8 05:59:44 2021
+!Time: Thu Nov 11 17:10:00 2021
 
-version 7.0(3)I7(6) Bios:version 4.5.0
+version 7.0(3)I7(6) Bios:version 4.5.0 
 hostname SWITCH-DISTRIBUSI-CIREBON
 vdc SWITCH-DISTRIBUSI-CIREBON id 1
   limit-resource vlan minimum 16 maximum 4094
@@ -30,73 +30,73 @@ service unsupported-transceiver
 no errdisable detect cause link-flap
 no errdisable detect cause loopback
 ip access-list copp-system-acl-eigrp
-  10 permit eigrp any 224.0.0.10/32
+  10 permit eigrp any 224.0.0.10/32 
 ipv6 access-list copp-system-acl-eigrp6
-  10 permit eigrp any ff02::a/128
+  10 permit eigrp any ff02::a/128 
 ip access-list copp-system-acl-icmp
-  10 permit icmp any any
+  10 permit icmp any any 
 ip access-list copp-system-acl-igmp
-  10 permit igmp any any
+  10 permit igmp any any 
 ip access-list copp-system-acl-ntp
-  10 permit udp any any eq ntp
-  20 permit udp any eq ntp any
+  10 permit udp any any eq ntp 
+  20 permit udp any eq ntp any 
 ip access-list copp-system-acl-pimreg
-  10 permit pim any any
+  10 permit pim any any 
 ip access-list copp-system-acl-ping
-  10 permit icmp any any echo
-  20 permit icmp any any echo-reply
+  10 permit icmp any any echo 
+  20 permit icmp any any echo-reply 
 ip access-list copp-system-acl-routingproto1
-  10 permit tcp any gt 1024 any eq bgp
-  20 permit tcp any eq bgp any gt 1024
-  30 permit udp any 224.0.0.0/24 eq rip
-  40 permit tcp any gt 1024 any eq 639
-  50 permit tcp any eq 639 any gt 1024
-  70 permit ospf any any
-  80 permit ospf any 224.0.0.5/32
-  90 permit ospf any 224.0.0.6/32
+  10 permit tcp any gt 1024 any eq bgp 
+  20 permit tcp any eq bgp any gt 1024 
+  30 permit udp any 224.0.0.0/24 eq rip 
+  40 permit tcp any gt 1024 any eq 639 
+  50 permit tcp any eq 639 any gt 1024 
+  70 permit ospf any any 
+  80 permit ospf any 224.0.0.5/32 
+  90 permit ospf any 224.0.0.6/32 
 ip access-list copp-system-acl-routingproto2
-  10 permit udp any 224.0.0.0/24 eq 1985
-  20 permit 112 any 224.0.0.0/24
+  10 permit udp any 224.0.0.0/24 eq 1985 
+  20 permit 112 any 224.0.0.0/24 
 ip access-list copp-system-acl-snmp
-  10 permit udp any any eq snmp
-  20 permit udp any any eq snmptrap
+  10 permit udp any any eq snmp 
+  20 permit udp any any eq snmptrap 
 ip access-list copp-system-acl-ssh
-  10 permit tcp any any eq 22
-  20 permit tcp any eq 22 any
+  10 permit tcp any any eq 22 
+  20 permit tcp any eq 22 any 
 ip access-list copp-system-acl-stftp
-  10 permit udp any any eq tftp
-  20 permit udp any any eq 1758
-  30 permit udp any eq tftp any
-  40 permit udp any eq 1758 any
-  50 permit tcp any any eq 115
-  60 permit tcp any eq 115 any
+  10 permit udp any any eq tftp 
+  20 permit udp any any eq 1758 
+  30 permit udp any eq tftp any 
+  40 permit udp any eq 1758 any 
+  50 permit tcp any any eq 115 
+  60 permit tcp any eq 115 any 
 ip access-list copp-system-acl-tacacsradius
-  10 permit tcp any any eq tacacs
-  20 permit tcp any eq tacacs any
-  30 permit udp any any eq 1812
-  40 permit udp any any eq 1813
-  50 permit udp any any eq 1645
-  60 permit udp any any eq 1646
-  70 permit udp any eq 1812 any
-  80 permit udp any eq 1813 any
-  90 permit udp any eq 1645 any
-  100 permit udp any eq 1646 any
+  10 permit tcp any any eq tacacs 
+  20 permit tcp any eq tacacs any 
+  30 permit udp any any eq 1812 
+  40 permit udp any any eq 1813 
+  50 permit udp any any eq 1645 
+  60 permit udp any any eq 1646 
+  70 permit udp any eq 1812 any 
+  80 permit udp any eq 1813 any 
+  90 permit udp any eq 1645 any 
+  100 permit udp any eq 1646 any 
 ip access-list copp-system-acl-telnet
-  10 permit tcp any any eq telnet
-  20 permit tcp any any eq 107
-  30 permit tcp any eq telnet any
-  40 permit tcp any eq 107 any
+  10 permit tcp any any eq telnet 
+  20 permit tcp any any eq 107 
+  30 permit tcp any eq telnet any 
+  40 permit tcp any eq 107 any 
 ipv6 access-list copp-system-acl-v6routingProto2
-  10 permit udp any ff02::66/128 eq 2029
-  20 permit udp any ff02::fb/128 eq 5353
-  30 permit 112 any ff02::12/128
-  40 permit pim any ff02::d/128
+  10 permit udp any ff02::66/128 eq 2029 
+  20 permit udp any ff02::fb/128 eq 5353 
+  30 permit 112 any ff02::12/128 
+  40 permit pim any ff02::d/128 
 ipv6 access-list copp-system-acl-v6routingproto1
-  10 permit 89 any ff02::5/128
-  20 permit 89 any ff02::6/128
-  30 permit udp any ff02::9/128 eq 521
+  10 permit 89 any ff02::5/128 
+  20 permit 89 any ff02::6/128 
+  30 permit udp any ff02::9/128 eq 521 
 ip access-list copp-system-dhcp-relay
-  10 permit udp any eq bootps any eq bootps
+  10 permit udp any eq bootps any eq bootps 
 no errdisable detect cause acl-exception
 class-map type network-qos jumbomtu
 policy-map type network-qos jumbomtu
@@ -155,77 +155,77 @@ class-map type control-plane match-any copp-tacacsradius
   match access-group name copp-system-acl-tacacsradius
 class-map type control-plane match-any copp-telnet
   match access-group name copp-system-acl-telnet
-policy-map type control-plane copp-system-policy
+policy-map type control-plane copp-system-policy 
   class copp-s-default
-    police pps 400
+    police pps 400 
   class copp-s-l2switched
-    police pps 200
+    police pps 200 
   class copp-s-ping
-    police pps 100
+    police pps 100 
   class copp-s-l3destmiss
-    police pps 100
+    police pps 100 
   class copp-s-glean
-    police pps 500
+    police pps 500 
   class copp-s-selfIp
-    police pps 500
+    police pps 500 
   class copp-s-l3mtufail
-    police pps 100
+    police pps 100 
   class copp-s-ttl1
-    police pps 100
+    police pps 100 
   class copp-s-ipmcmiss
-    police pps 400
+    police pps 400 
   class copp-s-l3slowpath
-    police pps 100
+    police pps 100 
   class copp-s-dhcpreq
-    police pps 300
+    police pps 300 
   class copp-s-dhcpresp
-    police pps 300
+    police pps 300 
   class copp-s-dai
-    police pps 300
+    police pps 300 
   class copp-s-igmp
-    police pps 400
+    police pps 400 
   class copp-s-eigrp
-    police pps 200
+    police pps 200 
   class copp-s-pimreg
-    police pps 200
+    police pps 200 
   class copp-s-pimautorp
-    police pps 200
+    police pps 200 
   class copp-s-routingProto2
-    police pps 1300
+    police pps 1300 
   class copp-s-v6routingProto2
-    police pps 1300
+    police pps 1300 
   class copp-s-routingProto1
-    police pps 1000
+    police pps 1000 
   class copp-s-arp
-    police pps 200
+    police pps 200 
   class copp-s-ptp
-    police pps 1000
+    police pps 1000 
   class copp-s-vxlan
-    police pps 1000
+    police pps 1000 
   class copp-s-bfd
-    police pps 350
+    police pps 350 
   class copp-s-bpdu
-    police pps 12000
+    police pps 12000 
   class copp-s-dpss
-    police pps 1000
+    police pps 1000 
   class copp-s-mpls
-    police pps 100
+    police pps 100 
   class copp-icmp
-    police pps 200
+    police pps 200 
   class copp-telnet
-    police pps 500
+    police pps 500 
   class copp-ssh
-    police pps 500
+    police pps 500 
   class copp-snmp
-    police pps 500
+    police pps 500 
   class copp-ntp
-    police pps 100
+    police pps 100 
   class copp-tacacsradius
-    police pps 400
+    police pps 400 
   class copp-stftp
-    police pps 400
+    police pps 400 
 control-plane
-  service-policy input copp-system-policy
+  service-policy input copp-system-policy 
 snmp-server user niam network-operator auth md5 0x36ce738e23e522a761cd0bf6428c94f0 priv 0x36ce738e23e522a761cd0bf6428c94f0 localizedkey
 snmp-server user niam network-admin
 snmp-server user admin network-admin auth md5 0xc36bbe6128ece5ef3597eb148e12cb31 priv 0xc36bbe6128ece5ef3597eb148e12cb31 localizedkey
@@ -288,6 +288,8 @@ vlan 202
   name 202-CDH-BAHAMA
 vlan 203
   name 203-CDH-ASJAP
+vlan 204
+  name 204-CDH-ITB-WATUBELAH
 vlan 205
   name 205-CDH-CITRADREAM
 vlan 206
@@ -546,6 +548,8 @@ vlan 2001
   name 2001-DKIS-CIREBON
 vlan 2002
   name FTTH-BITSNET-PPPoE
+vlan 2003
+  name 2003-SBP
 vlan 2004
   name 2004-DKIS-SUDARSONO
 vlan 2010
@@ -581,6 +585,12 @@ interface Vlan100
   description MGMT-SWITCH-NEXUS
   no shutdown
   ip address 10.202.0.6/30
+
+interface Vlan1510
+  no shutdown
+  ip address 172.18.12.2/29
+
+interface Vlan1519
 
 interface port-channel3000
   switchport access vlan 3000
@@ -655,7 +665,7 @@ interface Ethernet1/14
 interface Ethernet1/15
   description TO-SW-OFFICE
   switchport mode trunk
-  switchport trunk allowed vlan 1,208,222,900
+  switchport trunk allowed vlan 1,208,222,900,1204
 
 interface Ethernet1/16
   description TO-VPS-vSwitch0
@@ -718,7 +728,7 @@ interface Ethernet1/33
 interface Ethernet1/34
   description UPLINK-OLT-SFP-1G
   switchport mode trunk
-  switchport trunk allowed vlan 90,245,401,1100,2001-2002,2004,2010,3100
+  switchport trunk allowed vlan 90,245,401,1100,2001-2004,2010,3100
   speed 1000
 
 interface Ethernet1/35
@@ -755,12 +765,12 @@ interface Ethernet1/40
 interface Ethernet1/41
   description TRUNK-10G-TO-CDH
   switchport mode trunk
-  switchport trunk allowed vlan 1,10,12,91-92,95-99,201-202,205-207,209-213,216,219,221-225,228-229,232-233,235-240,243-244,248,710-711,793-798,801-825,900-903,906-907,1100,2100
+  switchport trunk allowed vlan 1,10,12,91-92,95-99,201-202,204-207,209-213,216,219,221,223-225,228-229,232-233,235-240,243-244,248,710-711,793-798,801-825,900-903,906-907,1100,2100
 
 interface Ethernet1/42
   description TO-BROADBAND
   switchport mode trunk
-  switchport trunk allowed vlan 241,246,249,254-256,258,261,263-266,351-387,401,500,2002,2004,2100,2290,2900,3100,3503
+  switchport trunk allowed vlan 241,246,249,254-256,258,261,263-266,351-387,401,500,2002-2004,2100,2290,2900,3100,3503
 
 interface Ethernet1/43
   description TRUNK-TO-SD-GUNTUR
@@ -794,8 +804,7 @@ interface Ethernet1/47
 interface Ethernet1/48
   description TO-CCR-CIREBON-DOWNLINK
   switchport mode trunk
-  switchport trunk allowed vlan 1,90-100,104,201-202,205-213,216,219,221-225,228-229,232-233,235-240,243-245,248,268,357,401,420,581,615-616,710-711,793-825,901-903,906-907,1200,1202-1204,150
-8-1509,2001,2004,2010,2900,3100,3501-3503,4001
+  switchport trunk allowed vlan 1,90-100,104,201-202,204-213,216,219,221-225,228-229,232-233,235-240,243-245,248,268,357,401,420,581,615-616,710-711,793-825,901-903,906-907,1200,1202-1204,1508-1509,2001,2003-2004,2010,2900,3100,3501-3503,4001
 
 interface Ethernet1/49
 
@@ -810,9 +819,6 @@ interface mgmt0
   ip address 10.253.1.251/24
 line console
 line vty
-boot nxos bootflash:/nxos.7.0.3.I7.6.bin
+boot nxos bootflash:/nxos.7.0.3.I7.6.bin 
 
 logging monitor 3
-
-
-SWITCH-DISTRIBUSI-CIREBON#
