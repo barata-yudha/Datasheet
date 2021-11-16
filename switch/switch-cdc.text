@@ -1,7 +1,7 @@
-sw-cdc.bitsnet.id# show running-config
+sw-cdc.bitsnet.id# show running-config 
 
 !Command: show running-config
-!Time: Mon Oct 25 12:34:59 2021
+!Time: Tue Nov 16 12:24:45 2021
 
 version 6.0(2)U2(9Z)
 hostname sw-cdc.bitsnet.id
@@ -150,81 +150,81 @@ class-map type control-plane match-any copp-tacacsradius
   match access-group name copp-system-acl-tacacsradius
 class-map type control-plane match-any copp-telnet
   match access-group name copp-system-acl-telnet
-policy-map type control-plane copp-system-policy
+policy-map type control-plane copp-system-policy 
   class copp-s-selfIp
-    police pps 500
+    police pps 500 
   class copp-s-default
-    police pps 400
+    police pps 400 
   class copp-s-l2switched
-    police pps 200
+    police pps 200 
   class copp-s-ping
-    police pps 100
+    police pps 100 
   class copp-s-l3destmiss
-    police pps 100
+    police pps 100 
   class copp-s-glean
-    police pps 500
+    police pps 500 
   class copp-s-l3mtufail
-    police pps 100
+    police pps 100 
   class copp-s-ttl1
-    police pps 100
+    police pps 100 
   class copp-s-ipmcmiss
-    police pps 400
+    police pps 400 
   class copp-s-l3slowpath
-    police pps 100
+    police pps 100 
   class copp-s-dhcpreq
-    police pps 300
+    police pps 300 
   class copp-s-dhcpresp
-    police pps 300
+    police pps 300 
   class copp-s-dai
-    police pps 300
+    police pps 300 
   class copp-s-igmp
-    police pps 400
+    police pps 400 
   class copp-s-eigrp
-    police pps 200
+    police pps 200 
   class copp-s-pimreg
-    police pps 200
+    police pps 200 
   class copp-s-pimautorp
-    police pps 200
+    police pps 200 
   class copp-s-routingProto2
-    police pps 1300
+    police pps 1300 
   class copp-s-v6routingProto2
-    police pps 1300
+    police pps 1300 
   class copp-s-routingProto1
-    police pps 1000
+    police pps 1000 
   class copp-s-arp
-    police pps 200
+    police pps 200 
   class copp-s-ptp
-    police pps 1000
+    police pps 1000 
   class copp-s-vxlan
-    police pps 1000
+    police pps 1000 
   class copp-s-bfd
-    police pps 350
+    police pps 350 
   class copp-s-bpdu
-    police pps 12000
+    police pps 12000 
   class copp-s-dpss
-    police pps 1000
+    police pps 1000 
   class copp-icmp
-    police pps 200
+    police pps 200 
   class copp-telnet
-    police pps 500
+    police pps 500 
   class copp-ssh
-    police pps 500
+    police pps 500 
   class copp-snmp
-    police pps 500
+    police pps 500 
   class copp-ntp
-    police pps 100
+    police pps 100 
   class copp-tacacsradius
-    police pps 400
+    police pps 400 
   class copp-stftp
-    police pps 400
+    police pps 400 
 control-plane
-  service-policy input copp-system-policy
+  service-policy input copp-system-policy 
 hardware profile portmode 48x10G+4x40G
 
 snmp-server user admin network-admin auth md5 0xd3d17e4fdc494c1f3325827766d24ee9 priv 0xd3d17e4fdc494c1f3325827766d24ee9 localizedkey
 snmp-server user bitsnet network-admin auth md5 0xd3d17e4fdc494c1f3325827766d24ee9 priv 0xd3d17e4fdc494c1f3325827766d24ee9 localizedkey
 snmp-server user support network-operator auth md5 0xc6b8121ee78f32c165543c39e79fc972 priv 0xc6b8121ee78f32c165543c39e79fc972 localizedkey
-snmp-server host 10.254.7.10 informs version 2c jakarta
+snmp-server host 10.254.7.10 informs version 2c jakarta 
 snmp-server enable traps callhome event-notify
 snmp-server enable traps callhome smtp-send-fail
 snmp-server enable traps cfs state-change-notif
@@ -299,6 +299,8 @@ vlan 516
   name 516-MGT-TO-DIST3-CRB
 vlan 536
   name 536-test-ip-dummy-jabarmaya
+vlan 551
+  name 551-BITSNET-ABHINAWA
 vlan 573
   name 573-BDG-FS
 vlan 579
@@ -423,6 +425,8 @@ vlan 1404
   name 1404-INTERGASIA
 vlan 1510
   name 1510-FSCRB
+vlan 1511
+  name 1511-FS-TULUNGAGUNG
 vlan 1512
   name 1512-IFORTE-BANDUNG
 vlan 1513
@@ -658,8 +662,6 @@ interface Ethernet1/31
 
 interface Ethernet1/32
   description TO-JUNOS-xe-0/1/1
-  switchport mode trunk
-  switchport trunk allowed vlan 1601
 
 interface Ethernet1/33
   description TO-DIST3-NEW-MIKRO
@@ -677,7 +679,7 @@ interface Ethernet1/35
 interface Ethernet1/36
   description TO-CDN-sfp-sfpplus2
   switchport mode trunk
-  switchport trunk allowed vlan 59,305,1100,2100
+  switchport trunk allowed vlan 59,305,551,1100,1601,2100
 
 interface Ethernet1/37
   description TO-MVNET
@@ -737,8 +739,7 @@ interface Ethernet1/48
 interface Ethernet1/49
   description CDC-TO-APJII
   switchport mode trunk
-  switchport trunk allowed vlan 59,105,212-213,344,499,501-502,516,536,572-573,575,581,584-585,587-589,701,890,952-953,1246-1261,1301-1304,1346,1401-1404,1457,1510,1512-1516,1575,1600-1602,17
-00-1701,1703-1705,1888,2000,2010,2041,2100,2222,2363,3145-3146,3501,4090
+  switchport trunk allowed vlan 59,105,212-213,344,499,501-502,516,536,551,572-573,575,581,584-585,587-589,701,890,952-953,1246-1261,1301-1304,1346,1401-1404,1457,1510,1512-1516,1575,1600-1602,1700-1701,1703-1705,1888,2000,2010,2041,2100,2222,2363,3145-3146,3501,4090
 
 interface Ethernet1/50
   description TO-JUNOS
@@ -756,8 +757,6 @@ interface mgmt0
 line console
 line vty
   session-limit 10
-boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U2.9z.bin
-boot system bootflash:/n3000-uk9.6.0.2.U2.9z.bin
+boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U2.9z.bin 
+boot system bootflash:/n3000-uk9.6.0.2.U2.9z.bin 
 ip route 0.0.0.0/0 10.254.7.9
-
-
