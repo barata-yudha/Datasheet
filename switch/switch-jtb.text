@@ -1,7 +1,7 @@
-SW-BITSNET-JTB#show running-config
+SW-BITSNET-JTB#show running-config 
 Building configuration...
 
-Current configuration : 3140 bytes
+Current configuration : 3321 bytes
 !
 version 12.2
 no service pad
@@ -29,13 +29,15 @@ spanning-tree extend system-id
 !
 vlan internal allocation policy ascending
 !
-vlan 34
+vlan 34 
 !
 vlan 95
  name 95-MGT-SW-JTB
 !
 vlan 812
  name 812-TARUNA
+!
+vlan 813 
 !
 vlan 814
  name 814-TEST-INET-JTB
@@ -51,7 +53,7 @@ vlan 820
 !
 vlan 821
  name 821-IMY-NURIN-VIA-JTB
-!
+!         
 vlan 822
  name 822-IMY-HARDI
 !
@@ -78,11 +80,14 @@ interface GigabitEthernet0/3
  description IMY-KRISYANTO/GILANG
  switchport access vlan 817
  switchport mode access
+ speed 1000
 !
 interface GigabitEthernet0/4
  description EX-TARUNA
+ switchport access vlan 813
  switchport trunk allowed vlan 812,902
- switchport mode trunk
+ switchport mode access
+ shutdown
 !
 interface GigabitEthernet0/5
  description IMY-HARDY
@@ -90,9 +95,9 @@ interface GigabitEthernet0/5
  switchport mode access
 !
 interface GigabitEthernet0/6
- description IMY-SAMSUL/TARUNA
  switchport trunk allowed vlan 812,902
  switchport mode trunk
+ shutdown
 !
 interface GigabitEthernet0/7
  description PDA-TELERING
@@ -100,9 +105,13 @@ interface GigabitEthernet0/7
  switchport mode trunk
 !
 interface GigabitEthernet0/8
- shutdown
+ switchport access vlan 813
+ switchport mode access
 !
 interface GigabitEthernet0/9
+ description IMY-SAMSUL/TARUNA
+ switchport trunk allowed vlan 812,902
+ switchport mode trunk
 !
 interface GigabitEthernet0/10
 !
@@ -123,7 +132,7 @@ interface GigabitEthernet0/17
 interface GigabitEthernet0/18
  description TO-HSP-CCR
  switchport access vlan 1515
- switchport trunk allowed vlan 1,95,812,816,817,820-822,902,1011
+ switchport trunk allowed vlan 1,95,812,813,816,817,820-822,902,1011
  switchport mode trunk
 !
 interface GigabitEthernet0/19
@@ -180,4 +189,3 @@ line vty 5 15
  login
 !
 end
-
