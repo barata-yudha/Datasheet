@@ -1,6 +1,4 @@
-switch-bdg.bitsnet.lt6#show running-config
-
- System current configuration:
+System current configuration:
 !ROS  Version ROS_4.14.1781.ISCOM2824G.114.20121109
 !command in view_mode
 !
@@ -143,4 +141,3 @@ snmp-server community encryption 0xae46c4be7fc99191 ro
 ip default-gateway 10.254.11.5
 service config
 snmp-server traps enable cpu-threshold
-!
