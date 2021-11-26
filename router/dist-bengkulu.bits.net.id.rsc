@@ -1,10 +1,11 @@
-# oct/25/2021 15:29:34 by RouterOS 6.47.9
+# nov/26/2021 23:44:35 by RouterOS 6.48.5
 # software id = 67HB-CLB7
 #
 # model = CCR1009-7G-1C-1S+
 # serial number = 914F096703E4
 /interface bridge
-add mtu=1600 name=BACKUP-BENGKULU
+add mtu=1596 name=Bridge-Backup-Bengkulu
+add mtu=1596 name=Bridge-Main-Bengkulu
 add name=loopback
 /interface ethernet
 set [ find default-name=ether1 ] speed=100Mbps
@@ -19,56 +20,45 @@ set [ find default-name=ether6 ] advertise=\
     TELKOM rx-flow-control=auto speed=100Mbps tx-flow-control=auto
 set [ find default-name=ether7 ] comment="TRUNK TO SWITCH" speed=100Mbps
 set [ find default-name=sfp-sfpplus1 ] advertise=\
-    10M-full,100M-full,1000M-full disabled=yes
+    10M-full,100M-full,1000M-full
 /interface ipip
-add allow-fast-path=no !keepalive local-address=103.19.56.171 name=tun01-BLK \
-    remote-address=10.0.100.2
-add local-address=103.19.56.171 name=tun02-OFFICE-NEW remote-address=\
+add local-address=103.19.56.171 name=tun01-OFFICE-NEW remote-address=\
     10.0.100.18
-add disabled=yes local-address=10.10.99.1 name=tun03-POP-OFFICE \
-    remote-address=10.0.100.131
-/interface eoip
-add mac-address=02:96:D1:FA:FD:E5 mtu=1600 name=EoIP-ICON-BENGKULU \
-    remote-address=103.19.56.253 tunnel-id=253
 /interface vlan
 add interface=ether7 name=100-HS-MGT vlan-id=100
-add interface=ether7 name=500-HS-BLK vlan-id=500
+add interface=ether7 name=500-HS-RESTO-SAIMEN vlan-id=500
 add interface=ether7 name="501-HS-OFFICE BENTIRING" vlan-id=501
-add interface=ether7 name=502-HS-UTARA vlan-id=502
-add disabled=yes interface=ether7 name=503-HS-ARGAMAKMUR vlan-id=503
-add interface=ether7 name=505-HS-BENTENG vlan-id=505
 add interface=ether7 name=507-HS-BTN-KC-KCS-BENGKULU vlan-id=507
-add interface=ether7 name=509-HS-BTS-PAGERDEWA vlan-id=509
+add interface=ether7 name=509-HS-BTS-ENSEVAL vlan-id=509
 add interface=ether7 name=512-HS-CORDELA vlan-id=512
-add interface=ether7 name=513-HS-ENSEVAL vlan-id=513
+add interface=ether7 name=513-HS-OFFICE-NEW vlan-id=513
 add interface=ether7 name=514-HS-CCTV vlan-id=514
-add disabled=yes interface=ether7 name=515-HS-BTN-KC-BENGKULU vlan-id=515
 add interface=ether7 name=516-HS-BPKD-UBNT vlan-id=516
 /interface list
 add comment=upstream name=from-uplink
 add comment=downstream exclude=from-uplink name=from-downlink
+add name=list-client
 /ip pool
 add name=dhcp_pool0 ranges=172.16.100.2
 /ip dhcp-server
 add address-pool=dhcp_pool0 disabled=no interface=ether3 name=dhcp1
 /ppp profile
 set *0 use-encryption=no
-add bridge=BACKUP-BENGKULU change-tcp-mss=yes name=sstp use-encryption=no
+add bridge=Bridge-Backup-Bengkulu name=BACKUP-BENGKULU use-encryption=no
 add change-tcp-mss=yes comment="Request Customer" name=SAIMEN only-one=yes \
     use-encryption=yes
+add bridge=Bridge-Main-Bengkulu name=MAIN-BENGKULU use-encryption=no
 /interface l2tp-client
-add allow-fast-path=yes comment=\
-    "Backup, kalau sstp intermittent ping ke 241 nya" connect-to=\
-    103.19.56.185 disabled=no ipsec-secret=7895123ok max-mru=1500 max-mtu=\
-    1500 mrru=1600 name=L2TP-BACKUP-BENGKULU password=7895123ok33 profile=\
-    sstp use-ipsec=yes user=BITSNETBENGKULU
-/interface sstp-client
-add comment="Utama , kalau sstp ping ke 241 intermittent ganti pake l2tp" \
-    connect-to=103.19.56.185 keepalive-timeout=300 mrru=1600 name=\
-    SSTP-BENGKULU password=7895123ok33 profile=sstp user=BITSNETBENGKULU \
-    verify-server-address-from-certificate=no
+add allow-fast-path=yes comment=BAKCUP_BENGKULU connect-to=103.19.56.185 \
+    disabled=no ipsec-secret=7895123ok max-mru=1500 max-mtu=1500 mrru=1600 \
+    name=L2TP-BACKUP-BENGKULU password=7895123ok33 profile=BACKUP-BENGKULU \
+    use-ipsec=yes user=BITSNETBENGKULU-2
+add allow-fast-path=yes comment=ICON_BENGKULU connect-to=103.19.56.253 \
+    disabled=no ipsec-secret=7895123ok max-mru=1500 max-mtu=1500 mrru=1600 \
+    name=L2TP-MAIN-BENGKULU password=7895123ok33 profile=MAIN-BENGKULU \
+    use-ipsec=yes user=BITSNETBENGKULU-1
 /queue tree
-add max-limit=10M name=global-out parent=global
+add disabled=yes max-limit=10M name=global-out parent=global
 /queue type
 add kind=pfifo name=Critical pfifo-limit=128
 add kind=pcq name=ping_pkts_i_32K pcq-classifier=dst-address \
@@ -79,51 +69,36 @@ add kind=pcq name=ping_pkts_o_32K pcq-classifier=src-address \
 add bucket-size=0/0 max-limit=1G/1G name="1. TOTAL BANDWIDTH" queue=\
     pcq-upload-default/pcq-download-default target=\
     103.19.56.0/22,172.16.0.0/16,10.0.100.0/24
-add max-limit=8M/8M name=BTN parent="1. TOTAL BANDWIDTH" target=\
-    10.0.100.58/32,10.0.100.59/32
-add max-limit=4500k/4500k name="BTN KC BENGKULU" parent=BTN priority=1/1 \
-    queue=pcq-upload-default/pcq-download-default target=10.0.100.59/32 \
-    total-priority=1
-add max-limit=2M/2M name="BTN KCS BENGKULU" parent=BTN priority=1/1 queue=\
-    pcq-upload-default/pcq-download-default target=10.0.100.58/32 \
-    total-priority=1
-add max-limit=70M/70M name="HOTEL SANTIKA BENGKULU" parent=\
-    "1. TOTAL BANDWIDTH" target=103.19.57.64/29
-add burst-limit=12M/12M burst-threshold=2M/2M burst-time=1m/1m comment=7M \
-    limit-at=7M/7M max-limit=7M/7M name="PT ENSEVAL PUTRA MEGA TRAIDING" \
-    parent="1. TOTAL BANDWIDTH" queue=pcq-upload-default/pcq-download-default \
+add max-limit=2M/2M name="BTN KCS BENGKULU" parent="1. TOTAL BANDWIDTH" \
+    priority=1/1 queue=pcq-upload-default/pcq-download-default target=\
+    10.0.100.58/32 total-priority=1
+add comment="Layanan 70M Lagi Tes Di Buka 100M" disabled=yes max-limit=\
+    100M/100M name="HOTEL SANTIKA BENGKULU" parent="1. TOTAL BANDWIDTH" \
+    target=103.19.57.64/29
+add burst-limit=12M/12M burst-threshold=2M/2M burst-time=1m/1m limit-at=7M/7M \
+    max-limit=7M/7M name="PT ENSEVAL PUTRA MEGA TRAIDING" parent=\
+    "1. TOTAL BANDWIDTH" queue=pcq-upload-default/pcq-download-default \
     target=103.19.58.133/32
 add limit-at=10M/10M max-limit=10M/10M name="BPKD PROVINSI BENGKULU" parent=\
     "1. TOTAL BANDWIDTH" queue=pcq-upload-default/pcq-download-default \
     target=103.19.57.232/29
-add max-limit=10M/10M name="BALAI LATIHAN KERJA BENGKULU" parent=\
-    "1. TOTAL BANDWIDTH" queue=pcq-upload-default/pcq-download-default \
-    target=103.19.57.42/32
 add max-limit=40M/40M name="SOHO - GROUP 1" parent="1. TOTAL BANDWIDTH" \
     queue=pcq-upload-default/pcq-download-default target=\
-    103.19.58.132/32,103.19.59.92/30
+    103.19.58.132/32,103.19.58.135/32
 add max-limit=20M/20M name="SOHO - RSKJ SOEPRAPTO BENGKULU" parent=\
     "SOHO - GROUP 1" queue=pcq-upload-default/pcq-download-default target=\
     103.19.58.132/32
-add disabled=yes max-limit=6M/6M name=\
-    "SOHO - PT. GLOBAL INDONESIA ASIA SEJAHTERA (GIAS)" parent=\
-    "SOHO - GROUP 1" queue=pcq-upload-default/pcq-download-default target=\
-    103.19.59.92/30
-add max-limit=30M/30M name="SOHO - GROUP 2" parent="1. TOTAL BANDWIDTH" \
-    queue=pcq-upload-default/pcq-download-default target=103.19.57.32/30
-add max-limit=20M/20M name="OFFICE - BENTIRING" parent="SOHO - GROUP 2" \
-    queue=pcq-upload-default/pcq-download-default target=103.19.57.32/30
+add max-limit=20M/20M name="OFFICE - BENTIRING" parent="SOHO - GROUP 1" \
+    queue=pcq-upload-default/pcq-download-default target=103.19.58.135/32
 add max-limit=30M/30M name="HOTEL CORDELA BENGKULU" parent=\
     "1. TOTAL BANDWIDTH" priority=1/1 target=172.16.200.28/30
-add max-limit=10M/20M name="SOHO 10M - ARGAMAKMUR" parent="SOHO - GROUP 1" \
-    queue=pcq-upload-default/pcq-download-default target=10.0.100.24/29
-add max-limit=10M/10M name="PT Saimen" parent="1. TOTAL BANDWIDTH" target=\
-    103.19.59.136/30
+add max-limit=10M/10M name="PT SAIMEN" parent="1. TOTAL BANDWIDTH" target=\
+    103.19.58.140/32
 /queue tree
-add name=ping_pkts_i packet-mark=ping_pkts_i parent=global-out queue=\
-    ping_pkts_i_32K
-add name=ping_pkts_o packet-mark=ping_pkts_o parent=global-out queue=\
-    ping_pkts_o_32K
+add disabled=yes name=ping_pkts_i packet-mark=ping_pkts_i parent=global-out \
+    queue=ping_pkts_i_32K
+add disabled=yes name=ping_pkts_o packet-mark=ping_pkts_o parent=global-out \
+    queue=ping_pkts_o_32K
 /routing ospf instance
 set [ find default=yes ] redistribute-connected=as-type-2 \
     redistribute-static=as-type-2 router-id=103.19.56.171
@@ -151,74 +126,59 @@ set use-ip-firewall=yes use-ip-firewall-for-vlan=yes
 set enabled=yes loose-tcp-tracking=no
 /ip neighbor discovery-settings
 set discover-interface-list=all
-/interface l2tp-server server
-set enabled=yes
 /interface list member
-add interface=BACKUP-BENGKULU list=from-uplink
-add interface=L2TP-BACKUP-BENGKULU list=from-uplink
-add interface=EoIP-ICON-BENGKULU list=from-uplink
-add interface=ether5 list=from-uplink
-add interface=ether6 list=from-uplink
+add disabled=yes interface=Bridge-Backup-Bengkulu list=from-uplink
+add disabled=yes interface=L2TP-BACKUP-BENGKULU list=from-uplink
+add disabled=yes list=from-uplink
+add disabled=yes interface=ether5 list=from-uplink
+add disabled=yes interface=ether6 list=from-uplink
+add interface=ether4 list=list-client
+add disabled=yes list=list-client
+add disabled=yes interface="501-HS-OFFICE BENTIRING" list=list-client
+add disabled=yes interface=507-HS-BTN-KC-KCS-BENGKULU list=list-client
+add disabled=yes interface=509-HS-BTS-ENSEVAL list=list-client
+add disabled=yes interface=512-HS-CORDELA list=list-client
+add disabled=yes interface=tun01-OFFICE-NEW list=list-client
+add disabled=yes interface=516-HS-BPKD-UBNT list=list-client
+add disabled=yes interface=513-HS-OFFICE-NEW list=list-client
 /interface pppoe-server server
-add default-profile=SAIMEN disabled=no interface=500-HS-BLK max-mru=1480 \
-    max-mtu=1480 one-session-per-host=yes service-name=PPOe-PT-SAIMEN
+add default-profile=SAIMEN disabled=no interface=500-HS-RESTO-SAIMEN max-mru=\
+    1480 max-mtu=1480 one-session-per-host=yes service-name=PPOe-PT-SAIMEN
 /interface pptp-server server
-set authentication=pap,chap,mschap1,mschap2 enabled=yes
+set authentication=pap,chap,mschap1,mschap2
 /interface sstp-server server
-set default-profile=default-encryption enabled=yes
+set default-profile=default-encryption
 /ip address
-add address=103.19.57.41/30 disabled=yes interface=tun01-BLK network=\
-    103.19.57.40
-add address=172.16.100.9/30 interface=tun02-OFFICE-NEW network=172.16.100.8
+add address=172.16.100.9/30 interface=tun01-OFFICE-NEW network=172.16.100.8
 add address=103.19.56.238/30 comment="IPVPN ICON+" interface=ether5 network=\
     103.19.56.236
 add address=10.100.100.1/24 comment="IP AP RADIO" interface=ether7 network=\
     10.100.100.0
 add address=10.0.100.97/30 interface=514-HS-CCTV network=10.0.100.96
-add address=10.0.100.89/29 comment=EX_DPRD interface=513-HS-ENSEVAL network=\
-    10.0.100.88
-add address=10.0.100.49/29 comment=BTS-PAGER-DEWA interface=\
-    509-HS-BTS-PAGERDEWA network=10.0.100.48
 add address=10.0.100.57/29 comment="VLAN BTN-KCS-BENGKULU" interface=\
     507-HS-BTN-KC-KCS-BENGKULU network=10.0.100.56
-add address=10.0.100.33/29 comment="VLAN BENTENG" interface=505-HS-BENTENG \
-    network=10.0.100.32
-add address=10.0.100.25/29 comment="VLAN ARGAMAKMUR" disabled=yes interface=\
-    503-HS-ARGAMAKMUR network=10.0.100.24
-add address=10.0.100.9/29 comment="VLAN SMK3" interface=502-HS-UTARA network=\
-    10.0.100.8
 add address=10.0.100.17/29 comment="VLAN OFFICE BENTIRING" interface=\
-    "501-HS-OFFICE BENTIRING" network=10.0.100.16
-add address=10.0.100.1/29 comment="VLAN BLK" interface=500-HS-BLK network=\
-    10.0.100.0
+    513-HS-OFFICE-NEW network=10.0.100.16
+add address=10.0.100.1/29 comment="VLAN RESTO SAIMEN" interface=\
+    500-HS-RESTO-SAIMEN network=10.0.100.0
 add address=10.0.101.1/30 comment="VLAN MANAGEMENT" interface=100-HS-MGT \
     network=10.0.101.0
-add address=10.0.100.65/29 comment="VLAN ENSEVAL" interface=513-HS-ENSEVAL \
-    network=10.0.100.64
-add address=10.0.100.105/29 comment="VLAN BTN" interface=\
-    515-HS-BTN-KC-BENGKULU network=10.0.100.104
 add address=10.0.100.113/29 comment="VLAN BPKD" interface=516-HS-BPKD-UBNT \
     network=10.0.100.112
-add address=172.16.100.29/30 interface=tun03-POP-OFFICE network=172.16.100.28
-add address=103.19.56.242/30 comment=BACKUP-TELKOM interface=BACKUP-BENGKULU \
-    network=103.19.56.240
-add address=10.254.14.54/30 interface=EoIP-ICON-BENGKULU network=10.254.14.52
+add address=103.19.56.241 comment=BACKUP-TELKOM interface=\
+    Bridge-Backup-Bengkulu network=103.19.56.240
 add address=10.0.100.121/29 comment="VLAN HS-COREDLA" interface=\
     512-HS-CORDELA network=10.0.100.120
 add address=110.110.110.6/24 comment="Gateway Internet Telkom" interface=\
     ether6 network=110.110.110.0
-add address=172.16.100.1 comment="TEST INET" interface=ether3 network=\
-    103.19.57.193
 add address=103.19.57.65/29 comment="PTP TO SANTIKA" interface=ether4 \
     network=103.19.57.64
 add address=103.19.56.171 comment=Loopback interface=loopback network=\
     103.19.56.171
-add address=103.19.57.41/30 comment="VLAN BLK" interface=500-HS-BLK network=\
-    103.19.57.40
-add address=10.0.100.129/29 interface=509-HS-BTS-PAGERDEWA network=\
-    10.0.100.128
-add address=10.99.1.1 disabled=yes interface=513-HS-ENSEVAL network=\
-    103.19.58.133
+add address=10.0.100.129/29 comment="BTS ENSEVAL" interface=\
+    509-HS-BTS-ENSEVAL network=10.0.100.128
+add address=103.19.56.243 comment=MAIN-ICON interface=Bridge-Main-Bengkulu \
+    network=103.19.56.242
 /ip dhcp-server network
 add address=172.16.100.0/30 gateway=172.16.100.1
 /ip dns
@@ -2163,8 +2123,7 @@ add address=118.98.227.0/24 list=UNBK
 add address=ubk.kemdikbud.go.id list=UNBK
 add address=biounpaketabc.kemdikbud.go.id list=UNBK
 add address=10.0.100.115 comment=BPKD-BACKUP-VIA-WIRELESS list=SOHO-TO-ICON
-add address=172.16.200.28/30 comment=Hotel-Cordela disabled=yes list=\
-    SOHO-PERSONAL
+add address=172.16.200.28/30 comment=Hotel-Cordela list=SOHO-PERSONAL
 add address=tpp.bengkuluprov.go.id list=ip-gue
 add address=103.94.120.115 list=nice
 add address=172.16.200.0/24 list=akses
@@ -2197,6 +2156,7 @@ add address=103.19.56.10 list=dns-bitsnet
 add address=103.19.56.11 list=dns-bitsnet
 add address=103.19.56.2 list=dns-bitsnet
 add address=103.19.56.3 list=dns-bitsnet
+add address=172.16.0.0/30 comment=TEST list=SOHO-TO-ICON
 /ip firewall filter
 add action=drop chain=input dst-port=53 protocol=tcp
 add action=drop chain=input dst-port=53 protocol=udp
@@ -2212,21 +2172,45 @@ add action=drop chain=input disabled=yes src-address=37.49.231.0/24
 add action=drop chain=input disabled=yes src-address=116.12.40.0/21
 add action=drop chain=forward disabled=yes dst-address=116.12.40.0/21
 /ip firewall mangle
+add action=mark-connection chain=input connection-state=new disabled=yes \
+    in-interface=Bridge-Backup-Bengkulu new-connection-mark=TELKOM_CONN \
+    passthrough=yes
+add action=mark-connection chain=input connection-state=new disabled=yes \
+    in-interface=Bridge-Main-Bengkulu new-connection-mark=ICON_CONN \
+    passthrough=yes
+add action=mark-routing chain=output connection-mark=TELKOM_CONN disabled=yes \
+    new-routing-mark=TO_TELKOM passthrough=no
+add action=mark-routing chain=output connection-mark=ICON_CONN disabled=yes \
+    new-routing-mark=TO_ICON passthrough=no
+add action=mark-connection chain=prerouting disabled=yes dst-address-type=\
+    !local in-interface-list=list-client new-connection-mark=TELKOM_CONN \
+    passthrough=yes per-connection-classifier=both-addresses-and-ports:2/0
+add action=mark-connection chain=prerouting disabled=yes dst-address-type=\
+    !local in-interface-list=list-client new-connection-mark=ICON_CONN \
+    passthrough=yes per-connection-classifier=both-addresses-and-ports:2/1
+add action=mark-routing chain=prerouting comment="LB GT" connection-mark=\
+    TELKOM_CONN disabled=yes in-interface-list=list-client new-routing-mark=\
+    TO_TELKOM passthrough=yes
+add action=mark-routing chain=prerouting connection-mark=ICON_CONN disabled=\
+    yes in-interface-list=list-client new-routing-mark=TO_ICON passthrough=\
+    yes
 add action=mark-packet chain=prerouting comment="Mark ICMP Input" disabled=\
     yes new-packet-mark=ping_pkts_i passthrough=yes protocol=icmp
 add action=mark-packet chain=postrouting comment="Mark ICMP Output" disabled=\
     yes new-packet-mark=ping_pkts_o passthrough=yes protocol=icmp
+add action=mark-routing chain=prerouting disabled=yes new-routing-mark=\
+    TO_TELKOM packet-mark=ping_pkts_i passthrough=no
 add action=mark-routing chain=prerouting comment="Cordella Via Telkom" \
     disabled=yes new-routing-mark=routing-via-telkom passthrough=no \
     src-address=172.16.200.28/30
-add action=mark-routing chain=prerouting comment="RSKJ Via Telkom" \
-    new-routing-mark=routing-via-telkom passthrough=no src-address=\
+add action=mark-routing chain=prerouting comment="RSKJ Via Telkom" disabled=\
+    yes new-routing-mark=routing-via-telkom passthrough=no src-address=\
     103.19.58.132
 add action=mark-routing chain=prerouting comment="Santika Via Telkom" \
     disabled=yes new-routing-mark=routing-via-telkom passthrough=no \
     src-address=103.19.57.64/29
 add action=mark-routing chain=prerouting comment="Santika Via Icon" disabled=\
-    yes new-routing-mark=routing-via-bits passthrough=no src-address=\
+    yes new-routing-mark=SOHO-TO-ICON passthrough=no src-address=\
     103.19.57.64/29
 add action=mark-routing chain=prerouting comment="Gias Via Telkom" disabled=\
     yes new-routing-mark=routing-via-telkom passthrough=no src-address=\
@@ -2256,6 +2240,10 @@ add action=mark-routing chain=prerouting comment=UNBK disabled=yes \
     dst-address-list=UNBK new-routing-mark=routing-via-telkom passthrough=no \
     src-address=103.19.57.112/30
 /ip firewall nat
+add action=src-nat chain=srcnat comment="Nat Telkom" src-address-list=\
+    SOHO-PERSONAL to-addresses=103.19.56.171
+add action=src-nat chain=srcnat comment="Nat Icon" src-address-list=\
+    SOHO-TO-ICON to-addresses=103.19.56.171
 add action=dst-nat chain=dstnat comment="Redirect DNS" disabled=yes \
     dst-address-list=!dns-bitsnet dst-port=53,443,853 nth=2,1 protocol=udp \
     src-address-list=network-bitsnet to-addresses=103.19.56.10 to-ports=53
@@ -2268,10 +2256,6 @@ add action=dst-nat chain=dstnat disabled=yes dst-port=53 protocol=udp \
     to-addresses=1.1.1.1
 add action=dst-nat chain=dstnat comment="Switch HP" dst-address=103.19.56.238 \
     dst-port=6081 protocol=tcp to-addresses=10.0.101.2 to-ports=80
-add action=src-nat chain=srcnat comment="Nat Icon" src-address-list=\
-    SOHO-TO-ICON to-addresses=103.19.56.171
-add action=src-nat chain=srcnat comment="Nat Telkom" src-address-list=\
-    SOHO-PERSONAL to-addresses=103.19.56.171
 add action=dst-nat chain=dstnat comment="Kalo Mau nambah Rule Kordinasi " \
     dst-address=103.19.57.41 dst-port=888 protocol=tcp to-addresses=\
     10.100.100.8 to-ports=443
@@ -2296,40 +2280,39 @@ add action=dst-nat chain=dstnat disabled=yes dst-address=8.8.8.8 dst-port=53 \
 add action=dst-nat chain=dstnat comment="REDIRECT DNS TO 9.9.9.9" disabled=\
     yes dst-port=53 protocol=udp to-addresses=9.9.9.9 to-ports=53
 /ip route
-add check-gateway=ping comment=SOHO-TO-TELKOM distance=109 gateway=\
-    103.19.56.241 routing-mark=routing-via-telkom
-add check-gateway=ping comment=SOHO-TO-ICON distance=109 gateway=10.254.14.53 \
-    routing-mark=SOHO-TO-ICON
-add check-gateway=ping comment="Default Route Backup  IPVPN" distance=111 \
-    gateway=103.19.56.237 routing-mark=SOHO-TO-ICON
-add comment="Default Route Backup  Speedy" distance=112 gateway=110.110.110.1
-add comment="TO POP-OFFICE" distance=1 dst-address=10.110.200.0/21 gateway=\
-    172.16.100.30
-add check-gateway=ping comment="TO POP-OFFICE" distance=2 dst-address=\
+add check-gateway=ping comment="LB TO ICON" disabled=yes distance=1 gateway=\
+    103.19.56.242 routing-mark=TO_ICON
+add check-gateway=ping comment="LB TO TELKOM" distance=1 gateway=\
+    103.19.56.240 routing-mark=routing-via-telkom
+add check-gateway=ping comment="Default Route" distance=111 gateway=\
+    103.19.56.242
+add comment="Default Route Backup Telkom" distance=112 gateway=110.110.110.1
+add distance=109 dst-address=1.1.1.1/32 gateway=103.19.56.240 scope=20
+add check-gateway=ping comment="To BTS Enseval" distance=1 dst-address=\
     10.110.200.0/21 gateway=10.0.100.131
-add distance=1 dst-address=10.110.201.16/29 gateway=10.0.100.131
-add comment="TO POP-OFFICE" distance=1 dst-address=10.110.202.0/24 gateway=\
-    172.16.100.30
-add distance=1 dst-address=10.110.203.0/24 gateway=10.0.100.131
-add comment="Route SSTP via Backup (DON'T EDIT/DISABLE/DELETE)" distance=1 \
+add check-gateway=ping comment="Route To BACKUP BITSNET" distance=1 \
     dst-address=103.19.56.185/32 gateway=110.110.110.1
-add check-gateway=ping comment="Route To EoIP BitsNet" distance=1 \
+add comment="Route To BACKUP BITSNET" distance=2 dst-address=103.19.56.185/32 \
+    gateway=103.19.56.237
+add check-gateway=ping comment="Route To MAIN BITSNET" distance=1 \
     dst-address=103.19.56.253/32 gateway=103.19.56.237
 add comment="Route To EoIP BitsNet" distance=2 dst-address=103.19.56.253/32 \
     gateway=110.110.110.1
 add comment="Backup wirelles Bpkd" distance=1 dst-address=103.19.57.232/29 \
     gateway=10.0.100.115
-add comment="Route To RSJ" distance=1 dst-address=103.19.58.132/32 gateway=\
+add comment="Route To RSKJ" distance=1 dst-address=103.19.58.132/32 gateway=\
     10.0.100.131
-add distance=1 dst-address=103.19.58.133/32 gateway=10.0.100.131
-add comment="OFFICE BENTIRING" distance=1 dst-address=103.19.58.135/32 \
-    gateway=172.16.100.10
-add comment="Route To BENTENG" distance=1 dst-address=172.16.200.4/30 \
-    gateway=10.0.100.34
-add comment="Route To Enseval" distance=1 dst-address=172.16.200.8/30 \
-    gateway=10.0.100.130
+add comment="Route To Enseval" distance=1 dst-address=103.19.58.133/32 \
+    gateway=10.0.100.131
+add comment="Route To Office Bentiring" distance=1 dst-address=\
+    103.19.58.135/32 gateway=172.16.100.10
 add comment="Route To Cordela" distance=1 dst-address=172.16.200.28/30 \
     gateway=10.0.100.122
+/ip route rule
+add dst-address=1.1.1.1/32 table=routing-via-telkom
+add dst-address=8.8.8.8/32 table=routing-via-telkom
+add dst-address=8.8.4.4/32 table=routing-via-telkom
+add dst-address=216.239.38.120/32 table=routing-via-telkom
 /ip service
 set telnet address=103.19.56.0/22,103.143.244.0/23 port=9989
 set ftp address=103.19.56.0/22,103.143.244.0/23 disabled=yes port=9987
@@ -2382,15 +2365,14 @@ add action=accept chain=ospf-out prefix=103.19.58.0/24 prefix-length=24-32
 add action=accept chain=ospf-out prefix=103.19.59.0/24 prefix-length=24-32
 add action=discard chain=ospf-out
 /routing ospf interface
-add comment="*Cost sama ,Lagi Test Load Balance" cost=100 interface=\
-    BACKUP-BENGKULU network-type=point-to-point
-add comment="*Cost sama ,Lagi Test Load Balance" interface=EoIP-ICON-BENGKULU \
-    network-type=point-to-point
+add cost=30 interface=Bridge-Backup-Bengkulu network-type=point-to-point
+add cost=20 interface=Bridge-Main-Bengkulu network-type=point-to-point
 /routing ospf network
-add area=backbone network=103.19.56.240/30
-add area=backbone network=10.254.14.52/30
-add area=backbone disabled=yes network=10.10.99.1/32
+add area=backbone network=103.19.56.240/32
 add area=backbone network=103.19.56.171/32
+add area=backbone network=103.19.56.241/32
+add area=backbone network=103.19.56.242/32
+add area=backbone network=103.19.56.243/32
 /snmp
 set contact=noc@bits.net.id enabled=yes location="dist bengkulu" \
     trap-community=bengkulu trap-version=2
