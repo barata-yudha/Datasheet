@@ -1,0 +1,153 @@
+SWITCH-PURI#show running-config 
+Building configuration...
+
+Current configuration : 3815 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname SWITCH-PURI
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$AJUg$CVKxgPXAlN9Yhn9ggRCfw1
+!
+username bitsnet password 0 LU6HBTkeyEGw8
+!
+!
+no aaa new-model
+system mtu routing 1998
+!
+!
+vtp mode transparent
+!
+!
+crypto pki trustpoint TP-self-signed-2261146752
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-2261146752
+ revocation-check none
+ rsakeypair TP-self-signed-2261146752
+!
+!
+crypto pki certificate chain TP-self-signed-2261146752
+ certificate self-signed 01
+  30820243 308201AC A0030201 02020101 300D0609 2A864886 F70D0101 04050030 
+  31312F30 2D060355 04031326 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 32323631 31343637 3532301E 170D3933 30333031 30303031 
+  30325A17 0D323030 31303130 30303030 305A3031 312F302D 06035504 03132649 
+  4F532D53 656C662D 5369676E 65642D43 65727469 66696361 74652D32 32363131 
+  34363735 3230819F 300D0609 2A864886 F70D0101 01050003 818D0030 81890281 
+  8100C61E 63D3171A 7ECB9CF3 D7E480DA 34637B68 16E115C5 F608301E 1117AAE3 
+  E441156E B61CE834 F833B486 A434F457 10A30FF2 F0CA84FE 3E4911CF B9787133 
+  FC195EA5 28909B60 2C9CA638 6230F81C 3FA4225A E45CCBFF 7356B63C D24DFDD2 
+  1183CEA6 C4484EB8 0A1430E6 114FD6D0 6C52AF17 FA05100D 92CD6ADB FF7730D3 
+  86890203 010001A3 6B306930 0F060355 1D130101 FF040530 030101FF 30160603 
+  551D1104 0F300D82 0B535749 5443482D 4D54482E 301F0603 551D2304 18301680 
+  14251D23 2F8B8D46 8D842C76 A9A72EB0 6405285D 57301D06 03551D0E 04160414 
+  251D232F 8B8D468D 842C76A9 A72EB064 05285D57 300D0609 2A864886 F70D0101 
+  04050003 81810099 F6A9ACA6 A2D989A1 BF9108EB 2CAB128D 77C184E4 C08F6680 
+  1A97FE53 5C75EB7F B6D13843 AFF7CD0D E5705A8B BA5EBEDD 347B0268 4501782D 
+  BB5D5B1C CB10509C 0A045D5F B0BD9218 A486959A 8725EB7D 4E35D946 454598DF 
+  7196AC16 06C02B6B D18A632F 256ACB35 B1DEE1C5 BE206F4A F59A1496 AE039B04 
+  DB6454DD 4D8C3D
+  quit
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+!
+!
+no errdisable detect cause small-frame
+no errdisable detect cause loopback
+no errdisable detect cause gbic-invalid
+no errdisable detect cause sfp-config-mismatch
+no errdisable detect cause pagp-flap
+no errdisable detect cause dtp-flap
+no errdisable detect cause link-flap
+no errdisable detect cause pppoe-ia-rate-limit
+no errdisable detect cause dhcp-rate-limit
+!
+vlan internal allocation policy ascending
+!
+vlan 91
+ name 91-MGT-SWITCH-PURI
+!
+vlan 102
+ name 102-BAKUNG
+!
+vlan 906
+ name 906-UPLINK-RO-PURI
+!
+vlan 907
+ name 907-MGT-OLT
+!
+vlan 1006
+ name 1006-TEST-BAKUNG
+!
+vlan 1100
+ name 1100-IPTV
+!
+vlan 2100
+ name 2100-BROADBAND-PURI
+!
+!
+interface FastEthernet0/1
+ switchport access vlan 1006
+ switchport mode access
+!
+interface FastEthernet0/2
+ switchport access vlan 102
+ switchport mode access
+!
+interface FastEthernet0/3
+!
+interface FastEthernet0/4
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+ description TEST-IPTV
+ switchport access vlan 1100
+ switchport mode access
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+ description TRUNK-TO-RO-PURI
+ switchport trunk allowed vlan 102,906,1006,1100
+ switchport mode trunk
+!
+interface GigabitEthernet0/1
+ description TRUNK-TO-OLT
+ switchport trunk allowed vlan 907,1100,2100
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ description TRUNK-TO-DIST-CIREBON
+ switchport trunk allowed vlan 91,906,907,1100,2100
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ no ip route-cache
+!
+interface Vlan91
+ ip address 10.202.0.46 255.255.255.252
+ no ip route-cache
+!
+ip default-gateway 10.202.0.45
+ip http server
+ip http secure-server
+snmp-server community patrol RO
+snmp-server location BTS-PATROL
+!
+line con 0
+line vty 0 4
+ login local
+line vty 5 15
+ login
+!
+end
