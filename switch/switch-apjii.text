@@ -1,9 +1,3 @@
-switch-mmr-apjii-bitsnet.id# show running-config 
-
-!Command: show running-config
-!Time: Tue Nov 16 12:16:54 2021
-
-version 6.0(2)U6(5c)
 hostname switch-mmr-apjii-bitsnet.id
 
 feature telnet
