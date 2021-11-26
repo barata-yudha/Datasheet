@@ -1,4 +1,4 @@
-# oct/25/2021 14:24:55 by RouterOS 6.47.9
+# nov/26/2021 23:33:23 by RouterOS 6.47.9
 # software id = YWWR-SKF6
 #
 # model = CCR1036-8G-2S+
@@ -12,7 +12,7 @@ set [ find default-name=ether3 ] comment=EX-BACKBONE-IFORTE-1G
 set [ find default-name=ether4 ] comment=EX-BACKBONE-FIBERSTAR
 set [ find default-name=ether6 ] comment="VPS CRB"
 set [ find default-name=ether7 ] comment="TO OFFICE"
-set [ find default-name=sfp-sfpplus1 ] comment="TO ROUTER BROADBAND"
+set [ find default-name=sfp-sfpplus1 ] comment=TO-NEXUS
 set [ find default-name=sfp-sfpplus2 ] comment=TRUNK-TO-NEXUS
 /interface ipip
 add comment=IPIP-TUNEL local-address=103.19.56.151 mtu=1500 name=\
@@ -27,13 +27,9 @@ add !keepalive local-address=103.19.56.151 name=tun05-lebakngok \
     remote-address=10.4.3.2
 add allow-fast-path=no !keepalive local-address=103.19.56.151 name=tun06-tiki \
     remote-address=10.5.2.10
-add !keepalive local-address=103.19.56.151 name=tun07-almaun remote-address=\
-    10.2.3.4
 add !keepalive local-address=103.19.56.151 name=tun08-Mansur remote-address=\
     10.10.10.92
-add !keepalive local-address=103.19.56.151 name=tun09-mamanpuri \
-    remote-address=10.2.3.2
-add allow-fast-path=no !keepalive local-address=103.19.56.151 name=\
+add allow-fast-path=no !keepalive local-address=103.19.56.151 mtu=1500 name=\
     tun10-ivansutanto remote-address=10.5.2.29
 add allow-fast-path=no !keepalive local-address=103.19.56.151 name=\
     tun11-jasamarga-backup remote-address=10.5.2.67
@@ -45,146 +41,92 @@ add !keepalive local-address=103.19.56.151 name=tun14-Bagja remote-address=\
     10.2.5.2
 add local-address=103.19.56.151 name=tun15-sapadia remote-address=10.10.10.50
 add local-address=103.19.56.151 name=tun16-sanawi remote-address=10.2.3.3
-add allow-fast-path=no !keepalive local-address=103.19.56.151 name=\
-    tun17-cempaka remote-address=10.5.2.82
 add allow-fast-path=no !keepalive local-address=103.19.56.151 mtu=1500 name=\
     tun18-kbl remote-address=10.5.2.74
 add local-address=103.19.56.151 name=tun19-bedulan remote-address=10.2.5.11
 add local-address=103.19.56.151 mtu=1500 name=tun20-bakung remote-address=\
     10.5.2.90
 /interface vlan
-add interface=sfp-sfpplus2 name=80-VLAN-TEST-BYPASS-NEXUS vlan-id=80
 add interface=sfp-sfpplus2 name=90-MGT-SW-DKIS vlan-id=90
 add interface=sfp-sfpplus2 name=91-MGT-SW-PURI vlan-id=91
 add interface=sfp-sfpplus2 name=92-MGT-SW-CISCO-CDH vlan-id=92
 add interface=sfp-sfpplus2 name=93-MGT-RO-IPTV vlan-id=93
 add interface=sfp-sfpplus2 name=94-MGT-SW-SD-GUNTUR vlan-id=94
-add interface=sfp-sfpplus2 name=95-MGT-SW-JTB vlan-id=95
-add interface=sfp-sfpplus2 name=96-MGT-SW-PATROL vlan-id=96
-add interface=sfp-sfpplus2 name=97-MGT-SW-TERISI vlan-id=97
 add interface=sfp-sfpplus2 name=98-MGT-SWITCH-MTH vlan-id=98
-add interface=sfp-sfpplus2 name=99-MGT-SW-IMY vlan-id=99
-add interface=sfp-sfpplus2 name=100-SW-JUNIPER vlan-id=100
+add interface=sfp-sfpplus2 name=100-MGT-SW-NEXUS vlan-id=100
 add interface=ether6 name=101-MGT-VPS-CRB vlan-id=101
 add interface=ether6 name=102-LOCAL-VPS-CRB vlan-id=102
 add interface=ether6 name=103-PFSense-Firewall vlan-id=103
-add interface=sfp-sfpplus2 name=104-UPLINK-OLT vlan-id=104
-add disabled=yes interface=sfp-sfpplus2 name=105-CCTV-MTH vlan-id=105
-add interface=sfp-sfpplus2 name=110-UPLINK-DIST-SOHO vlan-id=110
+add interface=sfp-sfpplus1 name=150-IP-MTIK-VPS-CRB vlan-id=150
+add interface=sfp-sfpplus1 name=151-IP-PUBLIK-VPS-CRB vlan-id=151
+add interface=sfp-sfpplus1 name=152-IP-PRIVATE-VPS-CRB vlan-id=152
+add interface=sfp-sfpplus2 name=200-CDH-BEDULAN vlan-id=200
 add interface=sfp-sfpplus2 name=201-LEBAKNGOK vlan-id=201
 add interface=sfp-sfpplus2 name=202-CDH-BAHAMA vlan-id=202
+add interface=sfp-sfpplus2 name=203-CDH-ITB-ARJAWINANGUN vlan-id=203
+add interface=sfp-sfpplus2 name=204-CDH-ITB-WATUBELAH vlan-id=204
 add interface=sfp-sfpplus2 name=205-CITRADREAMHOTEL vlan-id=205
 add interface=sfp-sfpplus2 name=206-CDH-SAPADIAHOTEL vlan-id=206
 add interface=sfp-sfpplus2 name=207-CDH-RADIOQU vlan-id=207
 add interface=sfp-sfpplus2 name=208-OFFICE-CADASNGAMPAR vlan-id=208
-add disabled=yes interface=sfp-sfpplus2 name=209-CDH-BMT-ALBAHJAH-BACKUP \
-    vlan-id=209
-add disabled=yes interface=sfp-sfpplus2 name=210-CDH-ALBAHJAH-AULA-BACKUP \
-    vlan-id=210
+add interface=sfp-sfpplus2 name=209-CDH-BMT-ALBAHJAH-BACKUP vlan-id=209
+add interface=sfp-sfpplus2 name=210-CDH-ALBAHJAH-AULA-BACKUP vlan-id=210
 add interface=sfp-sfpplus2 name=211-CDH-AKPER vlan-id=211
-add disabled=yes interface=sfp-sfpplus2 name=212-CDH-ASTON vlan-id=212
 add interface=sfp-sfpplus2 name=213-CDH-CENDANA vlan-id=213
 add interface=sfp-sfpplus2 name=216-CDH-SUTANRAJA vlan-id=216
 add interface=ether2 name=217-DIST-ALBAHJAH-FIX vlan-id=217
 add disabled=yes interface=ether2 name=218-ALBAHJAHTV-AULA-FIX vlan-id=218
-add interface=sfp-sfpplus2 name=219-CDH-MAKRUSMOTOR vlan-id=219
 add interface=sfp-sfpplus2 name=221-CDH-BBWS vlan-id=221
 add interface=sfp-sfpplus2 name=222-CDH-AMARISHOTEL vlan-id=222
 add interface=sfp-sfpplus2 name=223-CDH-KEJARBANK vlan-id=223
 add interface=sfp-sfpplus2 name=224-CDH-OFFICE vlan-id=224
 add interface=sfp-sfpplus2 name=225-CDH-MTH vlan-id=225
 add interface=sfp-sfpplus2 name=228-CDH-PURIMULYA vlan-id=228
-add interface=sfp-sfpplus2 name="229-CDH CIPTA MANDIRI" vlan-id=229
 add interface=sfp-sfpplus2 name=232-CDH-ASTON-BACKUP vlan-id=232
 add interface=sfp-sfpplus2 name=233-CDH-KARANTINA vlan-id=233
 add interface=sfp-sfpplus2 name=235-CDH-TELERING vlan-id=235
-add interface=sfp-sfpplus2 name=236-CDH-BPR-ASJAP vlan-id=236
 add interface=sfp-sfpplus2 name=237-CDH-PT-ANUGRAH vlan-id=237
 add interface=sfp-sfpplus2 name=238-CDH-MITRA10 vlan-id=238
 add interface=sfp-sfpplus2 name=239-CDH-CORE-BPR vlan-id=239
 add interface=sfp-sfpplus2 name=240-CDH-GRONGGONG vlan-id=240
 add interface=ether2 name=242-GOESAR-AMARISHOTEL vlan-id=242
-add interface=sfp-sfpplus2 name=243-CDH-GRG-JADI-DUA vlan-id=243
 add interface=sfp-sfpplus2 name=244-CDH-SUMURWUNI vlan-id=244
 add interface=sfp-sfpplus2 name=245-MGT-OLT-BITSNET vlan-id=245
 add disabled=yes interface=ether2 name=247-RADIOQU vlan-id=247
 add interface=sfp-sfpplus2 name=248-CDH-TSM vlan-id=248
 add interface=ether2 name=250-GOESAR-AL-BAHJAH-TV vlan-id=250
 add interface=ether2 name=251-GOESAR-AKPER vlan-id=251
-add disabled=yes interface=ether2 name=252-GOESAR-UMC vlan-id=252
-add disabled=yes interface=ether2 name=253-GOESAR-EX-BMT vlan-id=253
-add disabled=yes interface=ether2 name=257-GOESAR-DKIS vlan-id=257
+add interface=ether2 name=252-GOESAR-BENTANI vlan-id=252
 add interface=ether2 name=259-GOESAR-METLANDHOTEL vlan-id=259
 add interface=ether2 name=260-GOESAR-BTN-KC-CIREBON vlan-id=260
 add interface=ether2 name=267-GOESAR-BOD-SUNYARAGI vlan-id=267
 add interface=ether2 name=268-ITB-WATUBELAH vlan-id=268
 add interface=sfp-sfpplus2 name=401-ASTON-CRB vlan-id=401
-add interface=sfp-sfpplus2 name=516-MGT-DIST3-CRB vlan-id=516
-add interface=sfp-sfpplus2 name=581-VPS-IP-PUBLIC vlan-id=581
+add disabled=yes interface=sfp-sfpplus2 name=516-MGT-DIST3-JKT vlan-id=516
 add interface=sfp-sfpplus2 name=615-TIS-TSM vlan-id=615
 add interface=sfp-sfpplus2 name=616-TIS-JASAMARGA vlan-id=616
 add interface=sfp-sfpplus2 name=710-KERTASMAYA vlan-id=710
 add interface=sfp-sfpplus2 name=711-KERTASMAYA vlan-id=711
-add interface=sfp-sfpplus2 name=793-MGT-MW-CDH vlan-id=793
-add interface=sfp-sfpplus2 name=794-MGT-CERA-ANJATAN vlan-id=794
-add interface=sfp-sfpplus2 name=795-MGT-CERA-JATIBARANG vlan-id=795
+add interface=sfp-sfpplus2 name=793-MGT-IDU-CDH vlan-id=793
 add interface=sfp-sfpplus2 name=796-MGT-CERA-IMY-RIONET vlan-id=796
-add interface=sfp-sfpplus2 name=797-MGT-CERA-PATROL vlan-id=797
-add interface=sfp-sfpplus2 name=798-MGT-CERA-TERISI vlan-id=798
-add interface=sfp-sfpplus2 name=799-MW-ASTON-HUAWEI vlan-id=799
 add interface=sfp-sfpplus2 name=800-MW-GRG-HUAWEI vlan-id=800
-add disabled=yes interface=sfp-sfpplus2 name=801-MGT-CERA-CDH-IMY vlan-id=801
-add comment=INDRAMAYU interface=sfp-sfpplus2 name=802-IMY-NURIN vlan-id=802
-add disabled=yes interface=sfp-sfpplus2 name=803-IMY-RIONET vlan-id=803
-add interface=sfp-sfpplus2 name=804-IMY-TARUNA vlan-id=804
-add interface=sfp-sfpplus2 name=805-IMY-RB-MON-TERISI vlan-id=805
-add interface=sfp-sfpplus2 name=806-IMY-CECEP vlan-id=806
-add interface=sfp-sfpplus2 name=807-BPR-ASJAP-VIA-MICRO vlan-id=807
-add interface=sfp-sfpplus2 name=808-IMY-HARDI vlan-id=808
-add interface=sfp-sfpplus2 name=809-IMY-WARIDI vlan-id=809
-add interface=sfp-sfpplus2 name=810-IMY-CANDRA vlan-id=810
-add interface=sfp-sfpplus2 name=811-IMY-FANDY vlan-id=811
-add interface=sfp-sfpplus2 name="812-IMY-TARUNA VIA BTS JTB" vlan-id=812
-add interface=sfp-sfpplus2 name=813-IMY-RB-MONITORING vlan-id=813
-add interface=sfp-sfpplus2 name="814-TEST INET JATIBARANG" vlan-id=814
-add interface=sfp-sfpplus2 name=815-RIONET-NEW vlan-id=815
-add interface=sfp-sfpplus2 name=816-IMY-NATA-VIA-JTB vlan-id=816
-add interface=sfp-sfpplus2 name=817-IMY-KRISYANTO-VIA-JTB vlan-id=817
-add interface=sfp-sfpplus2 name=818-MGT-CERAGON-ANJATAN vlan-id=818
-add interface=sfp-sfpplus2 name=819-IMY-SUARDI vlan-id=819
-add interface=sfp-sfpplus2 name=820-IMY-YUSUP-VIA-JTB vlan-id=820
-add interface=sfp-sfpplus2 name=821-IMY-NURIN-VIA-JTB vlan-id=821
-add interface=sfp-sfpplus2 name=822-IMY-HARDI-VIA-JTB vlan-id=822
-add interface=sfp-sfpplus2 name=823-IMY-JTB vlan-id=823
-add interface=sfp-sfpplus2 name=824-IMY-JTB vlan-id=824
-add interface=sfp-sfpplus2 name=825-IMY-JTB vlan-id=825
-add interface=sfp-sfpplus2 name=826-IMY-JTB vlan-id=826
-add interface=sfp-sfpplus2 name=901-IIX-ONLY-IMY vlan-id=901
-add interface=sfp-sfpplus2 name=902-IIX-ONLY-IMY-TERISI vlan-id=902
-add disabled=yes interface=sfp-sfpplus2 name=903-IMY-JTB vlan-id=903
-add interface=sfp-sfpplus2 name=904-IMY-JTB vlan-id=904
-add interface=sfp-sfpplus2 name=905-IMY-JTB vlan-id=905
 add interface=sfp-sfpplus2 name=906-FTTH-PURIMULYA vlan-id=906
 add interface=sfp-sfpplus2 name=907-MGT-OLT-PURI vlan-id=907
-add interface=sfp-sfpplus2 name=1200-MTH vlan-id=1200
+add interface=sfp-sfpplus2 name=1200-AGENG-MTH vlan-id=1200
 add interface=sfp-sfpplus2 name=1202-YOGI-MTH vlan-id=1202
 add interface=sfp-sfpplus2 name=1204-CCTV-MTH vlan-id=1204
-add interface=sfp-sfpplus2 name=1510-FIBERSTAR vlan-id=1510
-add interface=sfp-sfpplus2 name=1513-IFORTE-NEW vlan-id=1513
+add interface=sfp-sfpplus1 name=1510-FIBERSTAR vlan-id=1510
+add interface=sfp-sfpplus1 name=1513-IFORTE-NEW vlan-id=1513
 add interface=sfp-sfpplus2 name=2001-DKIS-BROADBAND vlan-id=2001
+add disabled=yes interface=sfp-sfpplus2 name=2003-FNA-SBP vlan-id=2003
 add interface=sfp-sfpplus2 name=2004-DKIS-SUDARSONO-LOCALLOOP vlan-id=2004
 add interface=sfp-sfpplus2 name=2010-BYPASS-DEDICATED-IX-IIX vlan-id=2010
-add interface=sfp-sfpplus2 name=2020-IMY-CDH vlan-id=2020
-add interface=sfp-sfpplus2 name=3000-FNA-NODE-CIREBON vlan-id=3000
-add interface=sfp-sfpplus2 name=3501-MGT-JNP vlan-id=3501
-add interface=sfp-sfpplus2 name=3502-DIST-SOHO-CIREBON vlan-id=3502
+add disabled=yes interface=sfp-sfpplus1 name=3000-FNA-NODE-CIREBON vlan-id=\
+    3000
 add interface=sfp-sfpplus2 name=3503-DIST-BROADBAND vlan-id=3503
+add interface=sfp-sfpplus2 name=3504-DIST-FNA vlan-id=3504
 /interface list
 add name=backbone
-/ppp profile
-add change-tcp-mss=yes dns-server=10.202.0.130,103.19.56.11 local-address=\
-    103.143.244.1 name=50Mbps-Broadband use-compression=yes use-encryption=no \
-    use-mpls=no
 /queue simple
 add disabled=yes max-limit=20M/20M name=\
     "DEDICATED - Corporate Akper Muhammadiyah" target=103.19.57.18/32
@@ -221,14 +163,11 @@ add disabled=yes max-limit=20M/20M name="DEDICATED - Corporate Telering" \
     target=103.19.57.116/30
 add disabled=yes max-limit=5M/5M name="DEDICATED - Corporate Titipan Kilat" \
     target=103.19.57.26/32
-add max-limit=7M/7M name="SOHO Customer IIX Only IMY" target=\
-    901-IIX-ONLY-IMY,902-IIX-ONLY-IMY-TERISI
 add disabled=yes max-limit=100M/100M name=BOD-ASTON target=172.16.3.12/30
 add disabled=yes max-limit=150M/150M name=bakung target=172.16.11.4/30
-add disabled=yes max-limit=3M/3M name="Customer PDA " parent=\
-    "SOHO Customer IIX Only IMY" target=172.16.3.16/30,172.16.3.20/30
-add disabled=yes max-limit=50M/50M name="SOHO Customer Subagja" target=\
-    172.16.2.80/30
+add disabled=yes max-limit=3M/3M name="Customer PDA " target=\
+    172.16.3.16/30,172.16.3.20/30
+add max-limit=50M/50M name="SOHO Customer Subagja" target=172.16.2.80/30
 add disabled=yes max-limit=400M/400M name="DEDICATED - Goverment DKIS Bypass" \
     target=103.19.58.128/30
 add disabled=yes max-limit=30M/30M name="DEDICATED - Hotel Amaris Cirebon" \
@@ -267,7 +206,7 @@ add disabled=yes dst=103.19.56.0/27 max-limit=1G/1G name="Office To VPS JKT" \
     priority=1/1 target=103.19.57.146/32 total-priority=1
 add disabled=yes max-limit=100M/100M name="Office To INTERNET" target=\
     103.19.57.146/32
-add max-limit=20M/20M name="SOHO 5M - PENDIDIKAN" target=\
+add comment="Awal 20M" max-limit=40M/40M name="SOHO 5M - PENDIDIKAN" target=\
     172.16.2.168/30,172.16.2.20/30,172.16.2.16/30,172.16.2.200/30
 add burst-limit=50M/50M burst-threshold=19M/19M burst-time=1m30s/1m30s \
     disabled=yes max-limit=20M/20M name="DEDICATED - Radio Qu" target=\
@@ -290,17 +229,15 @@ add max-limit=10M/10M name="SOHO 5M - SDN Cadasngampar" parent=\
     "SOHO 5M - PENDIDIKAN" target=172.16.2.200/30
 add max-limit=3M/3M name="SOHO 5M - SDN Lebakngok" parent=\
     "SOHO 5M - PENDIDIKAN" target=172.16.2.20/30
-add max-limit=10M/10M name="SOHO 5M - SDN Sumurwuni" parent=\
-    "SOHO 5M - PENDIDIKAN" target=172.16.2.168/30
+add comment="BOD 30M Awal 10M" max-limit=10M/10M name=\
+    "SOHO 5M - SDN Sumurwuni" parent="SOHO 5M - PENDIDIKAN" target=\
+    172.16.2.168/30
 add max-limit=5M/5M name="SOHO 5M - Sarewu" parent="SOHO 5M GROUP-1" target=\
     172.16.2.92/30
 add max-limit=5M/5M name="SOHO 5M - Danalampah" parent="SOHO 5M GROUP-1" \
     target=172.16.2.84/30
-add max-limit=3M/3M name="SOHO 3M - Maman Puri" parent="SOHO 3M - GROUP1" \
-    target=172.16.1.32/30
-add max-limit=5M/5M name="SOHO 5M - Al Maun" parent="SOHO 5M GROUP-1" target=\
-    172.16.2.4/30
-add max-limit=40M/40M name=Riyana target=172.16.11.0/30
+add disabled=yes max-limit=4M/4M name="BEDULAN - Riyana" target=\
+    172.16.50.0/30
 add disabled=yes max-limit=300M/300M name="IMY - FANDY" target=\
     103.19.57.96/30
 add max-limit=20M/20M name="SOHO 10M - Bahama Rotan" parent=\
@@ -315,24 +252,24 @@ add comment="BOD 100M" max-limit=35M/35M name="SOHO 10M - Hotel Sutan Raja" \
     parent="SOHO 10M GROUP-1" target=103.19.57.23/32
 add max-limit=10M/10M name="SOHO 10M - Sanawi" parent="SOHO 10M GROUP-2" \
     target=172.16.2.96/30
-add max-limit=1M/1M name="SOHO - Corporate BTN Kc Cirebon" target=\
-    172.16.1.66/32
+add max-limit=3M/3M name="DEDICATED - BTN KC Cirebon" target=172.16.1.66/32
 add disabled=yes max-limit=45M/45M name="DEDICATED - Hotel Metland Cirebon" \
     target=103.19.57.21/32
-add disabled=yes max-limit=10M/10M name="DEDICATED - BMT Albahjah" target=\
-    103.19.57.27/32
 add disabled=yes max-limit=300M/300M name="IMY - SUARDI" target=\
     103.19.57.244/30
+add disabled=yes max-limit=10M/10M name="DEDICATED - BMT Albahjah" target=\
+    103.19.57.27/32
 add disabled=yes max-limit=50M/50M name="Home - Ni'am" target=\
     103.19.57.255/32
-add disabled=yes limit-at=15M/15M max-limit=30M/30M name=YOGI parent=\
+add limit-at=15M/15M max-limit=30M/30M name="SOHO YOGI" parent=\
     "SOHO 30M GROUP-1" target=172.16.1.212/30
-add disabled=yes limit-at=15M/15M max-limit=20M/20M name=POS-SATPAM-MTH \
-    parent="SOHO 30M GROUP-1" target=172.16.1.220/30
+add limit-at=15M/15M max-limit=20M/20M name="SOHO POS-SATPAM-MTH" parent=\
+    "SOHO 30M GROUP-1" target=172.16.1.220/30
 add disabled=yes max-limit=20M/20M name="DEDICATED - Cecep Site Cempaka" \
     target=103.19.57.11/32
 add disabled=yes max-limit=205M/205M name="DEDICATED - Hotel Aston" target=\
     103.19.57.36/30
+add max-limit=22M/22M name="ITB WATUBELAH" target=103.19.57.46/32
 /queue type
 add kind=pfifo name=Critical pfifo-limit=128
 /queue simple
@@ -341,8 +278,6 @@ add disabled=yes max-limit=100M/100M name=1.ICMP packet-marks=\
     103.19.56.0/22,10.0.0.0/16,172.16.0.0/16 total-queue=Critical
 /routing bgp instance
 set default disabled=yes
-add as=132637 client-to-client-reflection=no name=BITSNET router-id=\
-    103.143.244.124
 /routing ospf instance
 set [ find default=yes ] redistribute-connected=as-type-2 \
     redistribute-static=as-type-2 router-id=103.19.56.151
@@ -378,8 +313,6 @@ add address=172.16.1.13/30 interface=tun10-ivansutanto network=172.16.1.12
 add address=172.16.1.21/30 interface=tun12-karantina network=172.16.1.20
 add address=10.10.10.33/29 interface=235-CDH-TELERING network=10.10.10.32
 add address=10.10.10.41/29 interface=207-CDH-RADIOQU network=10.10.10.40
-add address=172.16.1.29/30 interface=tun07-almaun network=172.16.1.28
-add address=172.16.1.33/30 interface=tun09-mamanpuri network=172.16.1.32
 add address=172.16.1.17/30 interface=tun13-danalampah network=172.16.1.16
 add address=172.16.1.201/30 interface=201-LEBAKNGOK network=172.16.1.200
 add address=172.16.1.193/30 interface=tun14-Bagja network=172.16.1.192
@@ -392,31 +325,30 @@ add address=10.10.10.185/29 interface=223-CDH-KEJARBANK network=10.10.10.184
 add address=10.10.10.97/29 interface=237-CDH-PT-ANUGRAH network=10.10.10.96
 add address=10.10.10.249/30 interface=224-CDH-OFFICE network=10.10.10.248
 add address=10.10.10.253/30 interface=225-CDH-MTH network=10.10.10.252
-add address=10.10.10.201/29 comment=dismantle disabled=yes interface=\
-    219-CDH-MAKRUSMOTOR network=10.10.10.200
 add address=10.10.10.65/29 interface=228-CDH-PURIMULYA network=10.10.10.64
 add address=172.16.1.25/30 interface=tun08-Mansur network=172.16.1.24
 add address=10.10.10.225/29 interface=232-CDH-ASTON-BACKUP network=\
     10.10.10.224
 add address=10.10.10.145/29 interface=222-CDH-AMARISHOTEL network=\
     10.10.10.144
-add address=10.202.0.5/30 comment="IP MGT-SW-NEXUS" interface=100-SW-JUNIPER \
-    network=10.202.0.4
+add address=10.202.0.5/30 comment="IP MGT-SW-NEXUS" interface=\
+    100-MGT-SW-NEXUS network=10.202.0.4
 add address=10.10.10.137/29 interface=238-CDH-MITRA10 network=10.10.10.136
 add address=103.19.56.250/30 comment="IP FIBERSTAR" interface=1510-FIBERSTAR \
     network=103.19.56.248
 add address=10.10.10.233/29 interface=240-CDH-GRONGGONG network=10.10.10.232
 add address=10.200.0.1/24 comment="IP AP-CDH" interface=sfp-sfpplus2 network=\
     10.200.0.0
-add address=10.0.0.10 interface=loopback network=10.0.0.10
+add address=10.0.0.10 comment=LOOPBACK-PRTG interface=loopback network=\
+    10.0.0.10
 add address=10.202.0.1/30 interface=98-MGT-SWITCH-MTH network=10.202.0.0
 add address=172.16.1.45/30 interface=tun04-gronggong-backup-cambium network=\
     172.16.1.44
-add address=103.19.57.105/30 interface=1200-MTH network=103.19.57.104
-add address=103.19.57.241/30 interface=242-GOESAR-AMARISHOTEL network=\
+add address=103.19.57.105/30 interface=1200-AGENG-MTH network=103.19.57.104
+add address=103.19.57.241/29 interface=242-GOESAR-AMARISHOTEL network=\
     103.19.57.240
 add address=10.10.10.153/29 interface=244-CDH-SUMURWUNI network=10.10.10.152
-add address=10.202.0.129/25 interface=102-LOCAL-VPS-CRB network=10.202.0.128
+add address=10.0.1.1/24 interface=152-IP-PRIVATE-VPS-CRB network=10.0.1.0
 add address=10.202.0.9/30 interface=101-MGT-VPS-CRB network=10.202.0.8
 add address=10.10.11.33/29 interface=800-MW-GRG-HUAWEI network=10.10.11.32
 add address=172.16.1.57/30 interface=tun01-gronggong-main-microwave network=\
@@ -426,128 +358,45 @@ add address=172.16.1.61/30 interface="tun03-albahjah(backup)" network=\
 add address=103.19.56.218/30 comment="IP IFORTE" interface=1513-IFORTE-NEW \
     network=103.19.56.216
 add address=172.16.1.85/30 interface=tun15-sapadia network=172.16.1.84
-add address=103.19.57.149/30 disabled=yes network=103.19.57.148
-add address=10.10.11.49/29 comment="IP CERAGON KERTASMAYA <> CDH" disabled=\
-    yes interface=801-MGT-CERA-CDH-IMY network=10.10.11.48
-add address=103.19.57.161/30 disabled=yes interface=\
-    "812-IMY-TARUNA VIA BTS JTB" network=103.19.57.160
-add address=172.16.3.1/30 interface=902-IIX-ONLY-IMY-TERISI network=\
-    172.16.3.0
-add address=103.19.57.165/30 disabled=yes interface=806-IMY-CECEP network=\
-    103.19.57.164
-add address=103.19.57.201/30 disabled=yes interface=817-IMY-KRISYANTO-VIA-JTB \
-    network=103.19.57.200
 add address=172.16.1.9/30 interface=tun16-sanawi network=172.16.1.8
-add address=103.19.57.137/30 disabled=yes interface=822-IMY-HARDI-VIA-JTB \
-    network=103.19.57.136
 add address=10.202.0.13/30 interface=90-MGT-SW-DKIS network=10.202.0.12
-add address=103.19.58.129/30 disabled=yes interface=257-GOESAR-DKIS network=\
-    103.19.58.128
-add address=192.168.99.5/24 disabled=yes interface=806-IMY-CECEP network=\
-    192.168.99.0
-add address=10.10.11.57/29 comment="IP CERAGON TERISI <> IMY" interface=\
-    798-MGT-CERA-TERISI network=10.10.11.56
-add address=103.19.57.137/30 disabled=yes interface=808-IMY-HARDI network=\
-    103.19.57.136
-add address=10.10.11.65/29 comment="IP CERAGON PATROL <> TERISI" interface=\
-    797-MGT-CERA-PATROL network=10.10.11.64
-add address=103.19.57.109/30 disabled=yes interface=809-IMY-WARIDI network=\
-    103.19.57.108
-add address=10.202.0.17/30 comment="IP MGT SW KERTASMAYA" interface=\
-    99-MGT-SW-IMY network=10.202.0.16
-add address=10.202.0.21/30 comment="IP MGT SW TERISI" interface=\
-    97-MGT-SW-TERISI network=10.202.0.20
-add address=10.202.0.25/30 comment="IP MGT SW PATROL" interface=\
-    96-MGT-SW-PATROL network=10.202.0.24
-add address=172.16.1.173/30 comment=IMY-FANDY disabled=yes interface=\
-    811-IMY-FANDY network=172.16.1.172
-add address=103.19.57.225/30 comment=IMY-CANDRA disabled=yes interface=\
-    810-IMY-CANDRA network=103.19.57.224
 add address=172.16.1.65/30 interface=260-GOESAR-BTN-KC-CIREBON network=\
     172.16.1.64
-add address=172.16.1.37/30 disabled=yes interface=813-IMY-RB-MONITORING \
-    network=172.16.1.36
-add address=10.10.11.73/29 comment="IP CERAGON KERTASMAYA <> JATIBARANG" \
-    interface=795-MGT-CERA-JATIBARANG network=10.10.11.72
 add address=10.10.11.81/29 comment="IP CERAGON CDH <> KERTASMAYA - RIONET" \
     interface=796-MGT-CERA-IMY-RIONET network=10.10.11.80
-add address=10.202.0.29/30 comment="IP MGT SW JTB" disabled=yes interface=\
-    95-MGT-SW-JTB network=10.202.0.28
-add address=10.202.0.37/30 disabled=yes interface=95-MGT-SW-JTB network=\
-    10.202.0.36
 add address=10.203.1.1/30 comment=IP-MGT-SW-GUNTUR interface=\
     94-MGT-SW-SD-GUNTUR network=10.203.1.0
-add address=172.16.1.69/30 disabled=yes interface=805-IMY-RB-MON-TERISI \
-    network=172.16.1.68
-add address=10.10.11.85/30 disabled=yes interface=807-BPR-ASJAP-VIA-MICRO \
-    network=10.10.11.84
-add address=10.10.11.89/29 comment="IP CERAGON TERISI <> ANJATAN" disabled=\
-    yes interface=818-MGT-CERAGON-ANJATAN network=10.10.11.88
-add address=103.19.57.245/30 comment=IMY-SUARDI disabled=yes interface=\
-    819-IMY-SUARDI network=103.19.57.244
-add address=103.19.57.249/30 disabled=yes interface=820-IMY-YUSUP-VIA-JTB \
-    network=103.19.57.248
-add address=103.19.57.229/30 disabled=yes interface=212-CDH-ASTON network=\
-    103.19.57.228
 add address=103.19.57.8 disabled=yes interface=218-ALBAHJAHTV-AULA-FIX \
     network=103.19.57.13
 add address=10.10.10.57/30 interface=248-CDH-TSM network=10.10.10.56
 add address=10.202.0.41/30 interface=92-MGT-SW-CISCO-CDH network=10.202.0.40
-add address=172.16.1.213/30 disabled=yes network=172.16.1.212
-add address=103.19.57.185/30 disabled=yes interface=821-IMY-NURIN-VIA-JTB \
-    network=103.19.57.184
 add address=10.200.0.1/24 disabled=yes interface=223-CDH-KEJARBANK network=\
     10.200.0.0
 add address=172.16.1.73 interface=248-CDH-TSM network=172.16.1.74
 add address=10.10.10.49/29 interface=206-CDH-SAPADIAHOTEL network=10.10.10.48
 add address=172.16.1.217/30 interface=616-TIS-JASAMARGA network=172.16.1.216
-add address=10.254.224.1/30 interface=3501-MGT-JNP network=10.254.224.0
-add address=103.19.58.121/29 disabled=yes interface=816-IMY-NATA-VIA-JTB \
-    network=103.19.58.120
 add address=10.202.0.45/30 interface=91-MGT-SW-PURI network=10.202.0.44
-add address=10.202.0.33/30 disabled=yes interface=811-IMY-FANDY network=\
-    10.202.0.32
 add address=10.10.10.241/30 interface=208-OFFICE-CADASNGAMPAR network=\
     10.10.10.240
 add address=172.16.1.101/30 interface=tun11-jasamarga-backup network=\
     172.16.1.100
-add address=103.19.57.217/30 disabled=yes interface=233-CDH-KARANTINA \
-    network=103.19.57.216
 add address=10.10.11.49/29 comment="IP CERAGON KERTASMAYA <> CDH" interface=\
-    793-MGT-MW-CDH network=10.10.11.48
+    793-MGT-IDU-CDH network=10.10.11.48
 add address=103.19.57.8 comment="ENABLE IF FO GOESAR DOWN" disabled=yes \
     interface=211-CDH-AKPER network=103.19.57.18
-add address=103.19.56.49/30 disabled=yes interface=104-UPLINK-OLT network=\
-    103.19.56.48
-add address=172.16.1.105/30 interface=tun17-cempaka network=172.16.1.104
-add address=103.19.57.29/30 disabled=yes interface=223-CDH-KEJARBANK network=\
-    103.19.57.28
-add address=172.16.1.181/30 interface=tun19-bedulan network=172.16.1.180
+add address=10.10.10.169/29 interface=200-CDH-BEDULAN network=10.10.10.168
 add address=172.16.1.109/30 interface=tun18-kbl network=172.16.1.108
 add address=172.16.1.113/30 interface=217-DIST-ALBAHJAH-FIX network=\
     172.16.1.112
 add address=172.16.1.97/30 interface=207-CDH-RADIOQU network=172.16.1.96
-add address=10.0.100.1 comment=BMT-ALBAHJAH interface=\
+add address=10.0.100.1 comment=BMT-ALBAHJAH disabled=yes interface=\
     209-CDH-BMT-ALBAHJAH-BACKUP network=103.19.57.27
-add address=10.0.100.1 comment=ALBAHJAH-AULA interface=\
+add address=10.0.100.1 comment=ALBAHJAH-AULA disabled=yes interface=\
     210-CDH-ALBAHJAH-AULA-BACKUP network=103.19.57.13
-add address=10.10.10.121/29 interface="229-CDH CIPTA MANDIRI" network=\
-    10.10.10.120
-add address=192.168.99.5/24 interface=806-IMY-CECEP network=192.168.99.0
-add address=172.16.1.221/30 disabled=yes network=172.16.1.220
 add address=10.203.2.1/30 interface=245-MGT-OLT-BITSNET network=10.203.2.0
 add address=103.19.56.151 interface=loopback network=103.19.56.151
-add address=172.16.1.125/30 interface=1204-CCTV-MTH network=172.16.1.124
+add address=172.16.1.125/29 interface=1204-CCTV-MTH network=172.16.1.120
 add address=10.204.1.1/30 interface=907-MGT-OLT-PURI network=10.204.1.0
-add address=172.16.1.225/30 interface="814-TEST INET JATIBARANG" network=\
-    172.16.1.224
-add address=172.16.9.1/30 disabled=yes interface=238-CDH-MITRA10 network=\
-    172.16.9.0
-add address=10.10.10.97/29 disabled=yes interface=sfp-sfpplus2 network=\
-    10.10.10.96
-add address=103.19.56.89/30 comment=DKIS-DEDICATED disabled=yes interface=\
-    2010-BYPASS-DEDICATED-IX-IIX network=103.19.56.88
-add address=172.16.1.197/30 interface=803-IMY-RIONET network=172.16.1.196
 add address=172.16.3.5/30 interface=401-ASTON-CRB network=172.16.3.4
 add address=10.192.1.1/30 disabled=yes interface=251-GOESAR-AKPER network=\
     10.192.1.0
@@ -557,13 +406,10 @@ add address=10.10.192.1/30 comment=DKIS-IP-LOCALLOOP-SUDARSONO interface=\
     2004-DKIS-SUDARSONO-LOCALLOOP network=10.10.192.0
 add address=10.10.192.5/30 comment=DKIS-IP-LOCALLOOP-BYPASS interface=\
     2001-DKIS-BROADBAND network=10.10.192.4
-add address=192.168.0.1/24 interface=222-CDH-AMARISHOTEL network=192.168.0.0
 add address=172.16.1.249/30 interface=710-KERTASMAYA network=172.16.1.248
 add address=172.16.1.253/30 interface=711-KERTASMAYA network=172.16.1.252
 add address=103.19.57.8 interface=93-MGT-RO-IPTV network=103.19.57.9
 add address=103.19.57.8 interface=202-CDH-BAHAMA network=103.19.57.16
-add address=103.19.57.8 disabled=yes interface=239-CDH-CORE-BPR network=\
-    103.19.57.6
 add address=103.19.57.8 comment="ENABLE IF GOESAR UP" interface=\
     250-GOESAR-AL-BAHJAH-TV network=103.19.57.12
 add address=103.19.57.8 interface=906-FTTH-PURIMULYA network=103.19.57.14
@@ -583,15 +429,33 @@ add address=103.19.57.8 comment=DKIS-DEDICATED-IX interface=\
     2010-BYPASS-DEDICATED-IX-IIX network=103.19.57.35
 add address=172.16.3.13/30 interface=268-ITB-WATUBELAH network=172.16.3.12
 add address=103.19.57.8 interface=238-CDH-MITRA10 network=103.19.57.10
-add address=103.143.244.124 interface=3000-FNA-NODE-CIREBON network=\
-    103.143.244.125
 add address=172.16.1.185/30 interface=tun20-bakung network=172.16.1.184
-add address=103.19.57.8 interface=3502-DIST-SOHO-CIREBON network=103.19.57.32
 add address=172.16.1.53/30 interface=267-GOESAR-BOD-SUNYARAGI network=\
     172.16.1.52
 add address=103.143.244.1/30 comment="PTP BROADBAND" interface=\
     3503-DIST-BROADBAND network=103.143.244.0
 add address=172.16.1.213/30 interface=1202-YOGI-MTH network=172.16.1.212
+add address=10.201.0.1/30 interface=150-IP-MTIK-VPS-CRB network=10.201.0.0
+add address=103.19.57.1/29 interface=151-IP-PUBLIK-VPS-CRB network=\
+    103.19.57.0
+add address=103.19.57.8 interface=268-ITB-WATUBELAH network=103.19.57.46
+add address=172.16.3.17/30 disabled=yes interface=204-CDH-ITB-WATUBELAH \
+    network=172.16.3.16
+add address=10.10.11.41/29 interface=204-CDH-ITB-WATUBELAH network=\
+    10.10.11.40
+add address=10.10.10.73/30 interface=211-CDH-AKPER network=10.10.10.72
+add address=10.10.192.9/30 comment=DKIS-IP-LOCALLOOP-BYPASS interface=\
+    2001-DKIS-BROADBAND network=10.10.192.8
+add address=172.18.12.1/29 comment="IP FIBERSTAR DUMMY" interface=\
+    1510-FIBERSTAR network=172.18.12.0
+add address=172.16.1.29/30 comment=Inet-SBP disabled=yes interface=\
+    2003-FNA-SBP network=172.16.1.28
+add address=172.16.51.1/24 interface=203-CDH-ITB-ARJAWINANGUN network=\
+    172.16.51.0
+add address=103.19.57.8 interface=252-GOESAR-BENTANI network=103.19.57.47
+add address=103.19.56.229/30 interface=3504-DIST-FNA network=103.19.56.228
+add address=172.16.1.1/30 comment="INET  BEDULAN" interface=tun19-bedulan \
+    network=172.16.1.0
 /ip dhcp-client
 add interface=sfp-sfpplus1
 /ip dns
@@ -1263,53 +1127,60 @@ add address=172.16.1.218 comment=JASMAR list=ip-soho
 add address=10.10.10.224/29 comment=ASTON list=ip-soho
 add address=10.200.0.16 comment=ASTON list=ip-soho
 add address=172.16.1.52/30 comment="BOD SUNYARAGI" list=ip-soho
+add address=10.0.1.0/24 comment="IP PRIVATE VPS CIREBON" disabled=yes list=\
+    ip-soho
+add address=10.1.0.0/24 comment=IP-VPS-CRB list=ip-vps-crb
+add address=172.16.1.204/30 comment="PPP OFFICE" list=ip-oo
+add address=172.16.3.16/30 comment=BACKUP-ITB list=ip-soho
+add address=172.16.1.30 comment=SBP list=ip-soho
+add address=103.19.58.115 comment=MITRACOM list=whitelist
 /ip firewall filter
-add action=accept chain=forward dst-port=25 protocol=tcp src-address-list=\
-    whitelist
-add action=accept chain=forward disabled=yes dst-port=25 protocol=udp \
-    src-address-list=whitelist
-add action=accept chain=forward dst-address-list=whitelist dst-port=25 \
-    protocol=tcp
-add action=accept chain=forward disabled=yes dst-address-list=whitelist \
-    dst-port=25 protocol=udp
-add action=drop chain=forward comment="Block Flooding Kejar" dst-port=\
-    22,23,8728,8729 protocol=tcp src-address=103.19.57.28/30
-add action=drop chain=input dst-port=53 protocol=tcp
-add action=drop chain=input dst-port=53 protocol=udp
 add action=drop chain=forward comment=\
-    "1. Dont disable/delete please, blok spammer" dst-port=25 protocol=tcp \
-    src-address-list=!whitelist
+    "2. Dont disable/delete please, blok spammer" dst-address-list=!whitelist \
+    dst-port=25 protocol=tcp
 add action=drop chain=forward comment=\
-    "2. Dont disable/delete please, blok spammer" dst-port=25 protocol=udp \
-    src-address-list=!whitelist
+    "1. Dont disable/delete please, blok spammer" disabled=yes dst-port=25 \
+    protocol=tcp src-address-list=!whitelist
 add action=drop chain=forward comment="Malware Ransomware Type WannaCRY" \
     dst-port=137-139,445,3127,5678 protocol=tcp
 add action=drop chain=forward comment="Malware Ransomware Type WannaCRY" \
     dst-port=137-139,445,3127,5678 protocol=udp
+add action=drop chain=forward comment="Block Flooding Kejar" dst-port=\
+    22,23,8728,8729 protocol=tcp src-address=103.19.57.28/30
 add action=add-src-to-address-list address-list=port_scanners \
     address-list-timeout=4w2d chain=input comment=\
-    "Add TCP Port Scanners to List" protocol=tcp psd=21,3s,3,1
+    "Add TCP Port Scanners to List" disabled=yes protocol=tcp psd=21,3s,3,1
 add action=add-src-to-address-list address-list=port_scanners \
     address-list-timeout=4w2d chain=input comment="TCP FIN Stealth scan" \
-    protocol=tcp tcp-flags=fin,!syn,!rst,!psh,!ack,!urg
+    disabled=yes protocol=tcp tcp-flags=fin,!syn,!rst,!psh,!ack,!urg
 add action=add-src-to-address-list address-list=port_scanners \
     address-list-timeout=4w2d chain=input comment="TCP FIN/PSH/URG scan" \
-    protocol=tcp tcp-flags=fin,psh,urg,!syn,!rst,!ack
+    disabled=yes protocol=tcp tcp-flags=fin,psh,urg,!syn,!rst,!ack
 add action=add-src-to-address-list address-list=port_scanners \
     address-list-timeout=4w2d chain=input comment="ALL/ALL TCP Scan" \
-    protocol=tcp tcp-flags=fin,syn,rst,psh,ack,urg
+    disabled=yes protocol=tcp tcp-flags=fin,syn,rst,psh,ack,urg
 add action=add-src-to-address-list address-list=port_scanners \
     address-list-timeout=4w2d chain=input comment="TCP SYN/RST scan" \
-    protocol=tcp tcp-flags=syn,rst
+    disabled=yes protocol=tcp tcp-flags=syn,rst
 add action=add-src-to-address-list address-list=port_scanners \
-    address-list-timeout=4w2d chain=input comment="TCP NULL scan" protocol=\
-    tcp tcp-flags=!fin,!syn,!rst,!psh,!ack,!urg
-add action=drop chain=input comment="Drop All Port Scanners" \
+    address-list-timeout=4w2d chain=input comment="TCP NULL scan" disabled=\
+    yes protocol=tcp tcp-flags=!fin,!syn,!rst,!psh,!ack,!urg
+add action=drop chain=input comment="Drop All Port Scanners" disabled=yes \
     src-address-list=port_scanners
-add action=drop chain=forward comment="Enable if Floading Fandy isn't up" \
-    disabled=yes dst-address=103.19.57.96/29 dst-port=53 protocol=udp
 add action=drop chain=forward comment="Drop ru-cn" src-address-list=ru-cn
 /ip firewall mangle
+add action=accept chain=prerouting comment=\
+    "OFFICE-CIREBON TO NETWORK-BITSNET POSISI DIATAS MARK-ROUTING" disabled=\
+    yes dst-address=103.19.56.0/22 src-address=103.19.57.146
+add action=accept chain=prerouting disabled=yes dst-address=192.168.0.0/16 \
+    src-address=103.19.57.146
+add action=accept chain=prerouting disabled=yes dst-address=172.16.0.0/12 \
+    src-address=103.19.57.146
+add action=accept chain=prerouting disabled=yes dst-address=10.0.0.0/8 \
+    src-address=103.19.57.146
+add action=mark-routing chain=prerouting comment="OFFICE-CIREBON VIA IFORTE" \
+    disabled=yes new-routing-mark=TO_IFORTE passthrough=no src-address=\
+    103.19.57.146
 add action=mark-connection chain=postrouting comment="TRAP ICMP CONN" \
     disabled=yes new-connection-mark=ICMP passthrough=yes protocol=icmp
 add action=mark-packet chain=forward comment="ICMP DOWN" connection-mark=ICMP \
@@ -1333,12 +1204,9 @@ add action=dst-nat chain=dstnat comment="nat to cloudflare" disabled=yes \
     dst-port=53 nth=2,1 protocol=udp to-addresses=1.1.1.1 to-ports=53
 add action=dst-nat chain=dstnat disabled=yes dst-port=53 protocol=udp \
     to-addresses=1.0.0.1 to-ports=53
-add action=src-nat chain=srcnat comment="nat-vps Via Iforte" \
-    src-address-list=ip-vps-crb to-addresses=103.19.56.151
-add action=src-nat chain=srcnat comment="nat-vps Via Fiberstar" \
-    src-address-list=ip-vps-crb to-addresses=103.19.56.151
-add action=src-nat chain=srcnat comment="nat soho via loopback" \
-    src-address-list=ip-soho to-addresses=103.19.56.151
+add action=src-nat chain=srcnat comment="nat soho via 57.1" \
+    out-interface-list=backbone src-address-list=ip-soho to-addresses=\
+    103.19.56.151
 add action=dst-nat chain=dstnat comment=\
     "NAT HOTSPOT AMARIS - ENGINER REQUEST (SAAT FO CUT)" disabled=yes \
     dst-address=103.19.57.145 dst-port=8728 protocol=tcp to-addresses=\
@@ -1398,35 +1266,20 @@ add action=dst-nat chain=dstnat dst-address=103.19.56.218 dst-port=4569 \
 add action=dst-nat chain=dstnat comment=\
     "DST NAT ROUTER DKIS PUSAT (SUDARSONO)" dst-address=103.19.56.218 \
     dst-port=62761 protocol=tcp to-addresses=10.10.192.2 to-ports=62761
-/ip firewall raw
-add action=accept chain=prerouting comment=tes disabled=yes dst-address=\
-    103.19.56.12 protocol=gre src-address=172.16.111.0/30
-add action=accept chain=prerouting disabled=yes dst-address=103.19.56.12 \
-    dst-port=1723 protocol=tcp src-address=172.16.111.0/30
-add action=accept chain=prerouting disabled=yes dst-address=103.19.56.0/22 \
-    src-address=172.16.111.0/30
-add action=accept chain=prerouting disabled=yes protocol=icmp src-address=\
-    172.16.111.0/30
-add action=drop chain=prerouting disabled=yes src-address=172.16.111.0/30
-add action=drop chain=prerouting disabled=yes dst-address-list=YOUTUBE \
-    src-address=172.16.3.8/30
-add action=drop chain=prerouting content=youtube.com disabled=yes \
-    src-address=172.16.3.8/30
-add action=drop chain=prerouting disabled=yes dst-address-list=fb-wa-ig \
-    src-address=172.16.3.8/30
-add action=drop chain=prerouting content=facebook.com disabled=yes \
-    src-address=172.16.3.8/30
-add action=drop chain=prerouting disabled=yes dst-address-list=YOUTUBE \
-    src-address=172.16.3.12/30
-add action=drop chain=prerouting content=youtube.com disabled=yes \
-    src-address=172.16.3.12/30
-add action=drop chain=prerouting disabled=yes dst-address-list=fb-wa-ig \
-    src-address=172.16.3.12/30
-add action=drop chain=prerouting content=facebook.com disabled=yes \
-    src-address=172.16.3.12/30
-add action=accept chain=prerouting disabled=yes protocol=tcp src-address=\
-    103.19.57.28/30 src-port=21,22,23,8728,8729
+add action=dst-nat chain=dstnat dst-address=103.19.56.218 dst-port=9080 \
+    protocol=tcp to-addresses=172.16.1.126 to-ports=8000
+add action=dst-nat chain=dstnat comment=RO-BEDULAN dst-address=103.19.56.218 \
+    dst-port=6969 protocol=tcp to-addresses=172.16.50.2 to-ports=8291
+add action=dst-nat chain=dstnat comment="ap beduland" dst-address=\
+    103.19.56.218 dst-port=6970 protocol=tcp to-addresses=10.10.10.170 \
+    to-ports=8291
+add action=dst-nat chain=dstnat dst-address=103.19.56.218 dst-port=9081 \
+    protocol=tcp to-addresses=10.255.1.2 to-ports=8291
 /ip route
+add comment="Network Via Fiberstar" disabled=yes distance=1 gateway=\
+    103.19.56.249 routing-mark=TO_FIBERSTAR
+add comment="Network Via Iforte" disabled=yes distance=1 gateway=\
+    103.19.56.217 routing-mark=TO_IFORTE
 add comment="Backup Via Fiberstar" distance=1 gateway=\
     103.19.56.249,103.19.56.217
 add comment="Route to Purimulya" distance=1 dst-address=10.2.0.0/16 gateway=\
@@ -1445,7 +1298,6 @@ add check-gateway=ping comment="Route to Gronggong via Microwave" distance=1 \
     dst-address=10.5.13.0/24 gateway=103.19.56.217
 add comment="ROUTE LOCALLOOP DKIS" disabled=yes distance=1 dst-address=\
     10.10.1.0/24 gateway=10.10.192.6
-add distance=1 dst-address=10.10.10.152/29 gateway=103.19.57.32
 add comment="ROUTE DKIS LOCALLOOP" disabled=yes distance=1 dst-address=\
     10.10.74.0/24 gateway=10.10.192.6
 add comment="ROUTE DKIS LOCALLOOP" disabled=yes distance=1 dst-address=\
@@ -1453,21 +1305,21 @@ add comment="ROUTE DKIS LOCALLOOP" disabled=yes distance=1 dst-address=\
 add check-gateway=ping distance=1 dst-address=10.99.1.1/32 gateway=\
     172.16.1.250
 add distance=1 dst-address=10.203.0.0/30 gateway=103.143.244.2
-add disabled=yes distance=1 dst-address=10.203.2.0/30 gateway=103.19.56.50
-add distance=1 dst-address=10.204.1.0/30 gateway=103.19.57.14
 add comment="RB TEST UDIDAW" distance=1 dst-address=10.253.1.230/32 gateway=\
     103.19.57.146
 add comment="RB MON LISTRIK KANTOR CRB" distance=1 dst-address=\
     10.253.1.236/32 gateway=103.19.57.146
+add disabled=yes distance=1 dst-address=27.131.4.0/24 gateway=10.10.100.3
 add comment="Route to BBWS" distance=1 dst-address=103.19.56.200/29 gateway=\
     10.10.10.162
+add check-gateway=ping comment="Route To IP Public VPS Cirebon" distance=1 \
+    dst-address=103.19.57.0/29 gateway=10.201.0.2
 add check-gateway=ping comment=CEMPAKA distance=1 dst-address=103.19.57.11/32 \
     gateway=172.16.1.58
 add comment="Albahjah TV backup Via GRG" distance=1 dst-address=\
     103.19.57.12/32 gateway=172.16.1.62
 add comment="Route to Albahjah Aula" distance=1 dst-address=103.19.57.13/32 \
     gateway=172.16.1.114
-add distance=2 dst-address=103.19.57.13/32 gateway=172.16.1.114
 add comment="Route to Akper Via CDH" distance=1 dst-address=103.19.57.18/32 \
     gateway=10.10.10.74
 add distance=1 dst-address=103.19.57.20/32 gateway=172.16.1.114
@@ -1477,8 +1329,8 @@ add check-gateway=ping comment="Route to Tiki" distance=1 dst-address=\
     103.19.57.26/32 gateway=10.10.11.34
 add comment="Route to Tiki" distance=2 dst-address=103.19.57.26/32 gateway=\
     10.10.10.235
-add comment="Route to BMT Albahjah" distance=1 dst-address=103.19.57.27/32 \
-    gateway=172.16.1.114
+add check-gateway=ping comment="Route to BMT Albahjah" distance=1 \
+    dst-address=103.19.57.27/32 gateway=172.16.1.114
 add comment="Route to Kejar" distance=1 dst-address=103.19.57.28/30 gateway=\
     10.10.10.186
 add check-gateway=ping comment="Route To KBL" distance=1 dst-address=\
@@ -1487,12 +1339,12 @@ add check-gateway=ping comment="Route To KBL" distance=2 dst-address=\
     103.19.57.33/32 gateway=10.10.11.34
 add comment="Route To KBL" distance=3 dst-address=103.19.57.33/32 gateway=\
     10.10.10.235
-add comment="Route To Hotel Aston" distance=1 dst-address=103.19.57.36/30 \
-    gateway=172.16.3.6
 add check-gateway=ping distance=1 dst-address=103.19.57.45/32 gateway=\
     172.16.1.250,172.16.1.254
-add comment="Route to Sapadia" distance=1 dst-address=103.19.57.54/32 \
-    gateway=172.16.1.86
+add comment="Route To Hotel Aston" distance=1 dst-address=103.19.57.48/29 \
+    gateway=172.16.3.6
+add comment="Route to Sapadia" disabled=yes distance=1 dst-address=\
+    103.19.57.54/32 gateway=172.16.1.86
 add check-gateway=ping comment="Route to Jasamarga Via TIS" distance=1 \
     dst-address=103.19.57.76/30 gateway=172.16.1.218
 add check-gateway=ping comment="Route to Jasamarga / Backup Wireless" \
@@ -1503,6 +1355,8 @@ add comment="Route to Cendana " distance=1 dst-address=103.19.57.112/30 \
     gateway=10.10.10.90
 add comment="Route to telering new" distance=1 dst-address=103.19.57.116/30 \
     gateway=10.10.10.35
+add comment="Route to Cendana " distance=1 dst-address=103.19.57.124/30 \
+    gateway=10.10.10.90
 add check-gateway=ping distance=1 dst-address=103.19.57.148/30 gateway=\
     172.16.1.250,172.16.1.254
 add distance=1 dst-address=103.19.57.164/30 gateway=172.16.1.250,172.16.1.254
@@ -1515,17 +1369,15 @@ add comment="Route to Karantina" distance=1 dst-address=103.19.57.216/30 \
 add comment="KHAS KEMPEK" distance=1 dst-address=103.19.57.228/32 gateway="172\
     .16.1.250,172.16.1.250,172.16.1.250,172.16.1.254,172.16.1.254,172.16.1.254\
     "
-add check-gateway=ping comment="Route to Ni'am 1" distance=1 dst-address=\
-    103.19.57.255/32 gateway=172.16.1.58
-add check-gateway=ping comment="Route to Ni'am 2" distance=2 dst-address=\
-    103.19.57.255/32 gateway=172.16.1.46
 add check-gateway=ping comment="Route to Ni'am 3" distance=3 dst-address=\
     103.19.57.255/32 gateway=10.10.11.34
 add comment="Route to Ni'am 3" distance=4 dst-address=103.19.57.255/32 \
     gateway=10.10.10.235
+add check-gateway=ping comment="Route to Ni'am 1" disabled=yes distance=1 \
+    dst-address=103.19.57.255/32 gateway=172.16.1.58
+add check-gateway=ping comment="Route to Ni'am 2" disabled=yes distance=2 \
+    dst-address=103.19.57.255/32 gateway=172.16.1.46
 add distance=1 dst-address=103.105.142.0/24 gateway=103.19.57.35
-add comment="Route To FNA Node" distance=1 dst-address=103.143.245.128/26 \
-    gateway=103.143.244.125
 add distance=1 dst-address=172.16.1.36/30 gateway=172.16.1.250,172.16.1.254
 add distance=1 dst-address=172.16.1.68/30 gateway=103.19.56.217
 add check-gateway=ping distance=1 dst-address=172.16.1.120/30 gateway=\
@@ -1582,16 +1434,16 @@ add check-gateway=ping comment="Route To Amaris Wireless" distance=2 \
     dst-address=172.16.2.208/30 gateway=10.10.10.146
 add comment="Route To Camera Purimulya" distance=1 dst-address=\
     172.16.2.212/30 gateway=103.19.57.14
+add comment="Route to Backup ITB" distance=1 dst-address=172.16.3.16/30 \
+    gateway=10.10.11.42
 add comment=RB-MONITORING-PURI distance=1 dst-address=172.16.10.0/30 gateway=\
     103.19.57.14
-add comment=BEDULAN distance=1 dst-address=172.16.11.0/30 gateway=\
-    172.16.1.182
+add comment=BEDULAN distance=1 dst-address=172.16.11.0/30 gateway=172.16.1.2
 add comment=BAKUNG distance=1 dst-address=172.16.11.4/30 gateway=10.10.11.34
 add comment=RouteAPt-Dirgantara disabled=yes distance=1 dst-address=\
     192.168.11.2/32 gateway=172.16.3.2
 add comment=Route-St-dirgantara disabled=yes distance=1 dst-address=\
     192.168.11.20/32 gateway=172.16.3.2
-add distance=1 dst-address=192.168.111.0/24 gateway=10.202.0.130
 /ip service
 set telnet address=103.19.56.0/22,103.143.244.0/23 port=9989
 set ftp address=103.19.56.0/22,103.143.244.0/23 disabled=yes port=9987
@@ -1609,6 +1461,8 @@ set use-radius=yes
 /ppp secret
 add disabled=yes local-address=192.168.10.2 name=ppp1 remote-address=\
     192.168.10.1
+add local-address=172.16.1.205 name=office password=office remote-address=\
+    172.16.1.206
 /radius
 add address=103.19.56.9 secret=fibertrust2020 service=ppp,dhcp
 /radius incoming
@@ -1620,10 +1474,6 @@ add network=103.19.58.0/24 synchronize=no
 add network=103.19.59.0/24 synchronize=no
 add network=103.143.244.0/24 synchronize=no
 add network=103.143.245.0/24 synchronize=no
-/routing bgp peer
-add in-filter=EBGP-FNA-in instance=BITSNET multihop=yes name=EBGP-FNA \
-    nexthop-choice=force-self out-filter=EBGP-FNA-out remote-address=\
-    103.143.245.144 remote-as=63293 remove-private-as=yes ttl=default
 /routing filter
 add action=discard chain=Droplist comment=DROPLIST disabled=yes prefix=\
     10.0.0.0/8 prefix-length=8-32
@@ -1659,33 +1509,19 @@ add action=accept chain=ospf-out prefix=103.143.244.0/24 prefix-length=24-32
 add action=accept chain=ospf-out prefix=103.143.245.0/24 prefix-length=24-32
 add action=accept chain=ospf-out prefix=103.105.142.0/24 prefix-length=24-32
 add action=discard chain=ospf-out
-add action=discard chain=EBGP-FNA-in prefix=103.19.56.0/24
-add action=discard chain=EBGP-FNA-in prefix=103.19.57.0/24
-add action=discard chain=EBGP-FNA-in prefix=103.19.58.0/24
-add action=discard chain=EBGP-FNA-in prefix=103.19.59.0/24
-add action=discard chain=EBGP-FNA-in prefix=103.143.244.0/24
-add action=discard chain=EBGP-FNA-in prefix=103.143.245.0/24
-add action=accept chain=EBGP-FNA-in prefix=103.143.245.128/26 prefix-length=\
-    26-32
-add action=accept chain=EBGP-FNA-out disabled=yes prefix=103.19.56.0/24
-add action=accept chain=EBGP-FNA-out prefix=103.19.57.0/24
-add action=accept chain=EBGP-FNA-out disabled=yes prefix=103.19.58.0/24
-add action=accept chain=EBGP-FNA-out disabled=yes prefix=103.19.59.0/24
-add action=accept chain=EBGP-FNA-out prefix=103.143.244.0/24
-add action=accept chain=EBGP-FNA-out disabled=yes prefix=103.143.245.0/24
-add action=discard chain=EBGP-FNA-out
 /routing ospf interface
 add interface=1510-FIBERSTAR network-type=point-to-point
 add cost=100 interface=3503-DIST-BROADBAND network-type=point-to-point
 add interface=1513-IFORTE-NEW network-type=point-to-point
-add cost=100 disabled=yes interface=110-UPLINK-DIST-SOHO network-type=\
-    point-to-point
+add cost=100 disabled=yes network-type=point-to-point
+add interface=3504-DIST-FNA network-type=point-to-point
 /routing ospf network
 add area=backbone network=103.19.56.248/30
 add area=backbone network=103.19.56.216/30
 add area=backbone network=103.143.244.0/30
 add area=backbone network=103.19.56.151/32
 add area=backbone disabled=yes network=103.19.57.32/32
+add area=backbone network=103.19.56.228/30
 /snmp
 set contact=noc@bitsnet.id enabled=yes location="Office_Bitsnet " \
     trap-community=cirebon trap-version=2
@@ -1695,12 +1531,10 @@ set time-zone-name=Asia/Jakarta
 set [ find ] disabled=yes
 /system identity
 set name=dist-crb.bitsnet.id
-/system logging
-add disabled=yes topics=ospf
 /system ntp client
 set enabled=yes primary-ntp=103.19.56.5 secondary-ntp=202.162.32.12
 /system package update
-set channel=long-term
+set channel=development
 /system scheduler
 add interval=3d name=autobackup&autosend on-event="/system backup save name=(\
     \"BACKUP\" . \"-\" . [/system identity get name] . \"-\" . \\\r\
