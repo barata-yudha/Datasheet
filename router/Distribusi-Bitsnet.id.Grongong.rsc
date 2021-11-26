@@ -1,4 +1,4 @@
-# oct/25/2021 14:32:03 by RouterOS 6.47.9
+# nov/26/2021 23:39:32 by RouterOS 6.47.9
 # software id = RSZR-W8MI
 #
 # model = RB750Gr3
@@ -16,7 +16,7 @@ add local-address=10.10.10.235 name=Bitsnet-Cambium remote-address=\
 add local-address=10.10.11.34 name=Bitsnet-Microwave remote-address=\
     103.19.56.151
 /interface vlan
-add interface=ether2 name=40-GRG-SDN-ARGASUNYA vlan-id=40
+add interface=ether2 name=40-GRG-ITB-WATUBELAH vlan-id=40
 add interface=ether2 name=41-GRG-TIKI vlan-id=41
 add interface=ether2 name=42-GRG-NIAM vlan-id=42
 add interface=ether2 name=43-GRG-SAMSAT-IVAN vlan-id=43
@@ -28,7 +28,7 @@ add interface=ether2 name=48-GRG-JASAMARGA vlan-id=48
 add interface=ether2 name=49-GRG-KBL vlan-id=49
 add interface=ether2 name=50-GRG-CEMPAKA vlan-id=50
 add interface=ether2 name=51-GRG-BAKUNG vlan-id=51
-add interface=ether2 name=52-GRG-ITB vlan-id=52
+add interface=ether2 name=52-GRG-ITB-AWN vlan-id=52
 add interface=ether1 name=240-BACKBONE vlan-id=240
 add interface=ether3 name=800-GRG-Microwave vlan-id=800
 /interface wireless security-profiles
@@ -48,7 +48,7 @@ set discover-interface-list=all
 /ip address
 add address=10.5.1.1/24 comment="MGT-AP SWICTH-GRG" interface=ether2 network=\
     10.5.1.0
-add address=10.5.2.1/29 interface=40-GRG-SDN-ARGASUNYA network=10.5.2.0
+add address=10.5.2.1/29 interface=40-GRG-ITB-WATUBELAH network=10.5.2.0
 add address=10.5.2.9/29 interface=41-GRG-TIKI network=10.5.2.8
 add address=10.5.2.25/29 interface=43-GRG-SAMSAT-IVAN network=10.5.2.24
 add address=10.5.2.33/29 interface=45-GRG-DANALAMPAH network=10.5.2.32
@@ -65,11 +65,11 @@ add address=10.5.2.73/29 interface=49-GRG-KBL network=10.5.2.72
 add address=10.5.2.81/29 interface=50-GRG-CEMPAKA network=10.5.2.80
 add address=10.5.2.17/29 interface=42-GRG-NIAM network=10.5.2.16
 add address=10.11.12.1 interface=42-GRG-NIAM network=103.19.57.255
-add address=10.5.2.89/29 comment=MGT_GRG_BAKUNG interface=51-GRG-BAKUNG \
-    network=10.5.2.88
+add address=10.5.2.89/29 interface=51-GRG-BAKUNG network=10.5.2.88
 add address=172.16.11.5/30 comment=INET_BAKUNG interface=51-GRG-BAKUNG \
     network=172.16.11.4
 add address=10.11.12.1 interface=50-GRG-CEMPAKA network=103.19.57.11
+add address=10.5.2.97/29 interface=52-GRG-ITB-AWN network=10.5.2.96
 /ip dns
 set servers=103.19.56.10,103.19.56.11
 /ip firewall filter
@@ -77,8 +77,8 @@ add action=fasttrack-connection chain=forward connection-state=\
     established,related
 add action=accept chain=forward connection-state=established,related
 /ip firewall nat
-add action=dst-nat chain=dstnat dst-address=172.16.1.58 dst-port=8080 \
-    protocol=tcp to-addresses=10.10.10.234 to-ports=80
+add action=dst-nat chain=dstnat disabled=yes dst-address=172.16.1.58 \
+    dst-port=8080 protocol=tcp to-addresses=10.10.10.234 to-ports=80
 /ip route
 add check-gateway=ping comment="Default Route MainLink Microwave" distance=1 \
     gateway=172.16.1.57
@@ -164,3 +164,5 @@ add dont-require-permissions=no name=autobackup&autosend owner=bitsnet \
     \n/file remove \$backupname"
 /tool bandwidth-server
 set authenticate=no
+/tool romon
+set enabled=yes secrets=7895123ok
