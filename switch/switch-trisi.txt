@@ -1,9 +1,9 @@
 SWITCH-BTS-TERISI#show running-config 
 Building configuration...
 
-Current configuration : 5223 bytes
+Current configuration : 5224 bytes
 !
-! Last configuration change at 00:07:01 UTC Mon Mar 1 1993 by bitsnet
+! Last configuration change at 17:25:08 UTC Tue Mar 30 1993 by bitsnet
 !
 version 15.0
 no service pad
