@@ -1,4 +1,4 @@
-# oct/25/2021 14:38:54 by RouterOS 6.47.9
+# nov/26/2021 23:26:30 by RouterOS 6.47.9
 # software id = JUS2-S5QA
 #
 # model = CCR1016-12G
@@ -14,6 +14,7 @@ set [ find default-name=ether4 ] advertise=10M-full,100M-full comment=\
     AP-SUBAGJA
 set [ find default-name=ether5 ] comment=UPLINK-MICRO
 set [ find default-name=ether6 ] comment=NETMETAL
+set [ find default-name=ether7 ] comment=UNIFI
 /interface vlan
 add interface=ether6 name=100-AP-PURI vlan-id=100
 add interface=ether6 name=101-AP-SUBAGJA vlan-id=101
@@ -37,7 +38,7 @@ add name=POOL-50MB-GOESAR-RADS-CRB ranges=100.64.28.2-100.64.29.254
 /ip dhcp-server
 add address-pool=dhcp_pool0 disabled=no interface=ether3 lease-time=12w6d \
     name=dhcp1
-add address-pool=dhcp_pool5 disabled=no interface=ether7 name=dhcp3
+add address-pool=dhcp_pool5 disabled=no interface=bridge1 name=dhcp3
 /ppp profile
 set *0 local-address=100.64.0.1
 /queue simple
@@ -45,9 +46,8 @@ add disabled=yes max-limit=40M/40M name=RIYANA target=10.2.5.8/29
 /snmp community
 add addresses=103.19.56.0/22 name=cirebon
 /interface bridge port
-add bridge=fibertrust-mc disabled=yes interface=ether8
-add bridge=fibertrust-mc interface=ether9
-add bridge=fibertrust-mc interface=ether11
+add bridge=fibertrust-mc disabled=yes interface=ether9
+add bridge=fibertrust-mc disabled=yes interface=ether11
 /ip neighbor discovery-settings
 set discover-interface-list=all
 /interface pppoe-server server
@@ -71,10 +71,13 @@ add address=172.16.10.1/30 comment=RO-MONITORING interface=ether10 network=\
     172.16.10.0
 add address=103.19.57.15 comment=loopback interface=loopback-ospf network=\
     103.19.57.15
-add address=10.2.5.9/30 comment=TEST-BAKUNG disabled=yes network=10.2.5.8
-add address=10.2.5.9/29 interface=102-BEDULAN network=10.2.5.8
+add address=10.2.5.9/29 comment=PTP-BEDULAND interface=102-BEDULAN network=\
+    10.2.5.8
 add address=103.19.57.14 comment=UPLINK-MICRO interface=906-FTTH-PURIMULYA \
     network=103.19.57.8
+/ip dhcp-server lease
+add address=10.253.5.206 client-id=1:24:a4:3c:c:8a:52 comment=UNIFI \
+    mac-address=24:A4:3C:0C:8A:52 server=dhcp3
 /ip dhcp-server network
 add address=10.253.5.0/24 gateway=10.253.5.1
 add address=172.16.2.212/30 dns-server=103.19.56.10,103.19.56.11 gateway=\
