@@ -1,0 +1,234 @@
+Sw_Bitsnet_Gronggong#show running-config
+Building configuration...
+
+Current configuration : 4978 bytes
+!
+version 12.2
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname Sw_Bitsnet_Gronggong
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$lkJB$AReLnOagSTCzH7tfU5vOm0
+!
+username bitsnet privilege 15 password 7 075C196E6610121F56211F
+username support privilege 3 password 7 072E1B6C4D0C11521A
+no aaa new-model
+system mtu routing 1500
+vtp mode transparent
+ip subnet-zero
+!
+no ip domain-lookup
+!
+!
+crypto pki trustpoint TP-self-signed-664984064
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-664984064
+ revocation-check none
+ rsakeypair TP-self-signed-664984064
+!
+!
+crypto pki certificate chain TP-self-signed-664984064
+ certificate self-signed 01
+  3082024B 308201B4 A0030201 02020101 300D0609 2A864886 F70D0101 04050030
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274
+  69666963 6174652D 36363439 38343036 34301E17 0D393330 33303130 30303034
+  365A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3636 34393834
+  30363430 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100
+  E5323B18 ECF9B074 32B74866 DC022E40 D8EF41BB E48C621D 6B4C898C 4C69DD0D
+  E2D92976 3194EF06 49D94AB2 A87CF5B6 C223E949 B1548DD3 2B57F774 4B1F1817
+  5E48615D 231880C9 29B04CE8 B4C5E7EC E5997D66 015AB822 68EFED9A B8947BFF
+  364AF53D C311D420 8D2DF6BD ABC24F1C F86562BD F5BE99AA 38E49F73 C84B2771
+  02030100 01A37530 73300F06 03551D13 0101FF04 05300301 01FF3020 0603551D
+  11041930 17821553 775F4269 74736E65 745F4772 6F6E6767 6F6E672E 301F0603
+  551D2304 18301680 14120BA6 9109E10C 6BC97B56 7176073A 9590569E 72301D06
+  03551D0E 04160414 120BA691 09E10C6B C97B5671 76073A95 90569E72 300D0609
+  2A864886 F70D0101 04050003 8181001F 0B4EA64D 8C49A8CC C1152B4C 45A6CCE0
+  C245C7D9 089E83DF 88E2B8D5 CDE4393F 4230D90C 1F8C6890 0A2FCDFE CCA1F941
+  89F3A335 07CEA920 42D95AB0 FD5BFFFC D7FF938B 59CFB67A 58B299DF 66C1FA54
+  C620884C B6950173 5573435D 5C644ACA 8B6AD6C6 033F7EC7 4592808E D1B90A16
+  2209AFF1 B17F149C 4C532B7F D9D18F
+  quit
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 40
+ name 40-GRG-ITB-WATUBELAH
+!
+vlan 41
+ name 41-GRG-TIKI
+!
+vlan 42
+ name 42-GRG-NIAM
+!
+vlan 43
+ name 43-GRG-SAMSAT-IVAN
+!
+vlan 44
+ name 44-GRG-SILIHASAH
+!
+vlan 45
+ name 45-GRG-DANALAMPAH
+!
+vlan 46
+ name 46-GRG-ALBAHJAHTV
+!
+vlan 47
+ name 47-GRG-SAREWU
+!
+vlan 48
+ name 48-GRG-JASAMARGA
+!
+vlan 49
+ name 49-GRG-KBL
+!
+vlan 50
+ name 50-GRG-CEMPAKA
+!
+vlan 51
+ name 51-GRG-BAKUNG
+!
+vlan 52
+ name 52-GRG-ITB-AWN
+!
+!
+!
+interface FastEthernet0/1
+ description GRG-ITB-WATUBELAH
+ switchport trunk allowed vlan 1,40
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ description GRG-TIKI
+ switchport trunk allowed vlan 1,41
+ switchport mode trunk
+!
+interface FastEthernet0/3
+ description GRG-ITB-AWN
+ switchport trunk allowed vlan 52
+ switchport mode trunk
+!
+interface FastEthernet0/4
+ shutdown
+!
+interface FastEthernet0/5
+ description GRG-IVAN
+ switchport trunk allowed vlan 1,43
+ switchport mode trunk
+!
+interface FastEthernet0/6
+ description GRG-DANALAMPAH
+ switchport trunk allowed vlan 1,45
+ switchport mode trunk
+!
+interface FastEthernet0/7
+ description GRG-JASAMARGA
+ switchport trunk allowed vlan 1,48
+ switchport mode trunk
+!
+interface FastEthernet0/8
+ description GRG-ALBAHJAHTV
+ switchport trunk allowed vlan 1,46
+ switchport mode trunk
+!
+interface FastEthernet0/9
+ description GRG-SAREWU
+ switchport trunk allowed vlan 1,47
+ switchport mode trunk
+!
+interface FastEthernet0/10
+ shutdown
+!
+interface FastEthernet0/11
+ description GRG-KBL
+ switchport trunk allowed vlan 1,49
+ switchport mode trunk
+!
+interface FastEthernet0/12
+ description GRG-CEMPAKA
+ switchport trunk allowed vlan 1,50
+ switchport mode trunk
+!
+interface FastEthernet0/13
+ shutdown
+!
+interface FastEthernet0/14
+ shutdown
+!
+interface FastEthernet0/15
+ shutdown
+!
+interface FastEthernet0/16
+ shutdown
+!
+interface FastEthernet0/17
+ shutdown
+!
+interface FastEthernet0/18
+ shutdown
+!
+interface FastEthernet0/19
+ shutdown
+!
+interface FastEthernet0/20
+ shutdown
+!
+interface FastEthernet0/21
+ shutdown
+!
+interface FastEthernet0/22
+ shutdown
+!
+interface FastEthernet0/23
+ description TO-NIAM
+ switchport trunk allowed vlan 1,42
+ switchport mode trunk
+!
+interface FastEthernet0/24
+ description GRG-CADASNGAMPAR
+ switchport trunk allowed vlan 1,44
+ switchport mode trunk
+!
+interface GigabitEthernet0/1
+ description TRUNK-TO-ROUTER
+ switchport trunk allowed vlan 1-100
+ switchport mode trunk
+!
+interface GigabitEthernet0/2
+ description TO-BAKUNG
+ switchport trunk allowed vlan 1,51
+ switchport mode trunk
+!
+interface Vlan1
+ ip address 10.5.1.254 255.255.255.0
+ no ip route-cache
+!
+ip default-gateway 10.5.1.1
+ip http server
+ip http secure-server
+!
+control-plane
+!
+!
+line con 0
+line vty 0 4
+ password 7 00572B242C42001C4E1258
+ login local
+line vty 5 15
+ login
+!
+end
+
