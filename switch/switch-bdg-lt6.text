@@ -1,5 +1,7 @@
-System current configuration:
-!ROS  Version ROS_4.14.1781.ISCOM2824G.114.20121109
+switch-bdg.bitsnet.lt6#show running-config 
+
+ System current configuration:
+!ROS  Version ROS_4.14.1781.ISCOM2824G.114.20121109 
 !command in view_mode
 !
 !command in config_mode first-step
@@ -21,86 +23,86 @@ clock timezone + 7 0
 !
 !command in port_mode
 !
-interface port 1
+interface port 1 
 description TO-INTERCON-BACKUP-WIRELESS
 switchport trunk allowed vlan 350,351
-switchport trunk untagged vlan remove 1
+switchport trunk untagged vlan remove 1 
 switchport mode trunk
 !
-interface port 2
+interface port 2 
 description TRUNK-TO-MSN
 switchport trunk allowed vlan 883,884
-switchport trunk untagged vlan remove 1
+switchport trunk untagged vlan remove 1 
 switchport mode trunk
 !
-interface port 3
-shutdown
+interface port 3 
+shutdown 
 !
-interface port 4
-shutdown
+interface port 4 
+shutdown 
 !
-interface port 5
-shutdown
+interface port 5 
+shutdown 
 !
-interface port 6
-shutdown
+interface port 6 
+shutdown 
 !
-interface port 7
-shutdown
+interface port 7 
+shutdown 
 !
-interface port 8
-shutdown
+interface port 8 
+shutdown 
 !
-interface port 9
-shutdown
+interface port 9 
+shutdown 
 !
-interface port 10
-shutdown
+interface port 10 
+shutdown 
 !
-interface port 11
-shutdown
+interface port 11 
+shutdown 
 !
-interface port 12
-shutdown
+interface port 12 
+shutdown 
 !
-interface port 13
-shutdown
+interface port 13 
+shutdown 
 !
-interface port 14
-shutdown
+interface port 14 
+shutdown 
+!         
+interface port 15 
+shutdown 
 !
-interface port 15
-shutdown
+interface port 16 
+shutdown 
 !
-interface port 16
-shutdown
+interface port 17 
+shutdown 
 !
-interface port 17
-shutdown
+interface port 18 
+shutdown 
 !
-interface port 18
-shutdown
+interface port 19 
+shutdown 
 !
-interface port 19
-shutdown
+interface port 20 
+shutdown 
 !
-interface port 20
-shutdown
+interface port 21 
+shutdown 
 !
-interface port 21
-shutdown
-!
-interface port 22
+interface port 22 
 description EX-BITSNET-TIS
-shutdown
+shutdown 
 !
-interface port 23
-shutdown
+interface port 23 
+shutdown 
 !
-interface port 24
+interface port 24 
 description TRUNKING-LT-7
 switchport trunk allowed vlan 26,350,351,883,884
-switchport trunk untagged vlan remove 1
+switchport trunk untagged vlan remove 1 
 switchport mode trunk
 !
 !command in vlan configuration mode
@@ -114,7 +116,7 @@ vlan 883
 name 883-PULMAN-MSN
 vlan 884
 name 884-GD-SATE-MSN
-!
+!         
 !command in ip interface mode
 interface ip 0
 ip vlan 1
@@ -132,7 +134,7 @@ ip address 10.254.11.6 255.255.255.252 26
 !command in config_mode
 rate-limit port-list 18 egress 425880 512
 transceiver digitaldiagnotic enable
-snmp-server host  10.254.11.2 version 2c raisecom udpport 162
+snmp-server host  10.254.11.2 version 2c raisecom udpport 162 
 snmp-server location BBU-Bandung
 snmp-server contact noc@bits.net.id
 snmp-server view mib2 1.3.6.1.2.1  included
@@ -141,3 +143,4 @@ snmp-server community encryption 0xae46c4be7fc99191 ro
 ip default-gateway 10.254.11.5
 service config
 snmp-server traps enable cpu-threshold
+!
