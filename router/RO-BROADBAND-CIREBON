@@ -1,0 +1,1074 @@
+# nov/26/2021 23:37:54 by RouterOS 6.47.9
+# software id = 4DLY-J69R
+#
+# model = CCR1036-8G-2S+
+# serial number = D8370C7C88AE
+/interface bridge
+add name=bridge1 protocol-mode=none
+add name=loopback
+/interface ethernet
+set [ find default-name=sfp-sfpplus1 ] comment="PTP BROADBAND" disabled=yes
+set [ find default-name=sfp-sfpplus2 ] comment="TO-SDN-GUNTUR VLAN 254"
+/interface pppoe-server
+add name=pppoe-dkis-sudarsono service=rads-bitsnet-goesar-30 user=\
+    dkissudasono
+add name=pppoe-owner-aston service=rads-bitsnet-goesar-30 user=onweraston
+add name=pppoe-oyo-guest-house service=rads-bitsnet-goesar-30 user=\
+    10000000211
+add name=pppoe-smk-veteran service=rads-bitsnet-goesar-50 user=10000000166
+/interface vlan
+add interface=sfp-sfpplus2 name=241-QINTANI vlan-id=241
+add interface=sfp-sfpplus2 name=246-SMK-VETERAN vlan-id=246
+add interface=sfp-sfpplus2 name=249-OYO-GUESTHOUSE vlan-id=249
+add interface=sfp-sfpplus2 name=254-PTP-SDNGUNTUR vlan-id=254
+add interface=sfp-sfpplus2 name=255-BROADBAND-PERUMNAS vlan-id=255
+add disabled=yes interface=sfp-sfpplus2 name=256-TAMPOMAS vlan-id=256
+add interface=sfp-sfpplus2 name=258-GOESAR-FATAHILAH vlan-id=258
+add interface=sfp-sfpplus2 name=261-GOESAR-ARRASYIDUUN vlan-id=261
+add interface=ether1 name=262-BACKUP-BROADBAND-PERUMNAS vlan-id=262
+add interface=sfp-sfpplus2 name=263-GOESAR-KERATON-CRB vlan-id=263
+add interface=sfp-sfpplus2 name=264-TAMAN-HANDOYO vlan-id=264
+add interface=sfp-sfpplus2 name=265-GOESAR-GOA-SUNYARAGI vlan-id=265
+add interface=sfp-sfpplus2 name=266-GOESAR-SYAM-ASTON vlan-id=266
+add interface=sfp-sfpplus2 name=387-TIS-PEKALIPAN vlan-id=387
+add interface=sfp-sfpplus2 name=401-VLAN-TEST-BROADBAND vlan-id=401
+add interface=sfp-sfpplus2 name=2002-OWNER-ASTON vlan-id=2002
+add disabled=yes interface=sfp-sfpplus2 name=2003-SBP vlan-id=2003
+add interface=sfp-sfpplus2 name=2100-BROADBAND-PURIMULIA vlan-id=2100
+add interface=sfp-sfpplus2 name=3100-BROADBAND-OFFICE vlan-id=3100
+add interface=sfp-sfpplus2 name=3503-TO-DIST-CRB vlan-id=3503
+/interface list
+add include=dynamic name=BROADBAND-FIBERTRUST
+/ip pool
+add name=POOL-CUSTOMER-PPPOE-EXPIRED ranges=100.127.192.2-100.127.255.254
+add name=POOL-20MB-BITEK-RADS-CRB ranges=100.64.32.2-100.64.39.254
+add name=POOL-10MB-BITEK-RADS-CRB ranges=100.64.16.2-100.64.23.254
+add name=POOL-10MB-GOESAR-RADS-CRB ranges=100.64.24.2-100.64.25.254
+add name=POOL-20MB-GOESAR-RADS-CRB ranges=100.64.40.2-100.64.43.254
+add name=POOL-30MB-BITEK-RADS-CRB ranges=100.64.0.2-100.64.7.254
+add name=POOL-30MB-GOESAR-RADS-CRB ranges=100.64.26.2-100.64.27.254
+add name=POOL-50MB-BITEK-RADS-CRB ranges=100.64.8.2-100.64.15.254
+add name=POOL-50MB-GOESAR-RADS-CRB ranges=100.64.28.2-100.64.29.254
+add name=POOL-15MB-BITEK-RADS-CRB ranges=100.64.44.2-100.64.47.254
+/ppp profile
+set *0 local-address=100.64.0.1 use-compression=yes use-encryption=no
+/queue simple
+add disabled=yes max-limit=100M/100M name=1.ICMP packet-marks=\
+    "ICMP UP,ICMP DOWN,dns" target=100.64.0.0/10
+/queue type
+add kind=sfq name=exempt
+/routing ospf instance
+set [ find default=yes ] redistribute-connected=as-type-2 \
+    redistribute-static=as-type-2 router-id=103.19.56.152
+/snmp community
+set [ find default=yes ] addresses=103.19.56.0/22,103.143.244.0/23
+add addresses=103.19.56.0/22,103.143.244.0/23 name=cirebon
+/user group
+set write policy="local,telnet,ssh,ftp,read,write,test,winbox,password,web,sni\
+    ff,sensitive,api,romon,tikapp,!reboot,!policy,!dude"
+set full policy="local,telnet,ssh,ftp,reboot,read,write,policy,test,winbox,pas\
+    sword,web,sniff,sensitive,api,romon,dude,tikapp"
+/ip firewall connection tracking
+set enabled=yes loose-tcp-tracking=no
+/ip neighbor discovery-settings
+set discover-interface-list=all
+/interface l2tp-server server
+set ipsec-secret=bitsnet use-ipsec=yes
+/interface list member
+add interface=255-BROADBAND-PERUMNAS list=BROADBAND-FIBERTRUST
+add interface=262-BACKUP-BROADBAND-PERUMNAS list=BROADBAND-FIBERTRUST
+add interface=2100-BROADBAND-PURIMULIA list=BROADBAND-FIBERTRUST
+add interface=3100-BROADBAND-OFFICE list=BROADBAND-FIBERTRUST
+/interface pppoe-server server
+add disabled=no interface=255-BROADBAND-PERUMNAS keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-bitek-50
+add disabled=no interface=255-BROADBAND-PERUMNAS keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-bitek-30
+add disabled=no interface=255-BROADBAND-PERUMNAS keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-bitek-10
+add disabled=no interface=249-OYO-GUESTHOUSE keepalive-timeout=300 max-mru=\
+    1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-goesar-30
+add disabled=no interface=246-SMK-VETERAN keepalive-timeout=300 max-mru=1480 \
+    max-mtu=1480 one-session-per-host=yes service-name=rads-bitsnet-goesar-50
+add disabled=no interface=241-QINTANI keepalive-timeout=300 max-mru=1480 \
+    max-mtu=1480 one-session-per-host=yes service-name=rads-bitsnet-goesar-10
+add disabled=no interface=258-GOESAR-FATAHILAH keepalive-timeout=300 max-mru=\
+    1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-goesar-10
+add disabled=no interface=255-BROADBAND-PERUMNAS keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-bitek-20
+add disabled=no interface=261-GOESAR-ARRASYIDUUN keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-goesar-30
+add disabled=no interface=262-BACKUP-BROADBAND-PERUMNAS keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-bitek-100-via-gsr
+add disabled=no interface=262-BACKUP-BROADBAND-PERUMNAS keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-bitek-50-via-gsr
+add disabled=no interface=262-BACKUP-BROADBAND-PERUMNAS keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-bitek-30-via-gsr
+add disabled=no interface=262-BACKUP-BROADBAND-PERUMNAS keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-bitek-20-via-gsr
+add disabled=no interface=263-GOESAR-KERATON-CRB keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-goesar-20
+add disabled=no interface=264-TAMAN-HANDOYO keepalive-timeout=300 max-mru=\
+    1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-goesar-20
+add disabled=no interface=265-GOESAR-GOA-SUNYARAGI keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-goesar-20
+add disabled=no interface=2002-OWNER-ASTON keepalive-timeout=300 max-mru=1480 \
+    max-mtu=1480 one-session-per-host=yes service-name=rads-bitsnet-goesar-30
+add interface=ether2 keepalive-timeout=300 max-mru=1480 max-mtu=1480 \
+    one-session-per-host=yes service-name=rads-test-bypass-from-broadband
+add disabled=no interface=2100-BROADBAND-PURIMULIA keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-puri-10
+add disabled=no interface=2100-BROADBAND-PURIMULIA keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-puri-20
+add disabled=no interface=3100-BROADBAND-OFFICE keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-bitek-10
+add disabled=no interface=266-GOESAR-SYAM-ASTON keepalive-timeout=300 \
+    max-mru=1480 max-mtu=1480 one-session-per-host=yes service-name=\
+    rads-bitsnet-goesar-20
+add interface=2003-SBP keepalive-timeout=300 max-mru=1480 max-mtu=1480 \
+    one-session-per-host=yes service-name=rads-bitsnet-bitek-10
+/interface pptp-server server
+set enabled=yes
+/ip address
+add address=103.143.244.2/30 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.0
+add address=103.143.244.5 disabled=yes interface=3503-TO-DIST-CRB network=\
+    103.143.244.5
+add address=10.123.123.1/29 interface=262-BACKUP-BROADBAND-PERUMNAS network=\
+    10.123.123.0
+add address=103.143.244.6 disabled=yes interface=3503-TO-DIST-CRB network=\
+    103.143.244.6
+add address=103.143.244.7 disabled=yes interface=3503-TO-DIST-CRB network=\
+    103.143.244.7
+add address=103.143.244.8 disabled=yes interface=3503-TO-DIST-CRB network=\
+    103.143.244.8
+add address=103.143.244.4 disabled=yes interface=3503-TO-DIST-CRB network=\
+    103.143.244.4
+add address=103.143.244.11 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.11
+add address=103.143.244.12 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.12
+add address=103.143.244.13 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.13
+add address=103.143.244.14 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.14
+add address=103.143.244.15 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.15
+add address=103.143.244.16 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.16
+add address=103.143.244.17 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.17
+add address=103.143.244.18 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.18
+add address=103.143.244.19 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.19
+add address=103.143.244.20 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.20
+add address=103.143.244.21 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.21
+add address=103.143.244.22 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.22
+add address=103.143.244.23 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.23
+add address=103.143.244.24 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.24
+add address=103.143.244.25 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.25
+add address=103.143.244.26 disabled=yes interface=sfp-sfpplus1 network=\
+    103.143.244.26
+add address=10.10.10.1/30 interface=264-TAMAN-HANDOYO network=10.10.10.0
+add address=103.19.56.152 interface=loopback network=103.19.56.152
+add address=103.143.244.26 interface=3503-TO-DIST-CRB network=103.143.244.26
+add address=103.143.244.25 interface=3503-TO-DIST-CRB network=103.143.244.25
+add address=103.143.244.24 interface=3503-TO-DIST-CRB network=103.143.244.24
+add address=103.143.244.23 interface=3503-TO-DIST-CRB network=103.143.244.23
+add address=103.143.244.22 interface=3503-TO-DIST-CRB network=103.143.244.22
+add address=103.143.244.21 interface=3503-TO-DIST-CRB network=103.143.244.21
+add address=103.143.244.19 interface=3503-TO-DIST-CRB network=103.143.244.19
+add address=103.143.244.18 interface=3503-TO-DIST-CRB network=103.143.244.18
+add address=103.143.244.17 interface=3503-TO-DIST-CRB network=103.143.244.17
+add address=103.143.244.16 interface=3503-TO-DIST-CRB network=103.143.244.16
+add address=103.143.244.15 interface=3503-TO-DIST-CRB network=103.143.244.15
+add address=103.143.244.14 interface=3503-TO-DIST-CRB network=103.143.244.14
+add address=103.143.244.13 interface=3503-TO-DIST-CRB network=103.143.244.13
+add address=103.143.244.12 interface=3503-TO-DIST-CRB network=103.143.244.12
+add address=103.143.244.11 interface=3503-TO-DIST-CRB network=103.143.244.11
+add address=103.143.244.10 disabled=yes interface=3503-TO-DIST-CRB network=\
+    103.143.244.10
+add address=103.143.244.9 disabled=yes interface=3503-TO-DIST-CRB network=\
+    103.143.244.9
+add address=103.143.244.2/30 interface=3503-TO-DIST-CRB network=103.143.244.0
+add address=103.143.244.20 interface=3503-TO-DIST-CRB network=103.143.244.20
+/ip dns
+set allow-remote-requests=yes cache-size=250000KiB servers=\
+    103.19.56.10,103.19.56.11
+/ip firewall address-list
+add address=103.19.56.2 list=ns-bitsnet
+add address=103.19.56.3 list=ns-bitsnet
+add address=103.19.56.10 list=ns-bitsnet
+add address=103.19.56.11 list=ns-bitsnet
+add address=1.80.0.0/13 comment="ru and cn addresses" list=ru-cn
+add address=1.202.0.0/15 list=ru-cn
+add address=14.144.0.0/12 list=ru-cn
+add address=14.208.0.0/12 list=ru-cn
+add address=23.105.14.0/24 list=ru-cn
+add address=27.8.0.0/13 list=ru-cn
+add address=27.16.0.0/12 list=ru-cn
+add address=27.36.0.0/14 list=ru-cn
+add address=27.40.0.0/13 list=ru-cn
+add address=27.50.128.0/17 list=ru-cn
+add address=27.54.192.0/18 list=ru-cn
+add address=27.106.128.0/18 list=ru-cn
+add address=27.115.0.0/17 list=ru-cn
+add address=27.148.0.0/14 list=ru-cn
+add address=27.152.0.0/13 list=ru-cn
+add address=27.184.0.0/13 list=ru-cn
+add address=36.32.0.0/14 list=ru-cn
+add address=36.248.0.0/14 list=ru-cn
+add address=42.96.128.0/17 list=ru-cn
+add address=42.120.0.0/15 list=ru-cn
+add address=58.16.0.0/15 list=ru-cn
+add address=58.20.0.0/16 list=ru-cn
+add address=58.21.0.0/16 list=ru-cn
+add address=58.22.0.0/15 list=ru-cn
+add address=58.34.0.0/16 list=ru-cn
+add address=58.37.0.0/16 list=ru-cn
+add address=58.38.0.0/16 list=ru-cn
+add address=58.40.0.0/16 list=ru-cn
+add address=58.42.0.0/16 list=ru-cn
+add address=58.44.0.0/14 list=ru-cn
+add address=58.48.0.0/13 list=ru-cn
+add address=58.56.0.0/15 list=ru-cn
+add address=58.58.0.0/16 list=ru-cn
+add address=58.59.0.0/17 list=ru-cn
+add address=58.60.0.0/14 list=ru-cn
+add address=58.68.128.0/17 list=ru-cn
+add address=58.82.0.0/15 list=ru-cn
+add address=58.100.0.0/15 list=ru-cn
+add address=58.208.0.0/12 list=ru-cn
+add address=58.242.0.0/15 list=ru-cn
+add address=58.246.0.0/15 list=ru-cn
+add address=58.248.0.0/13 list=ru-cn
+add address=59.32.0.0/13 list=ru-cn
+add address=59.40.0.0/15 list=ru-cn
+add address=59.42.0.0/16 list=ru-cn
+add address=59.44.0.0/14 list=ru-cn
+add address=59.51.0.0/16 list=ru-cn
+add address=59.52.0.0/14 list=ru-cn
+add address=59.56.0.0/13 list=ru-cn
+add address=59.72.0.0/16 list=ru-cn
+add address=59.108.0.0/15 list=ru-cn
+add address=59.172.0.0/14 list=ru-cn
+add address=60.0.0.0/13 list=ru-cn
+add address=60.11.0.0/16 list=ru-cn
+add address=60.12.0.0/16 list=ru-cn
+add address=60.24.0.0/13 list=ru-cn
+add address=60.160.0.0/11 list=ru-cn
+add address=60.194.0.0/15 list=ru-cn
+add address=60.208.0.0/13 list=ru-cn
+add address=60.216.0.0/15 list=ru-cn
+add address=60.220.0.0/14 list=ru-cn
+add address=61.4.64.0/20 list=ru-cn
+add address=61.4.80.0/22 list=ru-cn
+add address=61.4.176.0/20 list=ru-cn
+add address=61.48.0.0/13 list=ru-cn
+add address=61.128.0.0/10 list=ru-cn
+add address=61.135.0.0/16 list=ru-cn
+add address=61.136.0.0/18 list=ru-cn
+add address=61.139.0.0/16 list=ru-cn
+add address=61.145.73.208/28 list=ru-cn
+add address=61.147.0.0/16 list=ru-cn
+add address=61.152.0.0/16 list=ru-cn
+add address=61.154.0.0/16 list=ru-cn
+add address=61.160.0.0/16 list=ru-cn
+add address=61.162.0.0/15 list=ru-cn
+add address=61.164.0.0/16 list=ru-cn
+add address=61.175.0.0/16 list=ru-cn
+add address=61.177.0.0/16 list=ru-cn
+add address=61.179.0.0/16 list=ru-cn
+add address=61.183.0.0/16 list=ru-cn
+add address=61.184.0.0/16 list=ru-cn
+add address=61.185.219.232/29 list=ru-cn
+add address=61.187.0.0/16 list=ru-cn
+add address=61.188.0.0/16 list=ru-cn
+add address=61.191.0.0/16 list=ru-cn
+add address=61.232.0.0/14 list=ru-cn
+add address=61.236.0.0/15 list=ru-cn
+add address=61.240.0.0/14 list=ru-cn
+add address=101.64.0.0/13 list=ru-cn
+add address=106.112.0.0/13 list=ru-cn
+add address=110.6.0.0/15 list=ru-cn
+add address=110.51.0.0/16 list=ru-cn
+add address=110.52.0.0/15 list=ru-cn
+add address=110.80.0.0/13 list=ru-cn
+add address=10.88.0.0/14 list=ru-cn
+add address=110.96.0.0/11 list=ru-cn
+add address=110.173.0.0/19 list=ru-cn
+add address=110.173.32.0/20 list=ru-cn
+add address=110.173.64.0/18 list=ru-cn
+add address=110.192.0.0/11 list=ru-cn
+add address=110.240.0.0/12 list=ru-cn
+add address=111.0.0.0/10 list=ru-cn
+add address=111.72.0.0/13 list=ru-cn
+add address=111.121.0.0/16 list=ru-cn
+add address=111.128.0.0/11 list=ru-cn
+add address=111.160.0.0/13 list=ru-cn
+add address=111.172.0.0/14 list=ru-cn
+add address=111.176.0.0/13 list=ru-cn
+add address=111.228.0.0/14 list=ru-cn
+add address=112.0.0.0/10 list=ru-cn
+add address=112.64.0.0/14 list=ru-cn
+add address=112.80.0.0/12 list=ru-cn
+add address=112.100.0.0/14 list=ru-cn
+add address=112.111.0.0/16 list=ru-cn
+add address=112.122.0.0/15 list=ru-cn
+add address=112.224.0.0/11 list=ru-cn
+add address=113.0.0.0/13 list=ru-cn
+add address=113.8.0.0/15 list=ru-cn
+add address=113.12.0.0/14 list=ru-cn
+add address=113.16.0.0/15 list=ru-cn
+add address=113.18.0.0/16 list=ru-cn
+add address=113.62.0.0/15 list=ru-cn
+add address=113.64.0.0/10 list=ru-cn
+add address=113.128.0.0/15 list=ru-cn
+add address=113.136.0.0/13 list=ru-cn
+add address=113.194.0.0/15 list=ru-cn
+add address=113.204.0.0/14 list=ru-cn
+add address=114.28.0.0/16 list=ru-cn
+add address=114.80.0.0/12 list=ru-cn
+add address=114.104.0.0/14 list=ru-cn
+add address=114.112.0.0/14 list=ru-cn
+add address=114.216.0.0/13 list=ru-cn
+add address=114.224.0.0/11 list=ru-cn
+add address=115.24.0.0/15 list=ru-cn
+add address=115.32.0.0/14 list=ru-cn
+add address=115.48.0.0/12 list=ru-cn
+add address=115.84.0.0/18 list=ru-cn
+add address=115.100.0.0/15 list=ru-cn
+add address=115.148.0.0/14 list=ru-cn
+add address=115.152.0.0/15 list=ru-cn
+add address=115.168.0.0/14 list=ru-cn
+add address=115.212.0.0/16 list=ru-cn
+add address=115.230.0.0/16 list=ru-cn
+add address=115.236.96.0/23 list=ru-cn
+add address=115.236.136.0/22 list=ru-cn
+add address=115.239.228.0/22 list=ru-cn
+add address=116.1.0.0/16 list=ru-cn
+add address=116.2.0.0/15 list=ru-cn
+add address=116.4.0.0/14 list=ru-cn
+add address=116.8.0.0/14 list=ru-cn
+add address=116.16.0.0/12 list=ru-cn
+add address=116.52.0.0/14 list=ru-cn
+add address=116.204.0.0/15 list=ru-cn
+add address=116.90.80.0/20 list=ru-cn
+add address=116.76.0.0/15 list=ru-cn
+add address=116.112.0.0/14 list=ru-cn
+add address=116.128.0.0/10 list=ru-cn
+add address=116.208.0.0/14 list=ru-cn
+add address=116.224.0.0/12 list=ru-cn
+add address=116.254.128.0/18 list=ru-cn
+add address=117.21.0.0/16 list=ru-cn
+add address=117.22.0.0/15 list=ru-cn
+add address=117.24.0.0/13 list=ru-cn
+add address=117.32.0.0/13 list=ru-cn
+add address=117.40.0.0/14 list=ru-cn
+add address=117.44.0.0/15 list=ru-cn
+add address=117.79.224.0/20 list=ru-cn
+add address=117.80.0.0/12 list=ru-cn
+add address=117.136.0.0/13 list=ru-cn
+add address=118.26.0.0/16 list=ru-cn
+add address=118.72.0.0/13 list=ru-cn
+add address=118.112.0.0/13 list=ru-cn
+add address=118.120.0.0/14 list=ru-cn
+add address=118.132.0.0/14 list=ru-cn
+add address=118.144.0.0/14 list=ru-cn
+add address=118.180.0.0/14 list=ru-cn
+add address=118.186.0.0/15 list=ru-cn
+add address=118.192.0.0/16 list=ru-cn
+add address=118.248.0.0/13 list=ru-cn
+add address=119.0.0.0/13 list=ru-cn
+add address=119.8.0.0/15 list=ru-cn
+add address=119.10.0.0/17 list=ru-cn
+add address=119.18.192.0/20 list=ru-cn
+add address=119.36.0.0/16 list=ru-cn
+add address=119.57.0.0/16 list=ru-cn
+add address=119.60.0.0/16 list=ru-cn
+add address=119.88.0.0/14 list=ru-cn
+add address=119.96.0.0/13 list=ru-cn
+add address=119.112.0.0/13 list=ru-cn
+add address=119.120.0.0/13 list=ru-cn
+add address=119.128.0.0/12 list=ru-cn
+add address=119.144.0.0/14 list=ru-cn
+add address=119.164.0.0/14 list=ru-cn
+add address=119.176.0.0/12 list=ru-cn
+add address=119.233.0.0/16 list=ru-cn
+add address=120.0.0.0/12 list=ru-cn
+add address=120.24.0.0/14 list=ru-cn
+add address=120.32.0.0/13 list=ru-cn
+add address=120.40.0.0/14 list=ru-cn
+add address=120.68.0.0/14 list=ru-cn
+add address=120.192.0.0/10 list=ru-cn
+add address=121.0.16.0/20 list=ru-cn
+add address=121.8.0.0/13 list=ru-cn
+add address=121.16.0.0/12 list=ru-cn
+add address=121.32.0.0/14 list=ru-cn
+add address=121.60.0.0/14 list=ru-cn
+add address=121.76.0.0/15 list=ru-cn
+add address=121.204.0.0/14 list=ru-cn
+add address=121.224.0.0/12 list=ru-cn
+add address=122.51.128.0/17 list=ru-cn
+add address=122.64.0.0/11 list=ru-cn
+add address=122.119.0.0/16 list=ru-cn
+add address=122.136.0.0/13 list=ru-cn
+add address=122.156.0.0/14 list=ru-cn
+add address=122.188.0.0/14 list=ru-cn
+add address=122.192.0.0/14 list=ru-cn
+add address=122.198.0.0/16 list=ru-cn
+add address=122.200.64.0/18 list=ru-cn
+add address=122.224.0.0/12 list=ru-cn
+add address=123.4.0.0/14 list=ru-cn
+add address=123.8.0.0/13 list=ru-cn
+add address=123.52.0.0/14 list=ru-cn
+add address=123.64.0.0/11 list=ru-cn
+add address=123.97.128.0/17 list=ru-cn
+add address=123.100.0.0/19 list=ru-cn
+add address=123.112.0.0/12 list=ru-cn
+add address=123.128.0.0/13 list=ru-cn
+add address=123.138.0.0/15 list=ru-cn
+add address=123.150.0.0/15 list=ru-cn
+add address=123.152.0.0/13 list=ru-cn
+add address=123.164.0.0/14 list=ru-cn
+add address=123.180.0.0/14 list=ru-cn
+add address=123.184.0.0/14 list=ru-cn
+add address=123.196.0.0/15 list=ru-cn
+add address=123.232.0.0/14 list=ru-cn
+add address=123.249.0.0/16 list=ru-cn
+add address=124.42.64.0/18 list=ru-cn
+add address=124.64.0.0/15 list=ru-cn
+add address=124.67.0.0/16 list=ru-cn
+add address=124.73.0.0/16 list=ru-cn
+add address=124.114.0.0/15 list=ru-cn
+add address=124.126.0.0/15 list=ru-cn
+add address=124.128.0.0/13 list=ru-cn
+add address=124.160.0.0/16 list=ru-cn
+add address=124.163.0.0/16 list=ru-cn
+add address=124.192.0.0/15 list=ru-cn
+add address=124.200.0.0/13 list=ru-cn
+add address=124.226.0.0/15 list=ru-cn
+add address=124.228.0.0/14 list=ru-cn
+add address=124.236.0.0/14 list=ru-cn
+add address=124.240.0.0/17 list=ru-cn
+add address=124.240.128.0/18 list=ru-cn
+add address=124.248.0.0/17 list=ru-cn
+add address=125.36.0.0/14 list=ru-cn
+add address=125.40.0.0/13 list=ru-cn
+add address=125.64.0.0/12 list=ru-cn
+add address=125.79.0.0/16 list=ru-cn
+add address=125.80.0.0/13 list=ru-cn
+add address=125.88.0.0/13 list=ru-cn
+add address=125.104.0.0/13 list=ru-cn
+add address=125.112.0.0/12 list=ru-cn
+add address=140.224.0.0/16 list=ru-cn
+add address=140.246.0.0/16 list=ru-cn
+add address=159.226.0.0/16 list=ru-cn
+add address=171.34.0.0/15 list=ru-cn
+add address=171.36.0.0/14 list=ru-cn
+add address=171.40.0.0/13 list=ru-cn
+add address=175.0.0.0/12 list=ru-cn
+add address=175.16.0.0/13 list=ru-cn
+add address=175.24.0.0/14 list=ru-cn
+add address=175.30.0.0/15 list=ru-cn
+add address=175.42.0.0/15 list=ru-cn
+add address=175.44.0.0/16 list=ru-cn
+add address=175.46.0.0/15 list=ru-cn
+add address=175.48.0.0/12 list=ru-cn
+add address=175.64.0.0/11 list=ru-cn
+add address=175.102.0.0/16 list=ru-cn
+add address=175.106.128.0/17 list=ru-cn
+add address=175.146.0.0/15 list=ru-cn
+add address=175.148.0.0/14 list=ru-cn
+add address=175.152.0.0/14 list=ru-cn
+add address=175.160.0.0/12 list=ru-cn
+add address=175.178.0.0/16 list=ru-cn
+add address=175.184.128.0/18 list=ru-cn
+add address=175.185.0.0/16 list=ru-cn
+add address=175.186.0.0/15 list=ru-cn
+add address=175.188.0.0/14 list=ru-cn
+add address=180.76.0.0/16 list=ru-cn
+add address=180.96.0.0/11 list=ru-cn
+add address=180.136.0.0/13 list=ru-cn
+add address=180.152.0.0/13 list=ru-cn
+add address=180.208.0.0/15 list=ru-cn
+add address=182.18.0.0/17 list=ru-cn
+add address=182.88.0.0/14 list=ru-cn
+add address=182.112.0.0/12 list=ru-cn
+add address=183.0.0.0/10 list=ru-cn
+add address=183.64.0.0/13 list=ru-cn
+add address=183.129.0.0/16 list=ru-cn
+add address=183.160.0.0/12 list=ru-cn
+add address=183.184.0.0/13 list=ru-cn
+add address=183.192.0.0/11 list=ru-cn
+add address=192.74.224.0/19 disabled=yes list=ru-cn
+add address=198.2.203.64/28 list=ru-cn
+add address=198.2.212.160/28 list=ru-cn
+add address=221.204.0.0/15 list=ru-cn
+add address=202.43.144.0/22 list=ru-cn
+add address=202.46.32.0/19 list=ru-cn
+add address=202.66.0.0/16 list=ru-cn
+add address=202.96.0.0/12 list=ru-cn
+add address=202.111.160.0/19 list=ru-cn
+add address=202.112.0.0/14 list=ru-cn
+add address=202.117.0.0/16 list=ru-cn
+add address=202.165.176.0/20 list=ru-cn
+add address=202.196.80.0/20 list=ru-cn
+add address=203.69.0.0/16 list=ru-cn
+add address=203.86.0.0/18 list=ru-cn
+add address=203.86.64.0/19 list=ru-cn
+add address=203.93.0.0/16 list=ru-cn
+add address=203.169.160.0/19 list=ru-cn
+add address=210.5.0.0/19 list=ru-cn
+add address=210.14.128.0/19 list=ru-cn
+add address=210.21.0.0/16 list=ru-cn
+add address=210.32.0.0/14 list=ru-cn
+add address=210.51.0.0/16 list=ru-cn
+add address=210.52.0.0/15 list=ru-cn
+add address=210.77.0.0/16 list=ru-cn
+add address=210.192.96.0/19 list=ru-cn
+add address=211.76.96.0/20 list=ru-cn
+add address=211.78.208.0/20 list=ru-cn
+add address=211.86.144.0/20 list=ru-cn
+add address=211.90.0.0/15 list=ru-cn
+add address=211.92.0.0/14 list=ru-cn
+add address=211.96.0.0/13 list=ru-cn
+add address=211.136.0.0/13 list=ru-cn
+add address=211.144.12.0/22 list=ru-cn
+add address=211.144.96.0/19 list=ru-cn
+add address=211.144.160.0/20 list=ru-cn
+add address=211.147.208.0/20 list=ru-cn
+add address=211.147.224.0/23 list=ru-cn
+add address=211.152.14.0/24 list=ru-cn
+add address=211.154.64.0/19 list=ru-cn
+add address=211.154.128.0/19 list=ru-cn
+add address=211.155.24.0/22 list=ru-cn
+add address=211.157.32.0/19 list=ru-cn
+add address=211.160.0.0/13 list=ru-cn
+add address=211.233.70.0/24 list=ru-cn
+add address=218.0.0.0/11 list=ru-cn
+add address=218.56.0.0/13 list=ru-cn
+add address=218.64.0.0/11 list=ru-cn
+add address=218.88.0.0/13 list=ru-cn
+add address=218.96.0.0/14 list=ru-cn
+add address=218.102.0.0/16 list=ru-cn
+add address=218.104.0.0/14 list=ru-cn
+add address=218.108.0.0/15 list=ru-cn
+add address=218.194.80.0/20 list=ru-cn
+add address=218.200.0.0/13 list=ru-cn
+add address=218.240.0.0/13 list=ru-cn
+add address=219.128.0.0/11 list=ru-cn
+add address=219.154.0.0/15 list=ru-cn
+add address=219.223.192.0/18 list=ru-cn
+add address=219.232.0.0/16 list=ru-cn
+add address=219.234.80.0/20 list=ru-cn
+add address=219.235.0.0/16 list=ru-cn
+add address=220.154.0.0/15 list=ru-cn
+add address=220.160.0.0/11 list=ru-cn
+add address=220.181.0.0/16 list=ru-cn
+add address=220.191.0.0/16 list=ru-cn
+add address=220.192.0.0/12 list=ru-cn
+add address=220.228.70.0/24 list=ru-cn
+add address=220.248.0.0/14 list=ru-cn
+add address=220.252.0.0/16 list=ru-cn
+add address=221.0.0.0/12 list=ru-cn
+add address=221.122.0.0/15 list=ru-cn
+add address=221.176.0.0/13 list=ru-cn
+add address=221.192.0.0/14 list=ru-cn
+add address=221.200.0.0/14 list=ru-cn
+add address=221.224.0.0/13 list=ru-cn
+add address=5.45.48.0/20 comment=test1 list=ru-cn
+add address=8.37.224.0/20 comment="test 2" list=ru-cn
+add address=198.8.88.0/24 comment="flooding icmp" list=ru-cn
+add address=198.20.70.0/24 list=ru-cn
+add address=145.239.0.0/16 comment="OVA SAS" list=ru-cn
+add address=195.22.0.0/19 disabled=yes list=ru-cn
+add address=110.42.0.0/17 comment=mbuh list=ru-cn
+add address=175.112.0.0/12 comment=junimch.com disabled=yes list=ru-cn
+add address=0.0.0.0/8 list=bogon
+add address=127.0.0.0/8 list=bogon
+add address=224.0.0.0/3 list=bogon
+add address=203.107.44.0/22 comment="EX DDOS ZIMBRA" list=ru-cn
+add address=10.202.0.130 list=ns-bitsnet
+add address=100.64.24.0/23 comment="Up To-10Mbps-Goesar" list=\
+    BROADBAND-GOESAR
+add address=100.64.26.0/23 comment="Up To-30Mbps-Goesar" list=\
+    BROADBAND-GOESAR
+add address=100.64.28.0/23 comment="Up To-50Mbps-Goesar" list=\
+    BROADBAND-GOESAR
+add address=100.64.0.0/21 comment=UpTo-30Mbps-bitek list=BROADBAND-BITEK
+add address=100.64.8.0/21 comment=UpTo-50Mbps-bitek list=BROADBAND-BITEK
+add address=100.64.16.0/21 comment=UpTo-10Mbps-bitek list=BROADBAND-BITEK
+add address=100.64.32.0/21 comment="Up to 20Mbps-bitek" list=BROADBAND-BITEK
+add address=100.64.40.0/22 comment="Up To-50Mbps-Goesar" list=\
+    BROADBAND-GOESAR
+add address=123.123.123.0/30 disabled=yes list=BROADBAND-GOESAR
+add address=100.64.0.0/10 list=Customer-Broadband
+add address=103.66.70.0/24 comment=VTube-grup list=VTube-grup
+add address=103.108.130.0/24 comment=VTube-grup list=VTube-grup
+add address=103.143.244.2 list=list-ip-publik-broadband
+add address=103.143.244.3 list=list-ip-publik-broadband
+add address=103.143.244.4 list=list-ip-publik-broadband
+add address=103.143.244.5 list=list-ip-publik-broadband
+add address=103.143.244.6 list=list-ip-publik-broadband
+add address=103.143.244.7 list=list-ip-publik-broadband
+add address=103.143.244.8 list=list-ip-publik-broadband
+add address=103.143.244.9 list=list-ip-publik-broadband
+add address=103.143.244.10 list=list-ip-publik-broadband
+add address=100.64.39.0/24 list=BROADBAND-BITEK-1
+add address=100.64.38.0/24 list=BROADBAND-BITEK-2
+add address=100.64.37.0/24 list=BROADBAND-BITEK-3
+add address=100.64.36.0/24 list=BROADBAND-BITEK-4
+add address=100.64.35.0/24 list=BROADBAND-BITEK-5
+add address=100.64.34.0/24 list=BROADBAND-BITEK-6
+add address=100.64.33.0/24 list=BROADBAND-BITEK-7
+add address=100.64.32.0/24 list=BROADBAND-BITEK-8
+add address=100.64.19.0/26 list=BROADBAND-BITEK-13
+add address=100.64.19.64/26 list=BROADBAND-BITEK-14
+add address=100.64.19.128/26 list=BROADBAND-BITEK-15
+add address=100.64.19.192/26 list=BROADBAND-BITEK-16
+add address=100.64.16.0/26 list=BROADBAND-BITEK-1
+add address=100.64.16.64/26 list=BROADBAND-BITEK-2
+add address=100.64.16.128/26 list=BROADBAND-BITEK-3
+add address=100.64.16.192/26 list=BROADBAND-BITEK-4
+add address=100.64.17.0/26 list=BROADBAND-BITEK-5
+add address=100.64.17.64/26 list=BROADBAND-BITEK-6
+add address=100.64.17.128/26 list=BROADBAND-BITEK-7
+add address=100.64.17.192/26 list=BROADBAND-BITEK-8
+add address=100.64.18.0/26 list=BROADBAND-BITEK-9
+add address=100.64.18.64/26 list=BROADBAND-BITEK-10
+add address=100.64.18.128/26 list=BROADBAND-BITEK-11
+add address=100.64.18.192/26 list=BROADBAND-BITEK-12
+add address=100.64.20.0/26 list=BROADBAND-BITEK-1
+add address=100.64.20.64/26 list=BROADBAND-BITEK-2
+add address=100.64.20.128/26 list=BROADBAND-BITEK-3
+add address=100.64.20.192/26 list=BROADBAND-BITEK-4
+add address=100.64.21.0/26 list=BROADBAND-BITEK-5
+add address=100.64.21.64/26 list=BROADBAND-BITEK-6
+add address=100.64.21.128/26 list=BROADBAND-BITEK-7
+add address=100.64.21.192/26 list=BROADBAND-BITEK-8
+add address=100.64.22.0/26 list=BROADBAND-BITEK-9
+add address=100.64.22.64/26 list=BROADBAND-BITEK-10
+add address=100.64.22.128/26 list=BROADBAND-BITEK-11
+add address=100.64.22.192/26 list=BROADBAND-BITEK-12
+add address=100.64.23.0/26 list=BROADBAND-BITEK-13
+add address=100.64.23.64/26 list=BROADBAND-BITEK-14
+add address=100.64.23.128/26 list=BROADBAND-BITEK-15
+add address=100.64.23.192/26 list=BROADBAND-BITEK-16
+add address=100.64.32.0/26 list=BROADBAND-BITEK-1
+add address=100.64.32.64/26 list=BROADBAND-BITEK-2
+add address=100.64.32.128/26 list=BROADBAND-BITEK-3
+add address=100.64.32.192/26 list=BROADBAND-BITEK-4
+add address=100.64.33.0/26 list=BROADBAND-BITEK-5
+add address=100.64.33.64/26 list=BROADBAND-BITEK-6
+add address=100.64.33.128/26 list=BROADBAND-BITEK-7
+add address=100.64.33.192/26 list=BROADBAND-BITEK-8
+add address=100.64.34.0/26 list=BROADBAND-BITEK-9
+add address=100.64.34.64/26 list=BROADBAND-BITEK-10
+add address=100.64.34.128/26 list=BROADBAND-BITEK-11
+add address=100.64.34.192/26 list=BROADBAND-BITEK-12
+add address=100.64.35.0/26 list=BROADBAND-BITEK-13
+add address=100.64.35.64/26 list=BROADBAND-BITEK-14
+add address=100.64.35.128/26 list=BROADBAND-BITEK-15
+add address=100.64.35.192/26 list=BROADBAND-BITEK-16
+add address=100.64.36.0/26 list=BROADBAND-BITEK-1
+add address=100.64.36.64/26 list=BROADBAND-BITEK-2
+add address=100.64.36.128/26 list=BROADBAND-BITEK-3
+add address=100.64.36.192/26 list=BROADBAND-BITEK-4
+add address=100.64.37.0/26 list=BROADBAND-BITEK-5
+add address=100.64.37.64/26 list=BROADBAND-BITEK-6
+add address=100.64.37.128/26 list=BROADBAND-BITEK-7
+add address=100.64.37.192/26 list=BROADBAND-BITEK-8
+add address=100.64.38.0/26 list=BROADBAND-BITEK-9
+add address=100.64.38.64/26 list=BROADBAND-BITEK-10
+add address=100.64.38.128/26 list=BROADBAND-BITEK-11
+add address=100.64.38.192/26 list=BROADBAND-BITEK-12
+add address=100.64.39.0/26 list=BROADBAND-BITEK-13
+add address=100.64.39.64/26 list=BROADBAND-BITEK-14
+add address=100.64.39.128/26 list=BROADBAND-BITEK-15
+add address=100.64.39.192/26 list=BROADBAND-BITEK-16
+add address=100.64.0.0/26 list=BROADBAND-BITEK-1
+add address=100.64.0.64/26 list=BROADBAND-BITEK-2
+add address=100.64.0.128/26 list=BROADBAND-BITEK-3
+add address=100.64.0.192/26 list=BROADBAND-BITEK-4
+add address=100.64.1.0/26 list=BROADBAND-BITEK-5
+add address=100.64.1.64/26 list=BROADBAND-BITEK-6
+add address=100.64.1.128/26 list=BROADBAND-BITEK-7
+add address=100.64.1.192/26 list=BROADBAND-BITEK-8
+add address=100.64.2.0/26 list=BROADBAND-BITEK-9
+add address=100.64.2.64/26 list=BROADBAND-BITEK-10
+add address=100.64.2.128/26 list=BROADBAND-BITEK-11
+add address=100.64.2.192/26 list=BROADBAND-BITEK-12
+add address=100.64.3.0/26 list=BROADBAND-BITEK-13
+add address=100.64.3.64/26 list=BROADBAND-BITEK-14
+add address=100.64.3.128/26 list=BROADBAND-BITEK-15
+add address=100.64.3.192/26 list=BROADBAND-BITEK-16
+add address=100.64.4.0/26 list=BROADBAND-BITEK-1
+add address=100.64.4.64/26 list=BROADBAND-BITEK-2
+add address=100.64.4.128/26 list=BROADBAND-BITEK-3
+add address=100.64.4.192/26 list=BROADBAND-BITEK-4
+add address=100.64.5.0/26 list=BROADBAND-BITEK-5
+add address=100.64.5.64/26 list=BROADBAND-BITEK-6
+add address=100.64.5.128/26 list=BROADBAND-BITEK-7
+add address=100.64.5.192/26 list=BROADBAND-BITEK-8
+add address=100.64.6.0/26 list=BROADBAND-BITEK-9
+add address=100.64.6.64/26 list=BROADBAND-BITEK-10
+add address=100.64.6.128/26 list=BROADBAND-BITEK-11
+add address=100.64.6.192/26 list=BROADBAND-BITEK-12
+add address=100.64.7.0/26 list=BROADBAND-BITEK-13
+add address=100.64.7.64/26 list=BROADBAND-BITEK-14
+add address=100.64.7.128/26 list=BROADBAND-BITEK-15
+add address=100.64.7.192/26 list=BROADBAND-BITEK-16
+add address=100.64.8.0/26 list=BROADBAND-BITEK-1
+add address=100.64.8.64/26 list=BROADBAND-BITEK-2
+add address=100.64.8.128/26 list=BROADBAND-BITEK-3
+add address=100.64.8.192/26 list=BROADBAND-BITEK-4
+add address=100.64.9.0/26 list=BROADBAND-BITEK-5
+add address=100.64.9.64/26 list=BROADBAND-BITEK-6
+add address=100.64.9.128/26 list=BROADBAND-BITEK-7
+add address=100.64.9.192/26 list=BROADBAND-BITEK-8
+add address=100.64.10.0/26 list=BROADBAND-BITEK-9
+add address=100.64.10.64/26 list=BROADBAND-BITEK-10
+add address=100.64.10.128/26 list=BROADBAND-BITEK-11
+add address=100.64.10.192/26 list=BROADBAND-BITEK-12
+add address=100.64.11.0/26 list=BROADBAND-BITEK-13
+add address=100.64.11.64/26 list=BROADBAND-BITEK-14
+add address=100.64.11.128/26 list=BROADBAND-BITEK-15
+add address=100.64.11.192/26 list=BROADBAND-BITEK-16
+add address=100.64.12.0/26 list=BROADBAND-BITEK-1
+add address=100.64.12.64/26 list=BROADBAND-BITEK-2
+add address=100.64.12.128/26 list=BROADBAND-BITEK-3
+add address=100.64.12.192/26 list=BROADBAND-BITEK-4
+add address=100.64.13.0/26 list=BROADBAND-BITEK-5
+add address=100.64.13.64/26 list=BROADBAND-BITEK-6
+add address=100.64.13.128/26 list=BROADBAND-BITEK-7
+add address=100.64.13.192/26 list=BROADBAND-BITEK-8
+add address=100.64.14.0/26 list=BROADBAND-BITEK-9
+add address=100.64.14.64/26 list=BROADBAND-BITEK-10
+add address=100.64.14.128/26 list=BROADBAND-BITEK-11
+add address=100.64.14.192/26 list=BROADBAND-BITEK-12
+add address=100.64.15.0/26 list=BROADBAND-BITEK-13
+add address=100.64.15.64/26 list=BROADBAND-BITEK-14
+add address=100.64.15.128/26 list=BROADBAND-BITEK-15
+add address=100.64.15.192/26 list=BROADBAND-BITEK-16
+add address=10.123.123.0/29 list=BROADBAND-BITEK-8
+add address=100.127.192.0/18 list=BROADBAND-EXPIRED
+add address=192.168.1.0/30 comment=UpTo-30Mbps-bitek list=DKIS-SUDARSONO
+add address=100.64.35.185 list=Client
+add address=103.105.142.0/24 list=DKIS
+add address=103.19.56.88/30 list=DKIS
+add address=103.105.142.224/27 list=DKIS
+add address=100.64.44.0/22 comment=UpTo-15Mbps-puri list=BROADBAND-BITEK
+add address=100.64.44.0/22 comment=UpTo-15Mbps-puri list=BROADBAND-BITEK-1
+/ip firewall filter
+add action=accept chain=input dst-port=!53 port=9990 protocol=tcp \
+    src-address=103.19.56.0/22
+add action=accept chain=forward dst-port=25 protocol=tcp src-address-list=\
+    DKIS
+add action=accept chain=forward dst-address-list=DKIS dst-port=25 protocol=\
+    tcp
+add action=drop chain=input dst-address=103.143.244.0/23 dst-port=53,3127 \
+    protocol=tcp
+add action=drop chain=input dst-address=103.143.244.0/23 dst-port=53,3127 \
+    protocol=udp
+add action=drop chain=input dst-port=5060 protocol=udp
+add action=drop chain=forward comment=\
+    "1. Dont disable/delete please, blok spammer" dst-port=25 protocol=tcp
+add action=drop chain=forward comment=\
+    "2. Dont disable/delete please, blok spammer" dst-port=25 protocol=udp
+add action=drop chain=forward comment="Malware Ransomware Type WannaCRY" \
+    dst-port=137-139,445 protocol=tcp
+add action=drop chain=forward comment="Malware Ransomware Type WannaCRY" \
+    dst-port=137-139,445 protocol=udp
+add action=add-src-to-address-list address-list=port_scanners \
+    address-list-timeout=4w2d chain=input comment=\
+    "Add TCP Port Scanners to List" protocol=tcp psd=21,3s,3,1
+add action=add-src-to-address-list address-list=port_scanners \
+    address-list-timeout=4w2d chain=input comment="TCP FIN Stealth scan" \
+    protocol=tcp tcp-flags=fin,!syn,!rst,!psh,!ack,!urg
+add action=add-src-to-address-list address-list=port_scanners \
+    address-list-timeout=4w2d chain=input comment="TCP SYN/RST scan" \
+    protocol=tcp tcp-flags=syn,rst
+add action=add-src-to-address-list address-list=port_scanners \
+    address-list-timeout=4w2d chain=input comment="TCP FIN/PSH/URG scan" \
+    protocol=tcp tcp-flags=fin,psh,urg,!syn,!rst,!ack
+add action=add-src-to-address-list address-list=port_scanners \
+    address-list-timeout=4w2d chain=input comment="ALL/ALL TCP Scan" \
+    protocol=tcp tcp-flags=fin,syn,rst,psh,ack,urg
+add action=add-src-to-address-list address-list=port_scanners \
+    address-list-timeout=4w2d chain=input comment="TCP NULL scan" protocol=\
+    tcp tcp-flags=!fin,!syn,!rst,!psh,!ack,!urg
+add action=drop chain=input comment="Drop All Port Scanners" \
+    src-address-list=port_scanners
+add action=drop chain=forward comment="Drop ru-cn" src-address-list=ru-cn
+/ip firewall mangle
+add action=mark-connection chain=postrouting comment="TRAP ICMP CONN" \
+    disabled=yes new-connection-mark=ICMP passthrough=yes protocol=icmp
+add action=mark-packet chain=forward comment="ICMP DOWN" connection-mark=ICMP \
+    disabled=yes in-interface-list=all new-packet-mark="ICMP DOWN" \
+    passthrough=yes
+add action=mark-packet chain=forward comment="ICMP UP" connection-mark=ICMP \
+    disabled=yes new-packet-mark="ICMP UP" out-interface-list=all \
+    passthrough=no
+add action=mark-packet chain=prerouting comment=DNS disabled=yes dst-port=53 \
+    new-packet-mark=dns passthrough=no protocol=udp
+add action=change-ttl chain=postrouting disabled=yes new-ttl=set:1 \
+    out-interface-list=BROADBAND-FIBERTRUST passthrough=no
+add action=jump chain=forward comment="tcp mss" disabled=yes jump-target=mss \
+    protocol=tcp tcp-flags=syn
+add action=change-mss chain=mss comment="tcp  mss fixation" disabled=yes \
+    new-mss=1440 passthrough=yes protocol=tcp tcp-flags=syn tcp-mss=!536-1460
+add action=change-mss chain=mss comment="tcp  mss 1440 for mtu 1492" \
+    disabled=yes new-mss=1440 passthrough=yes protocol=tcp tcp-flags=syn \
+    tcp-mss=1453-65535
+add action=change-mss chain=mss comment="TCP mss clamp-to-pmtu" disabled=yes \
+    new-mss=clamp-to-pmtu passthrough=yes protocol=tcp tcp-flags=syn
+add action=change-ttl chain=prerouting comment="TCP  mss ttl fix" disabled=\
+    yes new-ttl=set:65 passthrough=yes
+/ip firewall nat
+add action=src-nat chain=srcnat comment="Nat KARTIKA ASTON" disabled=yes \
+    src-address=100.64.27.250 to-addresses=103.19.56.159
+add action=src-nat chain=srcnat comment=DKIS-SUDARSONO disabled=yes \
+    src-address=10.10.192.2 to-addresses=103.143.244.41
+add action=dst-nat chain=dstnat disabled=yes dst-port=53 nth=2,1 protocol=udp \
+    src-address-list=Client to-addresses=9.9.9.9 to-ports=53
+add action=dst-nat chain=dstnat disabled=yes dst-port=53 protocol=udp \
+    src-address-list=Client to-addresses=149.112.112.112 to-ports=53
+add action=redirect chain=dstnat comment="Nat BROADBAND EXPIRED" dst-port=\
+    80,443 protocol=tcp src-address-list=BROADBAND-EXPIRED to-ports=3127
+add action=redirect chain=dstnat comment="Nat BROADBAND EXPIRED" dst-port=\
+    80,443 protocol=udp src-address-list=BROADBAND-EXPIRED to-ports=3127
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 1" \
+    src-address-list=BROADBAND-BITEK-1 to-addresses=103.143.244.11
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 2" \
+    src-address-list=BROADBAND-BITEK-2 to-addresses=103.143.244.12
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 3" \
+    src-address-list=BROADBAND-BITEK-3 to-addresses=103.143.244.13
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 4" \
+    src-address-list=BROADBAND-BITEK-4 to-addresses=103.143.244.14
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 5" \
+    src-address-list=BROADBAND-BITEK-5 to-addresses=103.143.244.15
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 6" \
+    src-address-list=BROADBAND-BITEK-6 to-addresses=103.143.244.16
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 7" \
+    src-address-list=BROADBAND-BITEK-7 to-addresses=103.143.244.17
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 8" \
+    src-address-list=BROADBAND-BITEK-8 to-addresses=103.143.244.18
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 9" \
+    src-address-list=BROADBAND-BITEK-9 to-addresses=103.143.244.19
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 10" \
+    src-address-list=BROADBAND-BITEK-10 to-addresses=103.143.244.20
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 11" \
+    src-address-list=BROADBAND-BITEK-11 to-addresses=103.143.244.21
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 12" \
+    src-address-list=BROADBAND-BITEK-12 to-addresses=103.143.244.22
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 13" \
+    src-address-list=BROADBAND-BITEK-13 to-addresses=103.143.244.23
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 14" \
+    src-address-list=BROADBAND-BITEK-14 to-addresses=103.143.244.24
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 15" \
+    src-address-list=BROADBAND-BITEK-15 to-addresses=103.143.244.25
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK 16" \
+    src-address-list=BROADBAND-BITEK-16 to-addresses=103.143.244.26
+add action=src-nat chain=srcnat comment="Nat BROADBAND GOESAR GLOBAL" \
+    src-address-list=BROADBAND-GOESAR to-addresses=103.143.244.2
+add action=src-nat chain=srcnat comment="Nat BROADBAND BITEK GLOBAL" \
+    disabled=yes src-address-list=BROADBAND-BITEK to-addresses=103.143.244.2
+add action=dst-nat chain=dstnat comment=OPEN-DNS disabled=yes dst-port=53 \
+    nth=4,3 protocol=udp src-address-list=Client to-addresses=9.9.9.9 \
+    to-ports=53
+add action=dst-nat chain=dstnat disabled=yes dst-port=53 nth=3,2 protocol=udp \
+    src-address-list=Client to-addresses=149.112.112.112 to-ports=53
+add action=dst-nat chain=dstnat comment="NAT WINBOX - SMK VETERAN" \
+    dst-address=103.143.244.2 dst-port=7998 protocol=tcp to-addresses=\
+    100.64.28.6 to-ports=8291
+add action=dst-nat chain=dstnat comment="NAT WINBOX - E RAPORT SMK VETERAN" \
+    dst-address=103.143.244.2 dst-port=8154 protocol=tcp to-addresses=\
+    100.64.28.6 to-ports=8154
+/ip proxy
+set cache-administrator=FIBERTRUST-ID enabled=yes max-cache-size=none \
+    max-fresh-time=1h port=3127 src-address=0.0.0.0
+/ip proxy access
+add comment="Allow port 3127 Isolir" dst-port=3127 src-address=\
+    100.127.192.0/18
+add comment="Allow port 3127 Isolir" dst-host=isolir.fibertrust.id dst-port=\
+    80 src-address=100.127.192.0/18
+add comment="Allow port 3127 Isolir" dst-host=isolir.fibertrust.id dst-port=\
+    443 src-address=100.127.192.0/18
+add action=deny comment="Mengarahkan Ip Isolir Ke halaman isolir" dst-host=\
+    !isolir.fibertrust.id redirect-to=isolir.fibertrust.id src-address=\
+    100.127.192.0/18
+/ip route
+add comment="Def Route Broadband" distance=111 gateway=103.143.244.1
+add distance=1 dst-address=10.203.1.0/30 gateway=103.143.244.1
+/ip service
+set telnet address=103.19.56.0/22,103.143.244.0/23 port=9989
+set ftp address=103.19.56.0/22,103.143.244.0/23 disabled=yes port=9987
+set www address=103.19.56.0/22,103.143.244.0/23 port=60080
+set ssh address=103.19.56.0/22,103.143.244.0/23 disabled=yes port=9988
+set api disabled=yes
+set winbox address=0.0.0.0/0 port=9990
+set api-ssl disabled=yes
+/lcd
+set default-screen=informative-slideshow read-only-mode=yes time-interval=\
+    weekly
+/ppp aaa
+set interim-update=1m use-circuit-id-in-nas-port-id=yes use-radius=yes
+/radius
+add address=103.19.56.9 secret=bitsnet2020 service=ppp timeout=2s
+/radius incoming
+set accept=yes
+/routing filter
+add action=discard chain=Droplist comment=DROPLIST disabled=yes prefix=\
+    10.0.0.0/8 prefix-length=8-32
+add action=discard chain=Droplist disabled=yes prefix=172.16.0.0/12 \
+    prefix-length=12-32
+add action=discard chain=Droplist disabled=yes prefix=192.168.0.0/16 \
+    prefix-length=16-32
+add action=return chain=Droplist disabled=yes
+add action=jump chain=ospf-in comment=OSPF-IN disabled=yes jump-target=\
+    Droplist
+add action=accept chain=ospf-in prefix=0.0.0.0/0
+add action=accept chain=ospf-in prefix=103.19.56.0/24 prefix-length=24-32
+add action=accept chain=ospf-in prefix=103.19.57.0/24 prefix-length=24-32
+add action=accept chain=ospf-in prefix=103.19.58.0/24 prefix-length=24-32
+add action=accept chain=ospf-in prefix=103.19.59.0/24 prefix-length=24-32
+add action=accept chain=ospf-in prefix=103.143.244.0/24 prefix-length=24-32
+add action=accept chain=ospf-in prefix=103.143.245.0/24 prefix-length=24-32
+add action=accept chain=ospf-in disabled=yes prefix=103.19.56.0/23 \
+    prefix-length=23-24
+add action=accept chain=ospf-in disabled=yes prefix=103.19.58.0/23 \
+    prefix-length=23-24
+add action=discard chain=ospf-in
+add action=jump chain=ospf-out comment=OSPF-OUT disabled=yes jump-target=\
+    Droplist
+add action=accept chain=ospf-out prefix=10.0.0.0/8 prefix-length=8-32
+add action=accept chain=ospf-out prefix=172.16.0.0/12 prefix-length=12-32
+add action=accept chain=ospf-out prefix=100.64.0.0/10 prefix-length=10-32
+add action=accept chain=ospf-out prefix=103.19.56.0/24 prefix-length=24-32
+add action=accept chain=ospf-out prefix=103.19.57.0/24 prefix-length=24-32
+add action=accept chain=ospf-out prefix=103.19.58.0/24 prefix-length=24-32
+add action=accept chain=ospf-out prefix=103.19.59.0/24 prefix-length=24-32
+add action=accept chain=ospf-out prefix=103.143.244.0/24 prefix-length=24-32
+add action=accept chain=ospf-out prefix=103.143.245.0/24 prefix-length=24-32
+add action=discard chain=ospf-out
+/routing ospf interface
+add cost=100 interface=3503-TO-DIST-CRB network-type=point-to-point
+/routing ospf network
+add area=backbone network=103.19.56.152/32
+add area=backbone network=103.143.244.0/30
+/snmp
+set contact=noc@bitsnet.id enabled=yes location="Office_Bitsnet "
+/special-login
+add port=serial0 user=serial
+/system clock
+set time-zone-name=Asia/Jakarta
+/system identity
+set name=RO-BROADBAND-CIREBON
+/system logging
+add disabled=yes topics=ospf
+/system package update
+set channel=long-term
+/system scheduler
+add interval=3d name=autobackup&autosend on-event="/system backup save name=(\
+    \"BACKUP\" . \"-\" . [/system identity get name] . \"-\" . \\\r\
+    \n[:pick [/system clock get date] 4 6] . [:pick [/system clock get date] 0\
+    \_3] . [:pick [/system clock get date] 7 11]);\r\
+    \n/export file=(\"BACKUP\" . \"-\" . [/system identity get name] . \"-\" .\
+    \_\\\r\
+    \n[:pick [/system clock get date] 4 6] . [:pick [/system clock get date] 0\
+    \_3] . [:pick [/system clock get date] 7 11]);\r\
+    \n\r\
+    \n:delay 15s\r\
+    \n\r\
+    \n:global backupname (\"BACKUP\" . \"-\" . [/system identity get name] . \
+    \"-\" . \\\r\
+    \n[:pick [/system clock get date] 4 6] . [:pick [/system clock get date] 0\
+    \_3] . [:pick [/system clock get date] 7 11] . \".backup\");\r\
+    \n/tool fetch address=103.19.56.6 mode=ftp port=21234 user=ftpbitsnet pass\
+    word=@ftp6789 src-path=\$backupname dst-path=\"backup/mikrotik/\$backupnam\
+    e\" upload=yes\r\
+    \n\r\
+    \n/file remove \$backupname\r\
+    \n\r\
+    \n:global backupname (\"BACKUP\" . \"-\" . [/system identity get name] . \
+    \"-\" . \\\r\
+    \n[:pick [/system clock get date] 4 6] . [:pick [/system clock get date] 0\
+    \_3] . [:pick [/system clock get date] 7 11] . \".rsc\");\r\
+    \n/tool fetch address=103.19.56.6 mode=ftp port=21234 user=ftpbitsnet pass\
+    word=@ftp6789 src-path=\$backupname dst-path=\"backup/mikrotik/\$backupnam\
+    e\" upload=yes\r\
+    \n\r\
+    \n/file remove \$backupname" policy=\
+    ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    start-time=startup
+/system script
+add dont-require-permissions=no name=autobackup&autosend owner=bitsnet \
+    policy=ftp,reboot,read,write,policy,test,password,sniff,sensitive,romon \
+    source="/system backup save name=(\"BACKUP\" . \"-\" . [/system identity g\
+    et name] . \"-\" . \\\r\
+    \n[:pick [/system clock get date] 4 6] . [:pick [/system clock get date] 0\
+    \_3] . [:pick [/system clock get date] 7 11]);\r\
+    \n/export file=(\"BACKUP\" . \"-\" . [/system identity get name] . \"-\" .\
+    \_\\\r\
+    \n[:pick [/system clock get date] 4 6] . [:pick [/system clock get date] 0\
+    \_3] . [:pick [/system clock get date] 7 11]);\r\
+    \n\r\
+    \n:delay 15s\r\
+    \n\r\
+    \n:global backupname (\"BACKUP\" . \"-\" . [/system identity get name] . \
+    \"-\" . \\\r\
+    \n[:pick [/system clock get date] 4 6] . [:pick [/system clock get date] 0\
+    \_3] . [:pick [/system clock get date] 7 11] . \".backup\");\r\
+    \n/tool fetch address=103.19.56.6 mode=ftp port=21234 user=ftpbitsnet pass\
+    word=@ftp6789 src-path=\$backupname dst-path=\"backup/mikrotik/\$backupnam\
+    e\" upload=yes\r\
+    \n\r\
+    \n/file remove \$backupname\r\
+    \n\r\
+    \n:global backupname (\"BACKUP\" . \"-\" . [/system identity get name] . \
+    \"-\" . \\\r\
+    \n[:pick [/system clock get date] 4 6] . [:pick [/system clock get date] 0\
+    \_3] . [:pick [/system clock get date] 7 11] . \".rsc\");\r\
+    \n/tool fetch address=103.19.56.6 mode=ftp port=21234 user=ftpbitsnet pass\
+    word=@ftp6789 src-path=\$backupname dst-path=\"backup/mikrotik/\$backupnam\
+    e\" upload=yes\r\
+    \n\r\
+    \n/file remove \$backupname"
+/tool graphing interface
+add allow-address=103.19.56.0/22
+/tool graphing resource
+add
+/tool netwatch
+add comment=DONT-DISABLE-AUTO-BACK-TO-MAIN-LINK-BROADBAND disabled=yes \
+    down-script="interface pppoe-server server disable numbers=0,2,3,8" host=\
+    10.203.1.1 interval=30s up-script=\
+    "interface pppoe-server server enable numbers=0,2,3,8"
+add comment=DONT-DISABLE-AUTO-TO-BACKUP-LINK-BROADBAND disabled=yes \
+    down-script="interface pppoe-server server enable numbers=10,11,12,13" \
+    host=10.203.1.1 interval=30s up-script=\
+    "interface pppoe-server server disable numbers=10,11,12,13"
