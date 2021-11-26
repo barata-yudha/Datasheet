@@ -1,8 +1,8 @@
 SWITCH-DISTRIBUSI-CIREBON# show running-config 
 
 !Command: show running-config
-!Running configuration last done at: Mon Nov  8 05:59:44 2021
-!Time: Thu Nov 11 17:10:00 2021
+!Running configuration last done at: Mon Nov 15 00:20:57 2021
+!Time: Mon Nov 22 00:55:01 2021
 
 version 7.0(3)I7(6) Bios:version 4.5.0 
 hostname SWITCH-DISTRIBUSI-CIREBON
@@ -282,12 +282,14 @@ vlan 151
   name 151-IP-PUBLIK-VPS-CIREBON
 vlan 152
   name 152-IP-PRIVATE-VPS-CIREBON
+vlan 200
+  name 200-CDH-BEDULAN
 vlan 201
   name 210-LEBAKNGOK
 vlan 202
   name 202-CDH-BAHAMA
 vlan 203
-  name 203-CDH-ASJAP
+  name 203-CDH-ITB-ARJAWINANGUN
 vlan 204
   name 204-CDH-ITB-WATUBELAH
 vlan 205
@@ -369,7 +371,7 @@ vlan 250
 vlan 251
   name 251-AKPER-GOESAR
 vlan 252
-  name 252-UMC-GOESAR
+  name 252-BENTANI-HOTEL-GOESAR
 vlan 253
   name 253-GOESAR-BMT-AL-BAHJAH
 vlan 254
@@ -568,6 +570,8 @@ vlan 3502
   name 3502-BONDING-1
 vlan 3503
   name 3503-TO-BROADBAND
+vlan 3504
+  name 3504-DIST-FNA
 vlan 3505
   name 3505-BROADBAND
 
@@ -719,6 +723,9 @@ interface Ethernet1/30
 interface Ethernet1/31
 
 interface Ethernet1/32
+  description TO-DIST-FNA
+  switchport mode trunk
+  switchport trunk allowed vlan 2003,3000,3504
 
 interface Ethernet1/33
   description TO-DIST-CRB-SFP+1-UPLINK
@@ -765,7 +772,7 @@ interface Ethernet1/40
 interface Ethernet1/41
   description TRUNK-10G-TO-CDH
   switchport mode trunk
-  switchport trunk allowed vlan 1,10,12,91-92,95-99,201-202,204-207,209-213,216,219,221,223-225,228-229,232-233,235-240,243-244,248,710-711,793-798,801-825,900-903,906-907,1100,2100
+  switchport trunk allowed vlan 1,10,12,91-92,95-99,200-207,209-213,216,219,221,223-225,228-229,232-233,235-240,243-244,248,710-711,793-798,801-825,900-903,906-907,1100,2100
 
 interface Ethernet1/42
   description TO-BROADBAND
@@ -804,7 +811,7 @@ interface Ethernet1/47
 interface Ethernet1/48
   description TO-CCR-CIREBON-DOWNLINK
   switchport mode trunk
-  switchport trunk allowed vlan 1,90-100,104,201-202,204-213,216,219,221-225,228-229,232-233,235-240,243-245,248,268,357,401,420,581,615-616,710-711,793-825,901-903,906-907,1200,1202-1204,1508-1509,2001,2003-2004,2010,2900,3100,3501-3503,4001
+  switchport trunk allowed vlan 1,90-100,104,200-213,216,219,221-225,228-229,232-233,235-240,243-245,248,268,357,401,420,581,615-616,710-711,793-825,901-903,906-907,1200,1202-1204,1508-1509,2001,2003-2004,2010,2900,3100,3501-3504,4001
 
 interface Ethernet1/49
 
