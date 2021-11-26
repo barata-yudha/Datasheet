@@ -1,7 +1,7 @@
 sw-cdc.bitsnet.id# show running-config 
 
 !Command: show running-config
-!Time: Tue Nov 16 12:24:45 2021
+!Time: Fri Nov 26 19:43:17 2021
 
 version 6.0(2)U2(9Z)
 hostname sw-cdc.bitsnet.id
@@ -666,7 +666,7 @@ interface Ethernet1/32
 interface Ethernet1/33
   description TO-DIST3-NEW-MIKRO
   switchport mode trunk
-  switchport trunk allowed vlan 95,500-501,504,513-516,579-580,583,585,588,882-883,885,887-889,891,952,1106,1117,1512,1705,1801,1803,3500
+  switchport trunk allowed vlan 95,500-501,504,513-516,579-580,583,585,587-588,882-883,885,887-889,891,952,1106,1117,1512,1705,1801,1803,3500
 
 interface Ethernet1/34
   description TO-GGC-NODE-1
