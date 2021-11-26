@@ -1,4 +1,4 @@
-# oct/25/2021 15:33:12 by RouterOS 6.46.7
+# nov/26/2021 23:48:25 by RouterOS 6.46.7
 # software id = 0429-SK8L
 #
 # model = CCR1016-12G
@@ -6,11 +6,18 @@
 /interface bridge
 add name=loopback protocol-mode=none vlan-filtering=yes
 /interface ethernet
+set [ find default-name=ether6 ] comment=TO-SW-FBC-NEUCENTRIX-Eth21
+set [ find default-name=ether7 ] comment=TO-SW-FBC-NEUCENTRIX-Eth22
+set [ find default-name=ether8 ] comment=TO-SW-FBC-NEUCENTRIX-Eth23
+set [ find default-name=ether9 ] comment=TO-SW-FBC-NEUCENTRIX-Eth24
 set [ find default-name=ether10 ] comment=TO-NEUCENTRIX
 set [ find default-name=ether11 ] comment=TO-CLIENT
 set [ find default-name=ether12 ] comment=TO-BBU
 /interface vlan
-add interface=ether12 name=2088-BBU vlan-id=2088
+add interface=ether9 name=20-MGT2-SW-FBC vlan-id=20
+add interface=ether9 name=552-ABHINAWA-IX vlan-id=552
+add disabled=yes interface=ether12 name=2088-BBU vlan-id=2088
+add interface=ether9 name=2090-CNDC-NEW vlan-id=2090
 /routing bgp instance
 add as=132637 name=BITSNET router-id=103.19.56.194
 /routing ospf instance
@@ -31,8 +38,6 @@ add address=36.91.197.9/26 comment=TO-NEUCENTIX interface=ether10 network=\
     36.91.197.0
 add address=103.19.56.101/30 comment=TO-SKINSOL-CIWARUGA interface=ether11 \
     network=103.19.56.100
-add address=103.19.56.194/30 comment=TO-BBU interface=2088-BBU network=\
-    103.19.56.192
 add address=103.19.58.79 comment=TO-KARANTINA-KERTAJATI interface=ether11 \
     network=103.19.58.75
 add address=103.19.58.79 comment=TO-KGX-CIREBON interface=ether11 network=\
@@ -44,8 +49,30 @@ add address=103.19.58.79 comment=TO-KGX-JATIBARANG interface=ether11 network=\
     103.19.58.82
 add address=192.168.192.1/30 comment=TO-KGX-JATIBARANG interface=ether11 \
     network=192.168.192.0
+add address=103.19.58.79 comment=HORISON-KERTAJATI interface=ether11 network=\
+    103.19.58.83
+add address=10.11.12.1/30 comment=MGT1-SW-FBC interface=ether6 network=\
+    10.11.12.0
+add address=10.11.12.5/30 comment=MGT1-SW-FBC interface=20-MGT2-SW-FBC \
+    network=10.11.12.4
+add address=103.19.56.194/30 interface=2090-CNDC-NEW network=103.19.56.192
+add address=10.100.210.2/30 interface=552-ABHINAWA-IX network=10.100.210.0
 /ip dns
 set servers=103.19.56.10,103.19.56.11,9.9.9.9
+/ip firewall filter
+add action=drop chain=forward dst-port=25 protocol=tcp
+add action=drop chain=forward dst-port=25 protocol=udp
+add action=drop chain=forward comment="Malware Ransomware Type WannaCRY" \
+    dst-port=137-139,445,3127,5678 protocol=tcp
+add action=drop chain=forward comment="Malware Ransomware Type WannaCRY" \
+    dst-port=137-139,445,3127,5678 protocol=udp
+/ip firewall nat
+add action=dst-nat chain=dstnat comment=Switch-FBC disabled=yes dst-address=\
+    103.19.56.194 dst-port=7877 protocol=tcp to-addresses=10.11.12.2 \
+    to-ports=8291
+add action=dst-nat chain=dstnat comment=Switch-FBC-2 dst-address=\
+    103.19.56.194 dst-port=7878 protocol=tcp to-addresses=10.11.12.6 \
+    to-ports=8291
 /ip route
 add distance=111 gateway=103.19.56.193
 /ip service
@@ -54,7 +81,7 @@ set ftp address=103.19.56.0/22,103.143.244.0/23 disabled=yes port=9987
 set www address=103.19.56.0/22,103.143.244.0/23 disabled=yes port=60080
 set ssh address=103.19.56.0/22,103.143.244.0/23 disabled=yes port=9988
 set api disabled=yes
-set winbox address=103.19.56.0/22,103.143.244.0/23 port=9990
+set winbox address=0.0.0.0/0 port=9990
 set api-ssl disabled=yes
 /routing bgp network
 add network=103.19.56.0/24
@@ -125,7 +152,8 @@ add action=discard chain=iBGP-BITSDIST-out
 add action=accept chain=iBGP-BITSDIST-in prefix=0.0.0.0/0 prefix-length=0
 add action=accept chain=iBGP-BITSDIST-in
 /routing ospf interface
-add cost=2000 interface=2088-BBU network-type=point-to-point
+add cost=2000 disabled=yes interface=2088-BBU network-type=point-to-point
+add interface=2090-CNDC-NEW network-type=point-to-point
 /routing ospf network
 add area=backbone network=103.19.56.192/30
 add area=backbone network=103.19.56.154/32
@@ -138,3 +166,5 @@ set time-zone-name=Asia/Jakarta
 set name=cndc-bdg.bitsnet.id
 /system ntp client
 set enabled=yes primary-ntp=103.19.56.5 secondary-ntp=202.162.32.12
+/tool romon
+set enabled=yes secrets=7895123ok
