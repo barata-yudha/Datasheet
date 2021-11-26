@@ -1,10 +1,11 @@
-# oct/25/2021 15:37:56 by RouterOS 6.47.9
+# nov/26/2021 23:12:59 by RouterOS 6.48.5
 # software id = KWA6-EJES
 #
 # model = CCR1009-7G-1C-1S+
 # serial number = 849A08501E90
 /interface bridge
-add mtu=1600 name=Bridge-Bengkulu
+add mtu=1596 name=Bridge-Backup-Bengkulu
+add mtu=1596 name=Bridge-Main-Bengkulu
 add name=loopback
 /interface ethernet
 set [ find default-name=ether1 ] speed=100Mbps
@@ -16,9 +17,6 @@ set [ find default-name=ether6 ] speed=100Mbps
 set [ find default-name=ether7 ] speed=100Mbps
 set [ find default-name=sfp-sfpplus1 ] advertise=\
     10M-full,100M-full,1000M-full,10000M-full
-/interface eoip
-add mac-address=02:CF:D5:0D:D9:A3 mtu=1600 name=EoIP-ICON-BENGKULU \
-    remote-address=103.19.56.238 tunnel-id=253
 /interface vlan
 add interface=sfp-sfpplus1 name=95-IPVPN-ICON vlan-id=95
 add interface=ether6 name=305-MGT-CDN vlan-id=305
@@ -32,6 +30,7 @@ add interface=sfp-sfpplus1 name=579-LPSE vlan-id=579
 add interface=sfp-sfpplus1 name=580-BIRMS vlan-id=580
 add interface=sfp-sfpplus1 name=583-UNTANGLE vlan-id=583
 add interface=sfp-sfpplus1 name=585-RB-MONITORING-CDC vlan-id=585
+add interface=sfp-sfpplus1 name=587-LDP-CANGGU vlan-id=587
 add interface=sfp-sfpplus1 name=588-FS-MADIUN vlan-id=588
 add interface=sfp-sfpplus1 name=882-ICON-MADIUN vlan-id=882
 add interface=sfp-sfpplus1 name=883-NURKHOLIS vlan-id=883
@@ -49,7 +48,8 @@ add interface=ether6 name=1801-TO-DISTRIBUSI-1-JUNOS vlan-id=1801
 add interface=sfp-sfpplus1 name=1803-TO-OIXP vlan-id=1803
 add interface=sfp-sfpplus1 name=3500-MGT-DIST-JUNOS vlan-id=3500
 /ppp profile
-add bridge=Bridge-Bengkulu name=BACKUP-BENGKULU
+add bridge=Bridge-Backup-Bengkulu name=BACKUP-BENGKULU
+add bridge=Bridge-Main-Bengkulu name=MAIN-BENGKULU
 /routing bgp instance
 set default disabled=yes
 add as=132637 client-to-client-reflection=no disabled=yes name=BITSNET \
@@ -98,10 +98,10 @@ add address=10.254.7.13/30 interface=585-RB-MONITORING-CDC network=\
     10.254.7.12
 add address=10.254.223.1/30 interface=3500-MGT-DIST-JUNOS network=\
     10.254.223.0
-add address=10.254.14.53/30 comment=BENGKULU interface=EoIP-ICON-BENGKULU \
-    network=10.254.14.52
-add address=103.19.56.241/30 comment=BENGKULU interface=Bridge-Bengkulu \
-    network=103.19.56.240
+add address=10.254.14.53/30 comment=BENGKULU disabled=yes network=\
+    10.254.14.52
+add address=103.19.56.240 comment=BENGKULU interface=Bridge-Backup-Bengkulu \
+    network=103.19.56.241
 add address=103.19.56.185/30 interface=513-TO-MPLS network=103.19.56.184
 add address=172.16.11.7/24 interface=1512-IFORTE-BANDUNG network=172.16.11.0
 add address=172.16.11.12/24 interface=1512-IFORTE-BANDUNG network=172.16.11.0
@@ -110,6 +110,8 @@ add address=10.11.168.1/29 interface=952-XL-KETAHUN network=10.11.168.0
 add address=10.11.192.1/29 interface=952-XL-KETAHUN network=10.11.192.0
 add address=10.10.192.9/30 comment="TEST HARSO" interface=891-ICON-HARSO \
     network=10.10.192.8
+add address=103.19.56.242 comment=BENGKULU interface=Bridge-Main-Bengkulu \
+    network=103.19.56.243
 /ip dns
 set servers=103.19.56.10,103.19.56.11
 /ip firewall address-list
@@ -522,17 +524,11 @@ add action=dst-nat chain=dstnat disabled=yes dst-address=103.19.56.10 \
 add action=dst-nat chain=dstnat disabled=yes dst-address=103.19.56.11 \
     dst-port=53 nth=1,1 protocol=udp to-addresses=103.19.56.3
 /ip route
+add distance=109 dst-address=10.0.100.120/29 gateway=103.19.56.241 scope=20
+add comment="Route Cordela Via ICON" distance=109 dst-address=10.0.200.28/30 \
+    gateway=103.19.56.241 scope=20
 add check-gateway=ping comment="Route IPVPN Icon+ Santika Bengkulu" distance=\
     1 dst-address=103.19.56.236/30 gateway=10.254.10.2
-add comment="Bentiring-telkom-Dissable IF telkom down" disabled=yes distance=\
-    109 dst-address=103.19.57.32/30 gateway=103.19.56.242
-add check-gateway=ping comment="Enseval-telkom dissable iff telkom down" \
-    disabled=yes distance=109 dst-address=103.19.57.60/30 gateway=\
-    103.19.56.242
-add comment="Santika Bengkulu" disabled=yes distance=109 dst-address=\
-    103.19.57.64/29 gateway=10.254.14.54
-add disabled=yes distance=1 dst-address=103.19.57.64/29 gateway=103.19.56.242 \
-    scope=20
 add comment=SERVER-UNTANGLE-TEST distance=1 dst-address=103.19.57.72/30 \
     gateway=103.19.56.94
 add distance=1 dst-address=103.19.57.92/30 gateway=103.19.56.94
@@ -543,19 +539,10 @@ add comment=SERVER-UNTANGLE-TEST distance=1 dst-address=103.19.57.120/30 \
 add distance=1 dst-address=103.19.57.128/30 gateway=103.19.56.94
 add check-gateway=ping comment="Route To Icon+ IPVPN BPKD" distance=1 \
     dst-address=103.19.57.232/29 gateway=10.254.10.2
-add check-gateway=ping comment="BACKUP WIRELESS BPKD BENGKULU" distance=111 \
-    dst-address=103.19.57.232/29 gateway=10.254.14.54
-add comment="BACKUP WIRELESS BPKD BENGKULU" distance=112 dst-address=\
-    103.19.57.232/29 gateway=103.19.56.242
-add check-gateway=ping comment="Route To RSKJ Via Telkom" distance=109 \
-    dst-address=103.19.58.132/32 gateway=103.19.56.242 scope=20
-add check-gateway=ping comment="Saimen-telkom-Dissable IF telkom down" \
-    disabled=yes distance=109 dst-address=103.19.59.138/32 gateway=\
-    103.19.56.242
-add check-gateway=ping disabled=yes distance=1 dst-address=172.16.100.0/30 \
-    gateway=103.19.56.242
-add check-gateway=ping comment="Route To Cordela Bengkulu Via Telkom" \
-    distance=109 dst-address=172.16.200.28/30 gateway=103.19.56.242 scope=20
+add comment="Route Cordela Via Telkom" distance=109 dst-address=\
+    172.16.200.28/30 gateway=103.19.56.241 scope=20
+add comment="Route Cordela Via ICON" disabled=yes distance=109 dst-address=\
+    172.16.200.28/30 gateway=10.254.10.2 scope=20
 /ip service
 set telnet address=103.19.56.0/22,103.143.244.0/23 port=9989
 set ftp address=103.19.56.0/22,103.143.244.0/23 disabled=yes port=9987
@@ -569,7 +556,8 @@ set allow-none-crypto=yes forwarding-enabled=remote
 /lcd
 set default-screen=interfaces enabled=no touch-screen=disabled
 /ppp secret
-add name=BITSNETBENGKULU password=7895123ok33 profile=BACKUP-BENGKULU
+add name=BITSNETBENGKULU-2 password=7895123ok33 profile=BACKUP-BENGKULU
+add name=BITSNETBENGKULU-1 password=7895123ok33 profile=MAIN-BENGKULU
 /routing bgp network
 add disabled=yes network=103.19.56.0/24 synchronize=no
 add disabled=yes network=103.19.57.0/24 synchronize=no
@@ -600,17 +588,17 @@ add action=accept chain=ospf-out prefix=103.19.59.0/24 prefix-length=24-32
 add action=discard chain=ospf-out
 /routing ospf interface
 add interface=514-TO-DIST-1 network-type=point-to-point
-add comment="*Cost sama ,Lagi Test Load Balance" interface=EoIP-ICON-BENGKULU \
-    network-type=point-to-point
-add comment="*Cost sama ,Lagi Test Load Balance" interface=Bridge-Bengkulu \
-    network-type=point-to-point
+add cost=20 interface=Bridge-Main-Bengkulu network-type=point-to-point
+add cost=30 interface=Bridge-Backup-Bengkulu network-type=point-to-point
 add cost=3000 interface=513-TO-MPLS network-type=point-to-point
 /routing ospf network
 add area=backbone network=10.254.7.72/30
 add area=backbone network=103.19.56.253/32
-add area=backbone network=10.254.14.52/30
-add area=backbone network=103.19.56.240/30
+add area=backbone network=103.19.56.240/32
 add area=backbone network=103.19.56.184/30
+add area=backbone network=103.19.56.241/32
+add area=backbone network=103.19.56.242/32
+add area=backbone network=103.19.56.243/32
 /snmp
 set contact=noc@bitsnet.id enabled=yes location=Cyber1-jakarta \
     trap-community=jakarta trap-generators="" trap-version=2
