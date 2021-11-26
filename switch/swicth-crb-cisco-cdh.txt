@@ -1,7 +1,7 @@
 switch-dist-2-cdh#show running-config 
 Building configuration...
 
-Current configuration : 4121 bytes
+Current configuration : 4324 bytes
 !
 version 12.2
 no service pad
@@ -82,7 +82,7 @@ interface FastEthernet0/3
 !
 interface FastEthernet0/4
  description MGT-HUAWEI-CDH
- switchport access vlan 90
+ switchport access vlan 900
 !
 interface FastEthernet0/5
  switchport trunk allowed vlan 1,239
@@ -105,10 +105,16 @@ interface FastEthernet0/8
  switchport mode trunk
 !
 interface FastEthernet0/9
+ description ITB-ARJAWINANGUN
+ switchport access vlan 203
+ switchport mode access
 !
 interface FastEthernet0/10
 !
 interface FastEthernet0/11
+ description BEDULAN
+ switchport access vlan 200
+ switchport mode access
 !
 interface FastEthernet0/12
 !
@@ -140,7 +146,8 @@ interface GigabitEthernet0/1
 !
 interface GigabitEthernet0/2
  description TRUNK-TO-SW-HP-CDH
- switchport trunk allowed vlan 1,90,92,211,219,222,225,229,239,248,793
+ switchport trunk allowed vlan 1,90,92,200,203,211,219,222,225,229,239,248,793
+ switchport trunk allowed vlan add 900
  switchport mode trunk
 !
 interface Vlan1
