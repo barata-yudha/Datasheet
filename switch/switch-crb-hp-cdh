@@ -1,0 +1,540 @@
+#
+ version 7.1.045, Release 3113P05
+#
+ sysname SWITCH-CDH-BITSNET-ID
+#
+ clock timezone Bangkok add 07:00:00
+ clock protocol none
+#
+ telnet server enable
+#
+ irf mac-address persistent timer
+ irf auto-update enable
+ undo irf link-delay
+ irf member 1 priority 1
+#
+ transceiver phony-alarm-disable
+ password-recovery enable
+#
+vlan 1
+ name MGT
+ description MGT-SWITCH
+#
+vlan 10
+#
+vlan 11
+ description 11-CDH-KAPETAKAN
+#
+vlan 12
+ description 12-CDH-BEBER
+#
+vlan 13
+ description 13-CDH-CIRSEL
+#
+vlan 90
+ description 90-MGT-MW-HUAWEI-CDH
+#
+vlan 91
+ description 91-MTG-SW-KARANTINA
+#
+vlan 92
+ description 92-MGT-SW-CISCO-CDH
+#
+vlan 95
+#
+vlan 96
+ description 96-MGT-SW-PATROL
+#
+vlan 97
+ description 97-MGT-SW-TERISI
+#
+vlan 99
+ description 99-MGT-SW-IMY
+#
+vlan 200
+ description 200-CDH-BEDULAN
+#
+vlan 201
+ description 201-LEBAKNGOK
+#
+vlan 202
+ description 202-CDH-BAHAMA
+#
+vlan 203
+ description 203-ITB-ARJAWINANGUN
+#
+vlan 204
+ description 204-CDH-ITB-WATUBELAH
+#
+vlan 205
+ description 205-CITRADREAMHOTEL
+#
+vlan 206
+ description 206-CDH-SAPADIAHOTEL
+#
+vlan 207
+ description 207-CDH-RADIOQU
+#
+vlan 209
+ description 209-BMT-ALBHAJAH-BACKUP
+#
+vlan 210
+ description 210-AULA-ALBHAJAH-BACKUP
+#
+vlan 211
+ description 211-CDH-AKPER
+#
+vlan 212
+ description 212-CDH-ASTON
+#
+vlan 213
+ description 213-CDH-CENDANA
+#
+vlan 216
+ description 216-CDH-SUTANRAJAHOTEL
+#
+vlan 219
+ description 219-CDH-MAKRUSMOTOR
+#
+vlan 221
+ description 221-CDH-BBWS
+#
+vlan 222
+ description 222-CDH-AMARISHOTEL
+#
+vlan 223
+ description 223-CDH-KEJARBANK
+#
+vlan 224
+ description 224-CDH-OFFICE
+#
+vlan 225
+ description 225-CDH-MTH
+#
+vlan 228
+ description 228-CDH-PURIMULYA
+#
+vlan 232
+ description 232-CDH-ASTON-BACKUP
+#
+vlan 233
+ description 233-CDH-KARANTINA
+#
+vlan 235
+ description 235-CDH-TELERING
+#
+vlan 236
+ description 236-CDH-BPR-ASJAP
+#
+vlan 237
+ description 237-CDH-PT-ANUGRAH
+#
+vlan 238
+ description 238-CDH-MITRA10
+#
+vlan 239
+ description 239-DIST-ASJAP
+#
+vlan 240
+ description 240-CDH-GRONGGONG
+#
+vlan 243
+ description 243-CDH-GRG-JADI-DUA
+#
+vlan 244
+ description 244-CDH-SUMURWUNI
+#
+vlan 248
+ description 248-CDH-TSM
+#
+vlan 710
+ description 710-KERTASMAYA
+#
+vlan 711
+ description 711-KERTASMAYA
+#
+vlan 793
+ description 793-MGT-CDH-MW
+#
+vlan 794
+ description 794-MGT-CERA-ANJATAN
+#
+vlan 795
+ description 795-MGMT-CERA-IMY-JTB
+#
+vlan 796
+ description 796-CERAGON-IMY-RIONET
+#
+vlan 797
+ description 797-CDH-MGT-CERAGON-PATROL
+#
+vlan 798
+ description 798-MGT-CERAGON-TRISI
+#
+vlan 801
+ description 801-CDH-IMY-MICROWAVE-CERAGON
+#
+vlan 802
+ description 802-IMY-NURIN
+#
+vlan 803
+ description 803-IMY-RIONET
+#
+vlan 804
+ description 804-IMY-SYAMSUL
+#
+vlan 805
+ description 805-IMY-NATA
+#
+vlan 806
+ description 806-IMY-CECEP
+#
+vlan 807
+ description 807-IMY-KRISYANTO
+#
+vlan 808
+ description 808-IMY-HARDI
+#
+vlan 809
+ description 809-IMY-WARIDI
+#
+vlan 810
+ description 810-IMY-CANDRA
+#
+vlan 811
+ description 811-IMY-FANDY
+#
+vlan 812
+ description 812-IMY-TARUNA-TERISI
+#
+vlan 813
+ description 813-IMY-RB-MONITORING
+#
+vlan 814
+ description 814-IMY-TEST-INET-JATIBARANG
+#
+vlan 815
+ description 815-IMY-RIONET-NEW
+#
+vlan 816 to 825
+#
+vlan 827
+ description 827 - To-RB-MON-TERISI
+#
+vlan 900
+ description mgt-huawei-cdh
+#
+vlan 901
+ description 901-IIX-ONLY-VIA-IMY
+#
+vlan 902
+ description 902-IIX-IMY-TERISI
+#
+vlan 903
+ description 903-IIX-RIONET
+#
+vlan 906
+ description 906-FTTH-PURIMULYA
+#
+vlan 907
+ description 907-MGT-OLT-PURI
+#
+vlan 1100
+ description 1100-IPTV
+#
+vlan 2100
+ description 2100-PURIMULYA
+#
+interface NULL0
+#
+interface Vlan-interface1
+ ip address 10.200.0.254 255.255.255.0
+#
+interface GigabitEthernet1/0/1
+ description DIST-BPR
+ port link-type hybrid
+ undo port hybrid vlan 1
+ port hybrid vlan 10 to 13 807 tagged
+ port hybrid vlan 239 untagged
+ port hybrid pvid vlan 239
+#
+interface GigabitEthernet1/0/2
+ description CDH-IMY-CERA-RIONET
+ port link-type hybrid
+ port hybrid vlan 711 796 804 806 811 813 815 902 to 903 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/3
+ description CDH-BAHAMA
+ port link-type hybrid
+ port hybrid vlan 202 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/4
+ description CDH-GRONGGONG-CAMBIUM
+ port link-type hybrid
+ port hybrid vlan 240 243 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/5
+ description CDH-BPR-KAPETAKAN
+ port link-type hybrid
+ undo port hybrid vlan 1
+ port hybrid vlan 11 tagged
+ port hybrid vlan 10 untagged
+ port hybrid pvid vlan 10
+#
+interface GigabitEthernet1/0/6
+ description CDH-MITRA10
+ port link-type hybrid
+ port hybrid vlan 238 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/7
+ description CDH-RADIOQU
+ port link-type hybrid
+ port hybrid vlan 207 209 to 210 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/8
+ description CDH-CENDANA
+ port link-type hybrid
+ port hybrid vlan 213 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/9
+ description CITRADREAMHOTEL
+ port access vlan 205
+ qos lr inbound cir 43008 cbs 512 
+ qos lr outbound cir 43008 cbs 512 
+#
+interface GigabitEthernet1/0/10
+ description CDH-SUMURWUNI
+ port link-type hybrid
+ port hybrid vlan 244 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/11
+ description CDH-PT-ANUGRAH
+ port link-type hybrid
+ port hybrid vlan 237 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/12
+ description CDH-BACKUP-ASTON
+ port link-type hybrid
+ port hybrid vlan 232 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/13
+ description CDH-TELERING
+ port link-type hybrid
+ port hybrid vlan 235 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/14
+ description CDH-SUTANRAJAHOTEL
+ port link-type hybrid
+ port hybrid vlan 216 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/15
+ description CDH-ITB-WATUBELAH
+ port link-type hybrid
+ port hybrid vlan 12 204 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/16
+ description CDH-SAPADIAHOTEL
+ port link-type hybrid
+ port hybrid vlan 206 tagged
+ port hybrid vlan 1 untagged
+ duplex full
+#
+interface GigabitEthernet1/0/17
+ description CDH-KARANTINA
+ port link-type hybrid
+ port hybrid vlan 91 201 233 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/18
+ description MICRO-PURIMULYA
+ port link-type hybrid
+ port hybrid vlan 906 to 907 1100 2100 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/19
+ description CDH-BPR-ASJAP
+ port link-type hybrid
+ port hybrid vlan 236 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/20
+ description CDH-BPR-CIRSEL
+ port link-type hybrid
+ undo port hybrid vlan 1
+ port hybrid vlan 13 tagged
+ port hybrid vlan 10 untagged
+ port hybrid pvid vlan 10
+#
+interface GigabitEthernet1/0/21
+ description CDH-KEJARBANK
+ port link-type hybrid
+ port hybrid vlan 223 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/22
+ description CDH-BBWS
+ port link-type hybrid
+ port hybrid vlan 221 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/23
+ description TRUNK-CISCO-CDH
+ port link-type hybrid
+ port hybrid vlan 90 92 200 203 211 219 222 225 248 793 tagged
+ port hybrid vlan 900 tagged
+ port hybrid vlan 1 untagged
+#
+interface GigabitEthernet1/0/24
+ description CDH-IMY-CERA
+ port link-type hybrid
+ undo port hybrid vlan 1
+ port hybrid vlan 99 710 809 903 tagged
+ port hybrid vlan 95 to 97 794 to 795 797 to 798 801 to 803 805 808 810 812 814 816 to 825 untagged
+ port hybrid vlan 901 untagged
+#
+interface Ten-GigabitEthernet1/0/25
+ port link-type hybrid
+ port hybrid vlan 248 tagged
+ port hybrid vlan 1 untagged
+ speed 10000
+ duplex full
+#
+interface Ten-GigabitEthernet1/0/26
+ description TRUNK-TO-NEXUS-10G
+ port link-type hybrid
+ port hybrid vlan 10 12 90 to 92 95 to 97 99 200 to 207 209 to 213 216 219 221 to 225 tagged
+ port hybrid vlan 228 232 to 233 235 to 240 243 to 244 248 710 to 711 793 to 798 801 to 825 900 to 903 906 to 907 tagged
+ port hybrid vlan 1100 2100 tagged
+ port hybrid vlan 1 untagged
+ duplex full
+#
+interface Ten-GigabitEthernet1/0/27
+ description BACKUP-1G-TO-NEXUS
+ port link-type hybrid
+ port hybrid vlan 95 to 97 99 202 205 to 207 211 213 216 219 221 to 225 228 tagged
+ port hybrid vlan 232 to 233 235 to 238 240 244 710 to 711 794 to 798 801 to 825 901 to 902 907 1100 tagged
+ port hybrid vlan 2100 tagged
+ port hybrid vlan 1 untagged
+ shutdown
+#
+interface Ten-GigabitEthernet1/0/28
+ description CDH-BPR-ASJAP-HUAWEI
+ port link-type hybrid
+ port hybrid vlan 212 807 tagged
+ port hybrid vlan 1 untagged
+#
+ scheduler logfile size 16
+#
+line class aux
+ authentication-mode scheme
+ user-role network-admin
+#
+line class vty
+ authentication-mode scheme
+ user-role network-operator
+#
+line aux 0
+ user-role network-admin
+#
+line vty 0 63
+ user-role network-operator
+#
+ ip route-static 0.0.0.0 0 10.202.0.5
+ ip route-static 0.0.0.0 0 10.202.0.13
+ ip route-static 0.0.0.0 0 10.200.0.1
+#
+ snmp-agent
+ snmp-agent local-engineid 800063A28040B93C96E5B000000001
+ snmp-agent community read cirebon
+ snmp-agent community write private
+ snmp-agent community read public
+ snmp-agent sys-info contact noc@bitsnet.id
+ snmp-agent sys-info location Cirebon
+ snmp-agent sys-info version all 
+#
+domain system
+#
+ domain default enable system
+#
+role name level-0
+ description Predefined level-0 role
+#
+role name level-1
+ description Predefined level-1 role
+#
+role name level-2
+ description Predefined level-2 role
+#
+role name level-3
+ description Predefined level-3 role
+#
+role name level-4
+ description Predefined level-4 role
+#
+role name level-5
+ description Predefined level-5 role
+#
+role name level-6
+ description Predefined level-6 role
+#
+role name level-7
+ description Predefined level-7 role
+#
+role name level-8
+ description Predefined level-8 role
+#
+role name level-9
+ description Predefined level-9 role
+#
+role name level-10
+ description Predefined level-10 role
+#
+role name level-11
+ description Predefined level-11 role
+#
+role name level-12
+ description Predefined level-12 role
+#
+role name level-13
+ description Predefined level-13 role
+#
+role name level-14
+ description Predefined level-14 role
+#
+user-group system
+#
+local-user admin class manage
+ password hash $h$6$B50ul2rQiW6d71kw$pIv7eGeMLA+FQXezYgrCgU7PPCENx8pvqOjQPqB/a9w1CPcvUQZxrDEKYvDTSPcGOdqg0foolyJSEj493+Kcag==
+ authorization-attribute user-role security-audit
+#
+local-user bitsnet class manage
+ password hash $h$6$TSf3cMg11umL4fuL$nLWU3mI5XBe8Vn+H3QaDE0+gCB4EvYnfO7rOSI4vbLRZrZnHjrzebXacWGbfKdmu499KtT0f4S+ZThCQIgV9wg==
+ access-limit 10
+ service-type ftp
+ service-type pad ssh telnet terminal http https
+ authorization-attribute user-role network-admin
+ authorization-attribute user-role network-operator
+#
+local-user support class manage
+ password hash $h$6$/o0B6ebg7nbarnFc$EgdwIa/uRgdNV9BtrTtG1/JIEOB/fEopdzXoauSowFOJQYuKAVTANZQqZortl1GNFroia062AEFXqWe1K8Hl6A==
+ access-limit 5
+ service-type ftp
+ service-type pad ssh telnet terminal http https
+ authorization-attribute user-role network-operator
+#
+ ip http enable
+ ip https enable
+#
+return
