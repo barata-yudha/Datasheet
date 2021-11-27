@@ -1,0 +1,732 @@
+OLT-BITSNET-ID#show running-config 
+Building configuration...
+olleh
+timestamp_write: 02:59:47 11/15/2002
+config-version 2.1
+!
+crtv disable
+!
+load-balance enable
+!
+operator-mode NORMAL
+!
+system-forwarding-mode normal-mode
+!
+!
+!
+set-pnp enable
+add-rack rackno 1 racktype C320Rack
+add-shelf rackno 1 shelfno 1 shelftype C320_SHELF
+add-card rackno 1 shelfno 1 slotno 1 GTGH
+add-subcard rackno 1 shelfno 1 slotno 3 subcardno 1 UCDC/3
+add-subcard rackno 1 shelfno 1 slotno 4 subcardno 1 UCDC/1
+!
+ip tcp finwait-time 600 
+ip tcp queuemax 5 
+ip tcp synwait-time 30 
+ip tcp window-size 2144 
+!
+urpf log off 
+!
+fan control temp_level 30 35 40 50 rackno 1 shelfno 1
+!
+!
+!
+!
+mac aging-time 300
+mac monitor-period 10
+mac usage-threshold 70
+!
+eth-switch max-frame-length  1600
+port diaglog status-info disable
+!
+system-monitor watchdog rackno 1 shelfno 1 slotno 3 disable
+system-monitor watchdog rackno 1 shelfno 1 slotno 4 disable
+sdisk disable
+!
+auto-update backup disable
+auto-update activate disable
+!
+!
+!
+!
+!
+gpon
+  profile tcont 10M type 1 fixed 10000
+  profile tcont 15M type 1 fixed 15000
+  profile tcont 20M type 1 fixed 20000
+  profile tcont 30M type 1 fixed 30000
+  profile tcont 50M type 1 fixed 50000
+  profile tcont 100M type 1 fixed 100000
+  profile tcont 200M type 1 fixed 200000
+  profile tcont 300M type 1 fixed 300000
+  profile tcont 400M type 1 fixed 400000
+  profile tcont 500M type 1 fixed 500000
+  profile tcont 1G type 1 fixed 1000000
+  profile traffic 10M sir 10000 pir 10000
+  profile traffic 15M sir 15000 pir 15000
+  profile traffic 20M sir 20000 pir 20000
+  profile traffic 30M sir 30000 pir 30000
+  profile traffic 50M sir 50000 pir 50000
+  profile traffic 100M sir 100000 pir 100000
+  profile traffic 200M sir 200000 pir 200000
+  profile traffic 300M sir 300000 pir 300000
+  profile traffic 400M sir 400000 pir 400000
+  profile traffic 500M sir 500000 pir 500000
+  profile traffic 1G sir 100000 pir 1000000
+!
+!
+gpon
+  onu profile vlan 1100 tag-mode tag cvlan 1100 pri 7
+  onu profile vlan 2010 tag-mode tag cvlan 2010 pri 7
+  onu profile vlan 3100 tag-mode tag cvlan 3100 pri 7
+  onu profile vlan 2001 tag-mode tag cvlan 2001 pri 1
+  onu profile vlan 2002 tag-mode tag cvlan 2002 pri 7
+  onu profile vlan 2004 tag-mode tag cvlan 2004 pri 7
+  onu profile vlan 90 tag-mode tag cvlan 90 pri 7
+  onu profile vlan 401 tag-mode tag cvlan 401 pri 7
+  onu profile vlan 2005 tag-mode tag cvlan 2005 pri 7
+  onu profile vlan 2003 tag-mode tag cvlan 2003 pri 7
+!
+!
+epon
+!
+!        
+pon
+  onu-type ALL gpon
+  onu-type ALL gpon max-tcont 7
+  onu-type ALL gpon max-gemport 32
+  onu-type ALL gpon max-switch-perslot 1
+  onu-type ALL gpon max-flow-perswitch 8
+  onu-type-if ALL eth_0/1
+  onu-type-if ALL eth_0/2
+  onu-type-if ALL eth_0/3
+  onu-type-if ALL eth_0/4
+  onu-type-if ALL pots_0/1
+  onu-type-if ALL pots_0/2
+  onu-type-if ALL wifi_0/1
+  onu-type-if ALL wifi_0/2
+  onu-type-if ALL wifi_0/3
+  onu-type-if ALL wifi_0/4
+  uncfg-onu-display-info model sn pw 
+!
+!
+onu-pnp
+!
+no vlan-reserve 4091 out-voip
+no vlan-reserve 4092 in-voip
+no vlan-reserve 4094 gpon
+!
+vlan database
+  vlan 1,90-91,245,401
+  vlan 1100,2001-2005,2010
+  vlan 3100
+!
+vlan 90
+  name MGT-SW-DKIS
+!
+vlan 245
+  name MGT-ZTE
+!
+vlan 401
+  name ASTON-CRB
+!
+vlan 1100
+  name IPTV_1100
+  multicast-packet flood-all
+!
+vlan 2001
+  name DKIS-STATIC-2001
+!        
+vlan 2002
+  name FTTH-BITSNET-PPPoE
+!
+vlan 2003
+  name SBP
+!
+vlan 2004
+  name DKIS-SUDARSONO
+!
+vlan 2010
+  name PEMKOT-CIREBON
+!
+!
+!
+his-performance sample enable
+his-performance alarm enable
+his-performance auto-upload disable
+!
+!
+clock
+!
+!
+         
+!
+clock
+!
+!
+
+!
+ptp
+!
+!
+ip dhcp snooping control-port enable
+port-identification access-node-id-type inband-mac
+port-identification rackno 1 frameno 1
+!
+igmp enable
+igmp log enable
+igmp mvlan 1100
+igmp mvlan 1100 work-mode snooping
+igmp mvlan 1100 version-mode v1 accept
+igmp mvlan 1100 version-mode v2 accept
+igmp mvlan 1100 version-mode v3 accept
+igmp mvlan 1100 group 233.1.1.0 to 233.1.1.254
+igmp mvlan 1100 group 233.1.2.0 to 233.1.2.254
+igmp mvlan 1100 group 234.1.1.0 to 234.1.1.254
+igmp mvlan 1100 group 234.1.2.0 to 234.1.2.254
+igmp mvlan 1100 group 238.1.2.0 to 238.1.2.254
+igmp mvlan 1100 group 238.1.1.0 to 238.1.1.254
+igmp mvlan 1100 group 224.1.1.0 to 224.1.1.254
+igmp mvlan 1100 group 224.1.2.0 to 224.1.2.254
+igmp mvlan 1100 group 224.1.3.0 to 224.1.3.254
+mld disable
+  mib-compatibility iftable v2
+!
+ip-source-guard disable
+ipv6 nd snooping disable
+!
+
+security port-protect enable
+!
+!
+acl standard name bitsnet
+!
+!
+virtual-mac flexible-syntax-profile MT
+add Ctrl-Byte 0 width 6 index 6
+exit
+virtual-mac access-node-id 0
+!
+epm
+ mode passthrough
+
+
+
+
+
+!
+!
+!
+interface mng1
+  ip address 10.202.0.30 255.255.255.252
+  config-filename startrun.dat
+  negotiation auto
+  tag-mode untag
+!
+interface vlan 245
+  ip address 10.203.2.2 255.255.255.252
+!
+interface null1
+!
+interface gpon-olt_1/1/1
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/1/2
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/1/3
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/1/4
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGC51E8DBA
+!
+interface gpon-onu_1/1/4:2
+  name ONU-OWNER-ASTON
+  description 2$$ONU-OWNER-ASTON$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 1G
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  service-port 1 vport 1 user-vlan 2002 vlan 2002 
+!
+interface gpon-olt_1/1/5
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGC7718119
+!
+interface gpon-onu_1/1/5:2
+  name ONU-DKIS-SUDARSONO
+  description 2$$ONU-DKIS-SUDARSONO$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 200M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  service-port 1 vport 1 user-vlan 2004 vlan 2004 
+!
+interface gpon-olt_1/1/6
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn HWTCCD4BEE9C
+!
+interface gpon-onu_1/1/6:2
+  name TRIAL-SBP
+  description 2$$TRIAL-SBP$$
+  sn-bind enable sn
+  tcont 1 name SBP profile 1G
+  gemport 1 name SBP tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  encrypt 1 enable downstream
+  service-port 1 vport 1 user-vlan 2003 vlan 2003 
+!
+interface gpon-olt_1/1/7
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/1/8
+  no shutdown
+  linktrap disable
+  onu 1 type ALL sn ZTEGCC574FA6
+  onu 2 type ALL sn ZTEGC960C2C7
+!
+interface gpon-onu_1/1/8:1
+  name ONU-DKIS-PEMKOT-CIREBON
+  description ONU-DKIS-PEMKOT
+  sn-bind enable sn
+  tcont 2 name tconf1 profile 400M
+  gemport 1 tcont 2
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  gemport 2 tcont 2
+  gemport 2 traffic-limit upstream 1G downstream 1G 
+  gemport 3 tcont 2
+  gemport 3 traffic-limit upstream 1G downstream 1G 
+  service-port 1 vport 1 user-vlan 90 vlan 90 
+  service-port 2 vport 2 user-vlan 2010 vlan 2010 
+!
+interface gpon-onu_1/1/8:2
+  name ONU-DKIS-BROADBAND
+  description ONU-DKIS-BROADBAND
+  sn-bind enable sn
+  tcont 1 name dkis-broadband profile 400M
+  gemport 1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  service-port 1 vport 1 user-vlan 2001 vlan 2001 
+!
+interface gpon-olt_1/1/9
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn HWTC098F629E
+  onu 4 type ALL sn HWTCB864B69A
+!
+interface gpon-onu_1/1/9:2
+  name BOD-ASTON
+  description 2$$BOD-ASTON$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 400M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  service-port 1 vport 1 user-vlan 3100 vlan 3100 
+!
+interface gpon-onu_1/1/9:4
+  name ONU-ASTON-CIREBON
+  description 2$$ONU-ASTON-CIREBON$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 400M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  service-port 1 vport 1 user-vlan 401 vlan 401 
+!
+interface gpon-olt_1/1/10
+  no shutdown
+  linktrap disable
+!        
+interface gpon-olt_1/1/11
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/1/12
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/1/13
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/1/14
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGCD2CB893
+!
+interface gpon-onu_1/1/14:2
+  name ONU-10000001481
+  description 2$$ONU-10000001481$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 10M
+  gemport 1 name 1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  service-port 1 vport 1 user-vlan 3100 vlan 3100 
+!
+interface gpon-olt_1/1/15
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/1/16
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGCD2C8C3F
+  onu 4 type ALL sn ZTEGCD2C89CA
+  onu 5 type ALL sn ZTEGCD2C5330
+!
+interface gpon-onu_1/1/16:2
+  name Irwan-Kurniawan-10000001180
+  description 2$$Irwan-Kurniawan-10000001180$$
+  sn-bind enable sn
+  tcont 1 name t profile 10M
+  gemport 1 name g tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  service-port 1 vport 1 user-vlan 3100 vlan 3100 
+!        
+interface gpon-onu_1/1/16:4
+  name Sandrea Yunapri-10000001254
+  description 2$$Sandrea Yunapri-10000001254$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  service-port 1 vport 1 user-vlan 3100 vlan 3100 
+!
+interface gpon-onu_1/1/16:5
+  name 10000001352 -Yuyun-ODP-Depan_kantor
+  description 2$$10000001352 -Yuyun-ODP-Depan_kantor$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 20M
+  gemport 1 name 10000001352 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G 
+  encrypt 1 enable downstream
+  service-port 1 vport 1 user-vlan 3100 vlan 3100 
+  service-port 1 description 10000001352
+!
+interface gei_1/3/1
+  no shutdown
+  hybrid-attribute fiber
+  negotiation auto
+  flowcontrol disable
+  linktrap enable
+  description UPLINK_1G
+  switchport mode hybrid
+  switchport vlan 90,245,401,1100 tag
+  switchport vlan 2001-2004,2010,3100 tag
+  port-protect disable
+  uplink-isolate disable
+!
+interface xgei_1/3/2
+  phy-attribute lan
+  no shutdown
+  hybrid-attribute fiber
+  no negotiation auto
+  speed 10000
+  duplex full
+  flowcontrol disable
+  linktrap enable
+  description UPLINK_OLT
+  switchport mode hybrid
+  port-protect disable
+  uplink-isolate disable
+!
+interface gei_1/3/3
+  no shutdown
+  hybrid-attribute copper
+  negotiation auto
+  flowcontrol disable
+  linktrap enable
+  switchport mode hybrid
+  port-protect disable
+  uplink-isolate disable
+!
+interface gei_1/4/1
+  no shutdown
+  hybrid-attribute fiber
+  negotiation auto
+  flowcontrol disable
+  linktrap enable
+  switchport mode trunk
+  switchport vlan 1 tag
+  port-protect disable
+  uplink-isolate disable
+!
+interface gei_1/4/2
+  shutdown
+  hybrid-attribute fiber
+  negotiation auto
+  flowcontrol disable
+  linktrap enable
+  switchport mode trunk
+  switchport vlan 1 tag
+  port-protect disable
+  uplink-isolate disable
+!
+interface gei_1/4/3
+  shutdown
+  hybrid-attribute copper
+  negotiation auto
+  flowcontrol disable
+  linktrap enable
+  switchport mode trunk
+  switchport vlan 1 tag
+  port-protect disable
+  uplink-isolate disable
+!
+!
+mpls ldp dynamic-capability
+!
+!
+!
+!
+!
+!
+!
+ip route 0.0.0.0 0.0.0.0 10.203.2.1
+!
+ipoa inatmarp-interval 10
+ipoa gateway-arp-interval 10
+!
+mpnat trans-table aging-time 60
+mpnat onu-telnet idle-time 3
+mpnat onu-ftp aging-time 5
+mpnat onu-snmp aging-time 30
+mpnat onu-ftp-data aging-time 5
+mpnat onu-mng-port auto-alloc disable
+mpnat modem-telnet idle-time 3
+!
+pon
+!
+!        
+pon-onu-mng gpon-onu_1/1/4:2
+  service S1 gemport 1 vlan 2002
+  wan-ip 1 mode pppoe username onweraston password 6TVIER7D vlan-profile 2002 ho
+st 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/1/5:2
+  service S1 gemport 1 vlan 2004
+  wan-ip 1 mode pppoe username dkissudasono password 7F41S9OB vlan-profile 2004 
+host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode hybrid def-vlan 2004 def-pri 1
+  security-mgmt 212 state enable mode forward protocol web 
+!
+pon-onu-mng gpon-onu_1/1/6:2
+  service SBP gemport 1 vlan 2003
+!
+pon-onu-mng gpon-onu_1/1/8:1
+  service MGT-SW-DKIS gemport 1 vlan 90
+  service pemkot gemport 2 vlan 2010
+  vlan port eth_0/1 mode trunk
+  vlan port eth_0/2 mode hybrid def-vlan 2010 def-pri 1
+  vlan port eth_0/1 vlan 90,2004
+!
+pon-onu-mng gpon-onu_1/1/8:2
+  service static gemport 1 vlan 2001
+  vlan port eth_0/1 mode hybrid def-vlan 2001 def-pri 1
+!
+pon-onu-mng gpon-onu_1/1/9:2
+  service s1 gemport 1 vlan 3100
+!
+pon-onu-mng gpon-onu_1/1/9:4
+  service ServiceName gemport 1 vlan 401
+  vlan port eth_0/1 mode tag vlan 401
+  vlan port eth_0/2 mode tag vlan 401
+  vlan port eth_0/3 mode tag vlan 401
+  vlan port eth_0/4 mode tag vlan 401
+!
+pon-onu-mng gpon-onu_1/1/14:2
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 10000001481 password C1NZT9KI vlan-profile 3100 h
+ost 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/1/16:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 10000001180 password W7F3Q2GD vlan-profile 3100 h
+ost 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web 
+!
+pon-onu-mng gpon-onu_1/1/16:4
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 10000001254 password BR6PVT8Q vlan-profile 3100 h
+ost 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/1/16:5
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 10000001352 password X9V4EYNT vlan-profile 3100 h
+ost 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+!
+pon
+!
+!
+igmp mvlan 1100 source-port xgei_1/3/2
+mac vpn 143e.bfbf.c9c5
+!
+!
+!
+auto-write enable 
+auto-write 18:00:00  everyday
+!
+inband-management enable
+!
+username user-suspend mode none 
+!
+username high-level-security disable
+username inactivity-day 120
+username pwd-expire-day 90
+!
+version V4.8.35
+!
+hostname OLT-BITSNET-ID
+!
+enable secret level 15 5 RcMLuUKvnFZX9kNAV6A/UA==
+!
+service password-encryption
+!
+!        
+username zte password  7 dnXspUMqxfJOgln2Hm7Olw== privilege 15 first-login true
+username zte password  7 dnXspUMqxfJOgln2Hm7Olw== max-sessions 16
+username zte disable
+username login-range name zte login-begin 00:00:00  login-end 23:59:59
+username expire-date name zte datetime 12-31-2099 23:59:59
+username password-changed name zte is-changed false
+
+username bitsnet password  7 wH3S2Gr20ni64xfR8fdBxQ== privilege 15 first-login t
+rue
+username bitsnet password  7 wH3S2Gr20ni64xfR8fdBxQ== max-sessions 16
+username bitsnet enable
+username login-range name bitsnet login-begin 00:00:00  login-end 23:59:59
+username expire-date name bitsnet datetime 12-31-2099 23:59:59
+username password-changed name bitsnet is-changed false
+
+!
+!
+!
+user-authentication-type local
+user-authorization-type local
+!
+help message full
+!        
+banner incoming @
+*************************************************************************
+Welcome to ZXAN product C320 of ZTE Corporation
+*************************************************************************
+@
+!
+message-of-day @
+@
+!
+!
+service timestamps log datetime localtime
+service timestamps debug datetime localtime
+!
+!
+!
+!
+snmp-server location No.889 BiBo Rd.PuDong District, Shanghai, China
+snmp-server contact +86-21-68895000
+snmp-server packetsize 8192
+snmp-server engine-id mode mac
+snmp-server group GroupPriv15 v3 priv read AllView write AllView
+snmp-server group GroupPriv10 v3 priv read AllView write ViewPriv10
+snmp-server group GroupPriv5 v3 priv read AllView write ViewPriv5
+snmp-server group GroupPriv0 v3 priv read AllView
+snmp-server community public view allview rw
+snmp-server community bitenetro view AllView ro
+snmp-server community bitsnetrw view AllView rw
+snmp-server view AllView 1.2 included 
+snmp-server view AllView 1.3 included 
+snmp-server view ViewPriv5 1.2 included 
+snmp-server view ViewPriv5 1.3 included 
+snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.10.1 excluded 
+snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.10.10 excluded 
+snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.20.1 excluded 
+snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.20.10 excluded 
+snmp-server view ViewPriv10 1.2 included 
+snmp-server view ViewPriv10 1.3 included 
+snmp-server view ViewPriv10 1.3.6.1.4.1.3902.1082.20.10 excluded 
+snmp-server host 10.253.1.4  version 2c bitsnetro enable NOTIFICATIONS target-ad
+dr-name EMS_10.253.1.4 isnmsserver udp-port 162 trap-report-compatibility v20 
+snmp-server host 10.253.1.5  version 2c bitenetro enable NOTIFICATIONS target-ad
+dr-name EMS_10.253.1.5 isnmsserver udp-port 162 trap-report-compatibility v20 
+snmp-server host 10.253.1.60  version 2c bitenetro enable NOTIFICATIONS target-a
+ddr-name EMS_10.253.1.60 isnmsserver udp-port 162 trap-report-compatibility v20 
+snmp-server host 103.19.57.2  version 2c bitnetro enable NOTIFICATIONS target-ad
+dr-name EMS_103.19.57.2 isnmsserver udp-port 162 trap-report-compatibility v20 
+snmp-server host 10.202.0.134  version 2c bitenetro enable NOTIFICATIONS target-
+addr-name EMS_10.202.0.134 isnmsserver udp-port 162 trap-report-compatibility v2
+0 
+!
+!
+no ftp-server enable listen 21 
+ftp-server top-directory  /flash/ 
+!
+ntp server 103.19.56.5 priority 1
+ntp server 203.160.128.59 priority 2
+ntp server 202.162.32.12 priority 3
+ntp enable
+!
+logging alarmlog enable
+logging exc-event auto-write enable
+logging level notification
+logging cmdlog enable
+logging snmplog disable
+logging igmplog disable
+syslog facility local0
+syslog severity 6
+syslog hostname-field hostname
+line console idle-timeout 15 
+line console absolute-timeout 1440 
+line telnet idle-timeout 1000 
+line telnet absolute-timeout 1440 
+line telnet users 16 
+line cli detail-info-show disable
+
+no hotkey ctrl_g 
+no hotkey ctrl_l 
+no hotkey ctrl_o 
+no hotkey ctrl_r 
+no hotkey ctrl_s 
+no hotkey ctrl_t 
+!
+ssh server authentication mode local
+ssh server authentication type pap
+no ssh server only
+ssh server version 2
+!
+!
+radius attribute vendor-specific vendor-id 3902
+!
+!
+!        
+radius server-port-check on
+!
+!
+tacacs disable 
+tacacs-server timeout 5
+tacacs-server deadtime 5
+tacacs-server packet 1024
+!
+!
+alarm enable
+alarm confirm
+alarm trap-confirm retry 3 timeout 20 
+nms-hello-trap disable
+alarm report-speed 0
+alarm anti-jitter 0 
+!
+end
