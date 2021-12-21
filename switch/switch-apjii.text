@@ -8,7 +8,7 @@ feature lldp
 username admin password 5 $1$v344qNPr$h9KGicRTr7pS3LUzIHMjq/  role network-admin
 username bitsnet password 5 $1$caVuwKxF$4GpZmg1aVqDyjrk/7WK5Y1  role network-admin
 username support password 5 $1$7YgRSa0w$ztbLslfsakQIeas5dMv8M0  role network-operator
-ssh key rsa 2048 
+ssh key rsa 2048
 ip domain-lookup
 system default switchport shutdown
 ip access-list copp-system-acl-eigrp
@@ -135,89 +135,92 @@ class-map type control-plane match-any copp-tacacsradius
   match access-group name copp-system-acl-tacacsradius
 class-map type control-plane match-any copp-telnet
   match access-group name copp-system-acl-telnet
-policy-map type control-plane copp-system-policy 
+policy-map type control-plane copp-system-policy
   class copp-s-selfIp
-    police pps 500 
+    police pps 500
   class copp-s-default
-    police pps 400 
+    police pps 400
   class copp-s-l2switched
-    police pps 200 
+    police pps 200
   class copp-s-ping
-    police pps 100 
+    police pps 100
   class copp-s-l3destmiss
-    police pps 100 
+    police pps 100
   class copp-s-glean
-    police pps 500 
+    police pps 500
   class copp-s-l3mtufail
-    police pps 100 
+    police pps 100
   class copp-s-ttl1
-    police pps 100 
+    police pps 100
   class copp-s-ipmcmiss
-    police pps 400 
+    police pps 400
   class copp-s-l3slowpath
-    police pps 100 
+    police pps 100
   class copp-s-dhcpreq
-    police pps 300 
+    police pps 300
   class copp-s-dhcpresp
-    police pps 300 
+    police pps 300
   class copp-s-dai
-    police pps 300 
+    police pps 300
   class copp-s-igmp
-    police pps 400 
+    police pps 400
   class copp-s-eigrp
-    police pps 200 
+    police pps 200
   class copp-s-pimreg
-    police pps 200 
+    police pps 200
   class copp-s-pimautorp
-    police pps 200 
+    police pps 200
   class copp-s-routingProto2
-    police pps 1300 
+    police pps 1300
   class copp-s-v6routingProto2
-    police pps 1300 
+    police pps 1300
   class copp-s-routingProto1
-    police pps 1000 
+    police pps 1000
   class copp-s-arp
-    police pps 200 
+    police pps 200
   class copp-s-ptp
-    police pps 1000 
+    police pps 1000
   class copp-s-vxlan
-    police pps 1000 
+    police pps 1000
   class copp-s-bfd
-    police pps 350 
+    police pps 350
   class copp-s-bpdu
-    police pps 12000 
+    police pps 12000
   class copp-s-dpss
-    police pps 1000 
+    police pps 1000
   class copp-s-mpls
-    police pps 100 
+    police pps 100
   class copp-icmp
-    police pps 200 
+    police pps 200
   class copp-telnet
-    police pps 500 
+    police pps 500
   class copp-ssh
-    police pps 500 
+    police pps 500
   class copp-snmp
-    police pps 500 
+    police pps 500
   class copp-ntp
-    police pps 100 
+    police pps 100
   class copp-tacacsradius
-    police pps 400 
+    police pps 400
   class copp-stftp
-    police pps 400 
+    police pps 400
 control-plane
-  service-policy input copp-system-policy 
+  service-policy input copp-system-policy
 hardware profile portmode 48x10G+4x40G
 
 snmp-server user admin network-admin auth md5 0x43d9e33a667eb84ba16f6d78fe0602b5 priv 0x43d9e33a667eb84ba16f6d78fe0602b5 localizedkey
 snmp-server user bitsnet network-admin auth md5 0x43d9e33a667eb84ba16f6d78fe0602b5 priv 0x43d9e33a667eb84ba16f6d78fe0602b5 localizedkey
-snmp-server user support network-operator auth md5 0xb5cadd2959eee7426f16a71e5b6151a9 priv 0xb5cadd2959eee7426f16a71e5b6151a9 localizedkey
-snmp-server host 10.254.7.6 informs version 2c jakarta 
+snmp-server user support network-operator auth md5 0xb5cadd2959eee7426f16a71e5b6151a9 priv 0xb5cadd2959eee7426f16a71e5b6151a9 localizedk
+ey
+snmp-server host 10.254.7.6 informs version 2c jakarta
 snmp-server community jakarta group network-operator
 no feature ntp
 
 vlan 1
 vlan 59
   name 59-BITS-OIXP-10G
+vlan 365
+  name 365-RAPID-AGEMTEGAL
 vlan 499
   name 499-UNTANGLE-TO-CIREBON
 vlan 500
@@ -226,6 +229,8 @@ vlan 501
   name 501-MGT-SWITCH-CDC
 vlan 502
   name 502-MGT-SWITCH-MMR-NTT
+vlan 509
+  name 509-VPS-FIBERCONNECT
 vlan 516
   name 516-MGT-DIST3-CRB
 vlan 531
@@ -303,6 +308,16 @@ vlan 1403
   name 1403-INTEGRASIA
 vlan 1404
   name 1404-INTEGRASIA
+vlan 1410
+  name 1410-FIBERSTAR-CIREBON-NEW
+vlan 1412
+  name 1412-IFORTE-BDG
+vlan 1413
+  name 1413-IFORTE-CIREBON-NEW
+vlan 1477
+  name 1477-JLM-BDG
+vlan 1507
+  name 1507-FIBERSTAR-FBC
 vlan 1508
   name 1508-BITS-SKYLINE
 vlan 1509
@@ -321,6 +336,8 @@ vlan 1515
   name 1515-HSP-JATIBARANG
 vlan 1516
   name 1516-IFORTE-MADIUN
+vlan 1574
+  name 1574-IPTR-JLM-BDG
 vlan 1575
   name 1575-BITS-IPTR-JLM
 vlan 1600
@@ -353,12 +370,18 @@ vlan 2100
   name 2100-BITS-IIX-10G
 vlan 2222
   name 2222-TES-UPLINK-OLT
+vlan 2591
+  name 2591-IPTR-SIMS-BACKUP
 vlan 3145
   name 3145-INTEGRASIA
 vlan 3146
   name 3146-INTEGRASIA
 vlan 3501
   name 3501-MGT-JNP
+vlan 3703
+  name 3703-FS-FIBERCONNECT-JKT
+vlan 3704
+  name 3704-VPS-FBC-NTT1-2
 vlan 4090
   name 4090-VPS-IP-PRIVATE
 no spanning-tree vlan 1-3967,4048-4093
@@ -418,7 +441,7 @@ interface Ethernet1/5
   speed 1000
   description BITS-IFORTE-BANDUNG
   switchport mode trunk
-  switchport trunk allowed vlan 531,536,581,1401-1402,1512,3145-3146
+  switchport trunk allowed vlan 531,536,581,1401-1402,1412,1512,3145-3146,3703
   no shutdown
 
 interface Ethernet1/6
@@ -472,7 +495,8 @@ interface Ethernet1/14
   speed 1000
   description TO-RAPID-TELKOM
   switchport mode trunk
-  switchport trunk allowed vlan none
+  switchport trunk allowed vlan 365
+  no shutdown
 
 interface Ethernet1/15
   speed 1000
@@ -536,6 +560,10 @@ interface Ethernet1/35
 interface Ethernet1/36
 
 interface Ethernet1/37
+  description BACKUP-IPTR-SIMS
+  switchport mode trunk
+  switchport trunk allowed vlan 2591
+  no shutdown
 
 interface Ethernet1/38
   no shutdown
@@ -574,25 +602,25 @@ interface Ethernet1/43
 interface Ethernet1/44
   description IFORTE-CIREBON-2G
   switchport mode trunk
-  switchport trunk allowed vlan 516,581,1508-1509,1513,1810,2222,3501
+  switchport trunk allowed vlan 516,581,1413,1508-1509,1513,1704,1810,2222,3501
   no shutdown
 
 interface Ethernet1/45
   description TO-FIBERSTAR-10G
   switchport mode trunk
-  switchport trunk allowed vlan 499,588-589,1346,1510,2010
+  switchport trunk allowed vlan 499,588-589,1346,1410,1507,1510-1511,2010
   no shutdown
 
 interface Ethernet1/46
   description BITS-IPTR-JLM
-  switchport access vlan 1575
+  switchport mode trunk
+  switchport trunk allowed vlan 1574-1575
   no shutdown
 
 interface Ethernet1/47
-  description BITS-NTT
+  description BITS-NTT-10G
   switchport mode trunk
-  switchport trunk allowed vlan 501-502,577,581,1600-1602,1700-1705,4090
-  no shutdown
+  switchport trunk allowed vlan 501-502,577,581,1600-1602,1700-1705,3704,4090
 
 interface Ethernet1/48
   description BITS-CDC
@@ -603,7 +631,8 @@ interface Ethernet1/48
 interface Ethernet1/49
   description BITS-CDC
   switchport mode trunk
-  switchport trunk allowed vlan 59,499,501-502,516,536,551,573,576-577,581,584,587-589,890,952-953,1246-1252,1254-1256,1258-1261,1301-1304,1346,1401-1404,1510,1512-1516,1575,1600-1602,1700-1705,2000,2010,2041,2100,2222,3145-3146,3501,4090
+  switchport trunk allowed vlan 59,365,499,501-502,509,516,536,551,573,576-577,581,584,587-589,890,952-953,1246-1252,1254-1256,1258-1261
+,1301-1304,1346,1401-1404,1507,1510-1516,1574-1575,1600-1602,1700-1705,2000,2010,2041,2100,2222,3145-3146,3456,3501,3703-3704,4090
   no shutdown
 
 interface Ethernet1/50
@@ -611,7 +640,7 @@ interface Ethernet1/50
 interface Ethernet1/51
   description TO-NTT-40G
   switchport mode trunk
-  switchport trunk allowed vlan 501-502,577,581,1600-1602,1700-1705,4090
+  switchport trunk allowed vlan 501-502,509,577,581,1600-1602,1700-1705,3704,4090
   no shutdown
 
 interface Ethernet1/52
@@ -622,6 +651,7 @@ interface mgmt0
   ip address 192.168.168.2/30
 line console
 line vty
-boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U6.5c.bin 
-boot system bootflash:/n3000-uk9.6.0.2.U6.5c.bin 
+boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U6.5c.bin
+boot system bootflash:/n3000-uk9.6.0.2.U6.5c.bin
 ip route 0.0.0.0/0 10.254.7.5
+
