@@ -1,4 +1,4 @@
-switch-bdg-lt8-bitsnet.id#show running-config 
+switch-bdg-lt8-bitsnet.id#show running-config
 
  Being processed.This may take a few minutes,please wait......
 
@@ -6,7 +6,7 @@ switch-bdg-lt8-bitsnet.id#show running-config
 !command in view_mode
 !
 !command in config_mode first-step
-create vlan 10,27,421-423,531,536,581,584,601,604-607,613,615-618,624-629,702,986,1304,1401-1404,1512,1576-1578,2000,2088,2338-2339,2387-2388,3101,3145-3146 active
+create vlan 10,27,330,421-423,531,536,581,584,601,604-607,613,615-618,624-629,702,986,1304,1401-1404,1412,1477,1512,1574-1578,1603-1604,1951,1970-1972,2000,2088,2338-2339,2387-2388,3101,3145-3146,3703-3704 active
 !
 !command in qos mapping mode
 !
@@ -39,14 +39,14 @@ create vlan 10,27,421-423,531,536,581,584,601,604-607,613,615-618,624-629,702,98
 !command in hvlan_mode
 !
 !command in enable_mode
-enable password cipher $@!!92db2f495087f23ed0aafea83193ff7f 
+enable password cipher $@!!92db2f495087f23ed0aafea83193ff7f
 user name bitsnet password cipher $@!!92db2f495087f23ed0aafea83193ff7f
 user name raisecom password cipher $@!!b4a47de862e42a090b7baa343535d390
 user name raisecom privilege 7
 user name support password cipher $@!!248c5b65af9b3e059db8746a69630bff
 user name support privilege 4
 hostname switch-bdg-lt8-bitsnet.id
-clock timezone + 7 0 Jakarta 
+clock timezone + 7 0 Jakarta
 clock display utc
 !
 !command in region_mode
@@ -70,12 +70,15 @@ ip address 10.254.11.2 255.255.255.252
 !command in aggregation_mode
 !
 !command in vlan configuration mode
-!         
+!
 vlan 10
 name 10-VLAN-NATIVE
 !
 vlan 27
 name 27-mgmt-lt8
+!
+vlan 330
+name 330-INTEGRASIA
 !
 vlan 421
 name 421-POS-OFFICE
@@ -116,7 +119,7 @@ name 607-TGI-BITEK
 vlan 613
 name 613-FENGTAY-CGS
 !
-vlan 615  
+vlan 615
 name 615-GH-UNIVERSAL
 !
 vlan 616
@@ -139,7 +142,7 @@ name 626-KAMBOTI-GOESAR
 !
 vlan 627
 name 627-KYTOS-GOESAR
-!         
+!
 vlan 628
 name 628-BOD-GOESAR-BDG
 !
@@ -167,8 +170,20 @@ name 1403-INTERGASIA
 vlan 1404
 name 1404-INTERGASIA
 !
+vlan 1412
+name 1412-IFORTE-BANDUNG-NEW
+!
+vlan 1477
+name 1477-JLM-BANDUNG-NEW
+!
 vlan 1512
 name 1512-IFORTE
+!
+vlan 1574
+name 1574-IPTR-JLM-BTS-CRB
+!
+vlan 1575
+name 1575-IPTR-JLM-BITSNET
 !
 vlan 1576
 name 1576-JLM-FIBERCONN
@@ -179,13 +194,31 @@ name 1577-METRO-JLM
 vlan 1578
 name 1578-PT-AMBA
 !
+vlan 1603
+name 1603-INTEGRASIA
+!
+vlan 1604
+name 1604-INTEGRASIA
+!
+vlan 1951
+name 1951-INTEGRASIA
+!
+vlan 1970
+name 1970-INTEGRASIA
+!
+vlan 1971
+name 1971-INTEGRASIA
+!
+vlan 1972
+name 1972-INTEGRASIA
+!
 vlan 2000
 name 2000-PASIFIK-GOESAR
 !
 vlan 2088
 name 2088-TO-TELKOM-P2P
 !
-vlan 2338 
+vlan 2338
 name 2338-LINTAS-SATU-VISI
 !
 vlan 2339
@@ -206,50 +239,57 @@ name 3145-INTEGRASIA
 vlan 3146
 name 3146-INTEGRASIA
 !
+vlan 3703
+name 3703-FS-FIBERCONNECT-JKT
+!
+vlan 3704
+name 3704-SERVER-FIBERCONNECT
+!
 !command in port_mode
 !
 interface gigaethernet 1/1/1
 shutdown
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/2
 shutdown
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/3
 shutdown
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/4
 shutdown
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/5
 shutdown
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/6
 shutdown
-loopback-detection action shutdown 
-!         
+loopback-detection action shutdown
+!
 interface gigaethernet 1/1/7
 shutdown
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/8
 shutdown
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/9
+description TO-INTEGRASIA
 switchport trunk allowed vlan 1401-1402,3101,3145-3146
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/10
 description COLLOCATION-PSAT
 switchport trunk allowed vlan 2387-2388
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/11
 description INTERKONEKSI-TIS
@@ -257,81 +297,81 @@ switchport trunk native vlan 10
 switchport trunk allowed vlan 421-423,986
 switchport mode trunk
 spanning-tree loopguard enable
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/12
 switchport access vlan 1578
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/13
 description TO-JLM-FIBERCONN
 switchport trunk allowed vlan 1576-1578
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/14
 description COLLOCATION-JLM
 switchport access vlan 2339
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/15
 description TO-LINTAS-SATU-VISI
 switchport trunk allowed vlan 2338
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/16
 description TO-SEKRE-APJII
 switchport access vlan 702
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/17
 description TO-BITEK
 switchport trunk allowed vlan 584,604-607,615,618
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/18
 description BITS-JABARMAYA
 switchport trunk allowed vlan 531,536
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/19
 description TO-TELKOM
 switchport trunk allowed vlan 2088
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/20
 description TO-JABRIX
 switchport access vlan 601
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/21
 description TO-AITI
 switchport trunk allowed vlan 617
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/22
 description TO-CGS
 switchport trunk native vlan 10
 switchport trunk allowed vlan 613,616
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/23
 description TO-GOESAR
 switchport trunk allowed vlan 624-629,2000
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface gigaethernet 1/1/24
 description UPLINK-TO-IFORTE-JKT
 switchport trunk allowed vlan 531,536,581,1401-1402,1512,3145-3146
 switchport mode trunk
-loopback-detection action shutdown 
+loopback-detection action shutdown
 !
 interface tengigabitethernet 1/1/25
 shutdown
@@ -391,8 +431,8 @@ ip address 172.16.11.2 255.255.255.0
 snmp-server location BBU-Bandung-LT7
 snmp-server contact noc@bits.net.id
 snmp-server community encryption 0xae46c4be7fc99191 ro
-ip route 0.0.0.0 0.0.0.0 10.254.11.29 
-!         
+ip route 0.0.0.0 0.0.0.0 10.254.11.29
+!
 !command in linktrace_mode
 !
 !command in clkmgmt_mode
