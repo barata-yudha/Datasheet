@@ -6,7 +6,7 @@ switch-bdg-lt8-bitsnet.id#show running-config
 !command in view_mode
 !
 !command in config_mode first-step
-create vlan 10,27,330,421-423,531,536,581,584,601,604-607,613,615-618,624-629,702,986,1304,1401-1404,1412,1477,1512,1574-1578,1603-1604,1951,1970-1972,2000,2088,2338-2339,2387-2388,3101,3145-3146,3703-3704 active
+create vlan 10,27,330,421-424,531,536,581,584,601,604-608,613,615-618,624-629,702,986,1304,1412,1477,1512,1574-1576,1578,1603-1604,1951,1970-1972,2000,2088,2338-2339,2387-2388,3101,3145-3146,3703-3704 active
 !
 !command in qos mapping mode
 !
@@ -89,6 +89,9 @@ name 422-CITY-SQUARE
 vlan 423
 name 423-SKP-PUSAT
 !
+vlan 424
+name 424-SKP-BANDARA-HUSEIN
+!
 vlan 531
 name 531-BITS-JABARMAYA
 !
@@ -115,6 +118,9 @@ name 606-HOLIDAYIN
 !
 vlan 607
 name 607-TGI-BITEK
+!
+vlan 608
+name 608-BITEK-BALMON
 !
 vlan 613
 name 613-FENGTAY-CGS
@@ -158,18 +164,6 @@ name 986-VARNION
 vlan 1304
 name 1304-INTEGRASIA
 !
-vlan 1401
-name 1401-INTERGASIA
-!
-vlan 1402
-name 1402-INTERGASIA
-!
-vlan 1403
-name 1403-INTERGASIA
-!
-vlan 1404
-name 1404-INTERGASIA
-!
 vlan 1412
 name 1412-IFORTE-BANDUNG-NEW
 !
@@ -187,9 +181,6 @@ name 1575-IPTR-JLM-BITSNET
 !
 vlan 1576
 name 1576-JLM-FIBERCONN
-!
-vlan 1577
-name 1577-METRO-JLM
 !
 vlan 1578
 name 1578-PT-AMBA
@@ -281,7 +272,7 @@ loopback-detection action shutdown
 !
 interface gigaethernet 1/1/9
 description TO-INTEGRASIA
-switchport trunk allowed vlan 1401-1402,3101,3145-3146
+switchport trunk allowed vlan 330,1603-1604,1951,1970-1972,3101,3145-3146
 switchport mode trunk
 loopback-detection action shutdown
 !
@@ -305,7 +296,7 @@ loopback-detection action shutdown
 !
 interface gigaethernet 1/1/13
 description TO-JLM-FIBERCONN
-switchport trunk allowed vlan 1576-1578
+switchport trunk allowed vlan 1576,1578
 switchport mode trunk
 loopback-detection action shutdown
 !
@@ -327,7 +318,7 @@ loopback-detection action shutdown
 !
 interface gigaethernet 1/1/17
 description TO-BITEK
-switchport trunk allowed vlan 584,604-607,615,618
+switchport trunk allowed vlan 424,584,604-608,615,618
 switchport mode trunk
 loopback-detection action shutdown
 !
@@ -369,7 +360,7 @@ loopback-detection action shutdown
 !
 interface gigaethernet 1/1/24
 description UPLINK-TO-IFORTE-JKT
-switchport trunk allowed vlan 531,536,581,1401-1402,1512,3145-3146
+switchport trunk allowed vlan 531,536,581,1512,3703
 switchport mode trunk
 loopback-detection action shutdown
 !
@@ -384,7 +375,7 @@ shutdown
 !
 interface tengigabitethernet 1/1/28
 description TRUNKING-TO-LT7
-switchport trunk allowed vlan 27,421-423,536,581,584,601,604-607,613,615-618,624-629,702,986,1401-1402,1512,1576-1578,2000,2088,2338-2339,2387-2388,3101,3145-3146
+switchport trunk allowed vlan 27,330,421-424,536,581,584,601,604-608,613,615-618,624-629,702,986,1512,1576,1578,1603-1604,1951,1970-1972,2000,2088,2338-2339,2387-2388,3101,3145-3146,3703
 switchport mode trunk
 loopback-detection action trap-only log-interval 1
 !
@@ -436,3 +427,4 @@ ip route 0.0.0.0 0.0.0.0 10.254.11.29
 !command in linktrace_mode
 !
 !command in clkmgmt_mode
+!
