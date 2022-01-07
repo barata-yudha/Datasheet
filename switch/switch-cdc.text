@@ -1,7 +1,7 @@
-sw-cdc.bitsnet.id# show running-config 
+sw-cdc.bitsnet.id# show running-config
 
 !Command: show running-config
-!Time: Fri Nov 26 19:43:17 2021
+!Time: Fri Jan  7 11:38:03 2022
 
 version 6.0(2)U2(9Z)
 hostname sw-cdc.bitsnet.id
@@ -150,81 +150,82 @@ class-map type control-plane match-any copp-tacacsradius
   match access-group name copp-system-acl-tacacsradius
 class-map type control-plane match-any copp-telnet
   match access-group name copp-system-acl-telnet
-policy-map type control-plane copp-system-policy 
+policy-map type control-plane copp-system-policy
   class copp-s-selfIp
-    police pps 500 
+    police pps 500
   class copp-s-default
-    police pps 400 
+    police pps 400
   class copp-s-l2switched
-    police pps 200 
+    police pps 200
   class copp-s-ping
-    police pps 100 
+    police pps 100
   class copp-s-l3destmiss
-    police pps 100 
+    police pps 100
   class copp-s-glean
-    police pps 500 
+    police pps 500
   class copp-s-l3mtufail
-    police pps 100 
+    police pps 100
   class copp-s-ttl1
-    police pps 100 
+    police pps 100
   class copp-s-ipmcmiss
-    police pps 400 
+    police pps 400
   class copp-s-l3slowpath
-    police pps 100 
+    police pps 100
   class copp-s-dhcpreq
-    police pps 300 
+    police pps 300
   class copp-s-dhcpresp
-    police pps 300 
+    police pps 300
   class copp-s-dai
-    police pps 300 
+    police pps 300
   class copp-s-igmp
-    police pps 400 
+    police pps 400
   class copp-s-eigrp
-    police pps 200 
+    police pps 200
   class copp-s-pimreg
-    police pps 200 
+    police pps 200
   class copp-s-pimautorp
-    police pps 200 
+    police pps 200
   class copp-s-routingProto2
-    police pps 1300 
+    police pps 1300
   class copp-s-v6routingProto2
-    police pps 1300 
+    police pps 1300
   class copp-s-routingProto1
-    police pps 1000 
+    police pps 1000
   class copp-s-arp
-    police pps 200 
+    police pps 200
   class copp-s-ptp
-    police pps 1000 
+    police pps 1000
   class copp-s-vxlan
-    police pps 1000 
+    police pps 1000
   class copp-s-bfd
-    police pps 350 
+    police pps 350
   class copp-s-bpdu
-    police pps 12000 
+    police pps 12000
   class copp-s-dpss
-    police pps 1000 
+    police pps 1000
   class copp-icmp
-    police pps 200 
+    police pps 200
   class copp-telnet
-    police pps 500 
+    police pps 500
   class copp-ssh
-    police pps 500 
+    police pps 500
   class copp-snmp
-    police pps 500 
+    police pps 500
   class copp-ntp
-    police pps 100 
+    police pps 100
   class copp-tacacsradius
-    police pps 400 
+    police pps 400
   class copp-stftp
-    police pps 400 
+    police pps 400
 control-plane
-  service-policy input copp-system-policy 
+  service-policy input copp-system-policy
 hardware profile portmode 48x10G+4x40G
 
 snmp-server user admin network-admin auth md5 0xd3d17e4fdc494c1f3325827766d24ee9 priv 0xd3d17e4fdc494c1f3325827766d24ee9 localizedkey
 snmp-server user bitsnet network-admin auth md5 0xd3d17e4fdc494c1f3325827766d24ee9 priv 0xd3d17e4fdc494c1f3325827766d24ee9 localizedkey
-snmp-server user support network-operator auth md5 0xc6b8121ee78f32c165543c39e79fc972 priv 0xc6b8121ee78f32c165543c39e79fc972 localizedkey
-snmp-server host 10.254.7.10 informs version 2c jakarta 
+snmp-server user support network-operator auth md5 0xc6b8121ee78f32c165543c39e79fc972 priv 0xc6b8121ee78f32c165543c39e79fc972 localizedke
+y
+snmp-server host 10.254.7.10 informs version 2c jakarta
 snmp-server enable traps callhome event-notify
 snmp-server enable traps callhome smtp-send-fail
 snmp-server enable traps cfs state-change-notif
@@ -263,6 +264,8 @@ vlan 95
   name 95-IPVPN-ICON
 vlan 305
   name 305-GGC-JLM
+vlan 365
+  name 365-RAPID-AGEMTEGAL
 vlan 498
   name 498-SERVER-UNTANGLE-TEST
 vlan 499
@@ -285,6 +288,8 @@ vlan 507
   name 507-PTP-DISTRIBUSI-2-5
 vlan 508
   name 508-PTP-DISTRIBUSI-3-5
+vlan 509
+  name 509-VPS-FIBERCONNECT
 vlan 510
   name 510-PTP-DISTRUBUSI-1-4
 vlan 511
@@ -405,6 +410,8 @@ vlan 1260
   name 1260-BTN-SYARIAH-PALEMBANG
 vlan 1261
   name 1261-BTN-KC-CIREBON
+vlan 1270
+  name 1270-AGTI-SURYALAYA-CIREBON
 vlan 1301
   name 1301-SIAP-KGX-CRB
 vlan 1302
@@ -423,6 +430,8 @@ vlan 1403
   name 1403-INTERGASIA
 vlan 1404
   name 1404-INTERGASIA
+vlan 1507
+  name 1507-FIBERSTAR-FBC
 vlan 1510
   name 1510-FSCRB
 vlan 1511
@@ -437,10 +446,12 @@ vlan 1515
   name 1515-HSP-JATIBARANG
 vlan 1516
   name 1516-BITS-IFORTE-MADIUN
+vlan 1574
+  name 1574-IPTR-JLM
 vlan 1575
   name 1575-IPTR-JLM
-vlan 1577
-  name 1577-METRO-JLM
+vlan 1576
+  name 1576-IPTR-FIBERCONNECT
 vlan 1600
   name 1600-BITSNET-NTT
 vlan 1601
@@ -489,6 +500,10 @@ vlan 3502
   name 3502-MGT-JNP
 vlan 3600
   name 3600-DIST4-TO-TENDA
+vlan 3703
+  name 3703-FS-FIBERCONNECT-JKT
+vlan 3704
+  name 3704-VPS-FBC-NTT1-2
 vlan 4090
   name 4090-VPS-IP-PRIVATE
 no spanning-tree vlan 1-3967,4048-4093
@@ -553,7 +568,7 @@ interface Ethernet1/9
 interface Ethernet1/10
   description TO-CORE-MPLS-ether12
   switchport mode trunk
-  switchport trunk allowed vlan 95,1246-1261,1301-1303
+  switchport trunk allowed vlan 95,365,1246-1261,1270,1301-1303
   speed 1000
 
 interface Ethernet1/11
@@ -632,8 +647,13 @@ interface Ethernet1/24
 
 interface Ethernet1/25
   description TO-JUNOS-xe-0/1/6
+  switchport mode trunk
+  switchport trunk allowed vlan 1576
 
 interface Ethernet1/26
+  description TO-JUNOS-xe-0/1/7
+  switchport mode trunk
+  switchport trunk allowed vlan 509,3703-3704
 
 interface Ethernet1/27
   description TO-JUNOS-xe-0/1/4
@@ -648,7 +668,7 @@ interface Ethernet1/28
 interface Ethernet1/29
   description TO-JUNOS-xe-0/1/2
   switchport mode trunk
-  switchport trunk allowed vlan 1575,2591
+  switchport trunk allowed vlan 1574-1575,2591
 
 interface Ethernet1/30
   description TO-JUNOS-xe-0/1/3
@@ -666,7 +686,7 @@ interface Ethernet1/32
 interface Ethernet1/33
   description TO-DIST3-NEW-MIKRO
   switchport mode trunk
-  switchport trunk allowed vlan 95,500-501,504,513-516,579-580,583,585,587-588,882-883,885,887-889,891,952,1106,1117,1512,1705,1801,1803,3500
+  switchport trunk allowed vlan 95,500-501,504,513-516,579-580,583,585,588,882-883,885,887-891,952,1106,1117,1512,1705,1801,1803,3500
 
 interface Ethernet1/34
   description TO-GGC-NODE-1
@@ -722,7 +742,7 @@ interface Ethernet1/44
 interface Ethernet1/45
   description PTP-ICON-INTERKONEKSI-LAMA
   switchport mode trunk
-  switchport trunk allowed vlan 95,880-886,890
+  switchport trunk allowed vlan 95,880-886
 
 interface Ethernet1/46
 
@@ -734,17 +754,19 @@ interface Ethernet1/47
 interface Ethernet1/48
   description TO-JLM-10G
   switchport mode trunk
-  switchport trunk allowed vlan 1304,1401-1404,1577,3145-3146
+  switchport trunk allowed vlan 1575-1576
 
 interface Ethernet1/49
   description CDC-TO-APJII
   switchport mode trunk
-  switchport trunk allowed vlan 59,105,212-213,344,499,501-502,516,536,551,572-573,575,581,584-585,587-589,701,890,952-953,1246-1261,1301-1304,1346,1401-1404,1457,1510,1512-1516,1575,1600-1602,1700-1701,1703-1705,1888,2000,2010,2041,2100,2222,2363,3145-3146,3501,4090
+  switchport trunk allowed vlan 59,105,212-213,344,365,499,501-502,509,516,536,551,572-573,575,581,584-585,587-589,701,890,952-953,1246-1
+261,1270,1301-1304,1346,1401-1404,1457,1507,1510-1516,1574,1600-1602,1700-1701,1703-1705,1888,2000,2010,2041,2100,2222,2363,3145-3146,350
+1,3703-3704,4090
 
 interface Ethernet1/50
   description TO-JUNOS
   switchport mode trunk
-  switchport trunk allowed vlan 573,584,587-589,880,882-891,952-953,1346,1510,1512-1516,1577,2000,2010,2041,3000
+  switchport trunk allowed vlan 365,573,584,587-589,880,882-889,891,952-953,1346,1507,1510-1516,2000,2010,2041,3000
 
 interface Ethernet1/51
   shutdown
@@ -757,6 +779,6 @@ interface mgmt0
 line console
 line vty
   session-limit 10
-boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U2.9z.bin 
-boot system bootflash:/n3000-uk9.6.0.2.U2.9z.bin 
+boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U2.9z.bin
+boot system bootflash:/n3000-uk9.6.0.2.U2.9z.bin
 ip route 0.0.0.0/0 10.254.7.9
