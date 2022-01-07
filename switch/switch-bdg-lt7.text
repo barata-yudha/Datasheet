@@ -1,8 +1,8 @@
 SWITCH-DISTRIBUSI-BANDUNG# show running-config
 
 !Command: show running-config
-!Running configuration last done at: Fri Dec 24 09:50:32 2021
-!Time: Fri Dec 24 14:09:14 2021
+!Running configuration last done at: Thu Jan  6 00:58:43 2022
+!Time: Fri Jan  7 04:26:52 2022
 
 version 7.0(3)I7(7) Bios:version 07.64
 switchname SWITCH-DISTRIBUSI-BANDUNG
@@ -26,8 +26,8 @@ ip domain-lookup
 copp profile strict
 snmp-server user admin network-admin auth md5 0xdbb3ddb5d72c2f1d524d65e5d967bf9d priv 0xdbb3ddb5d72c2f1d524d65e5d967bf9d localizedkey
 snmp-server user bitsnet network-admin auth md5 0xdbb3ddb5d72c2f1d524d65e5d967bf9d priv 0xdbb3ddb5d72c2f1d524d65e5d967bf9d localizedkey
-snmp-server user support network-operator auth md5 0x9c9b34b8134833bbc97a913bf03aa9b4 priv 0x9c9b34b8134833bbc97a913bf03aa9b4 localizedk
-ey
+snmp-server user support network-operator auth md5 0x9c9b34b8134833bbc97a913bf03aa9b4 priv 0x9c9b34b8134833bbc97a913bf03aa9b4 localizedke
+y
 rmon event 1 description FATAL(1) owner PMON@FATAL
 rmon event 2 description CRITICAL(2) owner PMON@CRITICAL
 rmon event 3 description ERROR(3) owner PMON@ERROR
@@ -38,8 +38,8 @@ ntp server 103.19.56.5 use-vrf default
 
 ip route 0.0.0.0/0 10.254.11.33
 ip route 0.0.0.0/0 192.168.2.1
-vlan 1,25-28,330,350-351,421-423,531,536,573,581,584,600-601,604-607,613,615-618,621,624-629,702,883-884,986,1304,1401-1404,1412,1477,15
-07,1512,1575-1578,1603-1604,1951,1970-1972,2000,2088,2090,2338-2339,2377,2387-2388,3101,3145-3146,3700-3704
+vlan 1,25-28,330,350-351,421-425,531,536,573,581,584,600-601,604-608,613,615-618,621,624-629,702,883-884,986,1401-1402,1412,1477,1507,151
+2,1575-1576,1578,1603-1604,1951,1970-1972,2000,2088,2090,2338-2339,2377,2387-2388,3101,3145-3146,3700-3704
 vlan 25
   name 25-MGT-NEXUS-LT7
 vlan 26
@@ -60,6 +60,10 @@ vlan 422
   name 422-CITY-SQUARE
 vlan 423
   name 423-KARANTINA-PERTANIAN
+vlan 424
+  name 424-SKP-BANDARA-HUSEIN
+vlan 425
+  name 425-SKP-GEDE-BAGE
 vlan 531
   name 531-JABARMAYA
 vlan 536
@@ -82,6 +86,8 @@ vlan 606
   name 606-HOLIDAY-BITEK
 vlan 607
   name 607-TGI
+vlan 608
+  name 608-BITEK-BALMON
 vlan 613
   name 613-CGS-FENGTAY
 vlan 615
@@ -114,30 +120,22 @@ vlan 884
   name 884-MSN-GD-SATE
 vlan 986
   name 986-VARNION-PULMAN
-vlan 1304
-  name 1304-INTEGRASIA
 vlan 1401
   name 1401-INTERGASIA
 vlan 1402
   name 1402-INTERGASIA
-vlan 1403
-  name 1403-INTERGASIA
-vlan 1404
-  name 1404-INTERGASIA
 vlan 1412
   name 1412-IFORTE-BANDUNG-NEW
 vlan 1477
   name 1477-JLM-BANDUNG-NEW
 vlan 1507
-  name 1507-FIBERSTAR-FBC
+  name 1507-FIBERSTAR-CYBER1
 vlan 1512
   name IFORTE-CYBER1
 vlan 1575
   name 1575-IPTR-JLM-BITSNET
 vlan 1576
   name 1576-JLM-FIBERCONN
-vlan 1577
-  name 1577-METRO-JLM
 vlan 1578
   name 1578-PT-AMBA
 vlan 1603
@@ -218,16 +216,16 @@ interface Ethernet1/6
 interface Ethernet1/7
   description TRUNK-TO-MSN
   switchport mode trunk
-  switchport trunk allowed vlan 883-884
+  switchport trunk allowed vlan 425,883-884
 
 interface Ethernet1/8
 
 interface Ethernet1/9
-  description TRUNK-TO-EHT6-DIST-BANDUNG
+  description FIBERSTAR-TO-CCR
+  switchport access vlan 1507
 
 interface Ethernet1/10
-  description METRO-JLM
-  switchport access vlan 1577
+  description TO-PORT-8-CCR
 
 interface Ethernet1/11
   description TO-AMBA-TEKNOLOGI-INDONESIA
@@ -290,14 +288,14 @@ interface Ethernet1/32
 interface Ethernet1/33
   description TRUNK-TO-CCR
   switchport mode trunk
-  switchport trunk allowed vlan 25-28,350-351,421-423,535-536,584,600-601,604-608,612-613,615-618,621,624-629,702,883-884,986,1507,1575,
-1578,2000,2088,2090,3700,3702
+  switchport trunk allowed vlan 25-28,350-351,421-425,535-536,584,600-601,604-608,612-613,615-618,621,624-629,702,883-884,986,1575,1578,2
+000,2088,2090,3700,3702
 
 interface Ethernet1/34
   description TRUNK-TO-LT8-JABRIX
   switchport mode trunk
-  switchport trunk allowed vlan 27,330,421-423,531,534-536,581,584,601,604-608,613,615-618,624-629,702,986,1401-1404,1412,1477,1512,1575
--1578,1603-1604,1951,1970-1972,2000,2088,2338-2339,2387-2388,3101,3145-3146,3703-3704
+  switchport trunk allowed vlan 27,330,421-424,531,534-536,581,584,601,604-608,613,615-618,624-629,702,986,1412,1477,1512,1575-1576,1578,
+1603-1604,1951,1970-1972,2000,2088,2338-2339,2387-2388,3101,3145-3146,3703-3704
 
 interface Ethernet1/35
   description TRUNGKING-TO-LT6
@@ -318,9 +316,9 @@ interface Ethernet1/38
   switchport trunk allowed vlan 28,601,2090
 
 interface Ethernet1/39
-  description FBC-FS
+  description FIBERSTAR-CYBER1
   switchport mode trunk
-  switchport trunk allowed vlan 1507
+  switchport trunk allowed vlan 1401-1402,1507,3145-3146,3703
 
 interface Ethernet1/40
 
