@@ -1,0 +1,210 @@
+sw-sd-guntur-bitsnet.id#show running-config 
+Building configuration...
+
+Current configuration : 4746 bytes
+!
+! Last configuration change at 16:18:35 UTC Tue Jan 17 2006
+!
+version 15.0
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname sw-sd-guntur-bitsnet.id
+!
+boot-start-marker
+boot-end-marker
+!
+enable secret 5 $1$IlTq$nFkN/6UfvqpQMANcYjEo4.
+enable password 7 107E180A50343C41455C63
+!
+no aaa new-model
+system mtu routing 1500
+!
+!
+vtp mode transparent
+!
+!
+crypto pki trustpoint TP-self-signed-970473856
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-970473856
+ revocation-check none
+ rsakeypair TP-self-signed-970473856
+!
+!
+crypto pki certificate chain TP-self-signed-970473856
+ certificate self-signed 01
+  30820229 30820192 A0030201 02020101 300D0609 2A864886 F70D0101 05050030 
+  30312E30 2C060355 04031325 494F532D 53656C66 2D536967 6E65642D 43657274 
+  69666963 6174652D 39373034 37333835 36301E17 0D303630 31303230 30303134 
+  355A170D 32303031 30313030 30303030 5A303031 2E302C06 03550403 1325494F 
+  532D5365 6C662D53 69676E65 642D4365 72746966 69636174 652D3937 30343733 
+  38353630 819F300D 06092A86 4886F70D 01010105 0003818D 00308189 02818100 
+  C1C90271 C9A478A8 136E7E37 F9CC8B0A 6D61392E C220FE54 E925F436 57766002 
+  1C4099F0 39A69845 3DDD601F DFEF6ECA A2008ADC 734C456C D268B7E4 AB7FA951 
+  F88027C8 F6B4D884 C06C9D65 79E7217D 86656EA8 A4122B45 453DEE78 5012CC6C 
+  F1B72446 3C5D882A FBFA0134 8ABD47B7 B05705F3 575DC8DF B626BF51 CCA38CA9 
+  02030100 01A35330 51300F06 03551D13 0101FF04 05300301 01FF301F 0603551D 
+  23041830 16801492 B857573C 9224A76D 17D5F188 495AEE5E 7BD2E730 1D060355 
+  1D0E0416 041492B8 57573C92 24A76D17 D5F18849 5AEE5E7B D2E7300D 06092A86 
+  4886F70D 01010505 00038181 00BB15F2 9FEAC17D 087283A3 708C8A5E C36ABF14 
+  815CA6CA 673E7B1B 9F6FAEA7 1F77CB8C 56689907 002E6CD2 FDE645DB 5AE798EB 
+  75650D4B 48584775 93426E0E 250050A4 92F8837E 3CFF0815 5AA1E9D2 957118DF 
+  BC855A7D F6B44C98 080CC824 760BB07E 4F4801B0 CC6BFC2E FE024DB7 0BA05842 
+  DABBC440 1E63CE80 F5BBCE32 77
+        quit
+cts server deadtime 0
+no cts server test all enable
+cts server test all idle-time 0
+cts server test all deadtime 0
+!
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+no spanning-tree vlan 1-4092
+!
+!
+!
+!
+!
+no errdisable detect cause small-frame
+no errdisable detect cause loopback
+no errdisable detect cause gbic-invalid
+no errdisable detect cause sfp-config-mismatch
+no errdisable detect cause pagp-flap
+no errdisable detect cause dtp-flap
+no errdisable detect cause link-flap
+no errdisable detect cause l2ptguard
+no errdisable detect cause pppoe-ia-rate-limit
+no errdisable detect cause dhcp-rate-limit
+no errdisable detect cause arp-inspection
+!
+vlan internal allocation policy ascending
+!
+vlan 94
+ name 94-MGT-SD-UGNTUR
+!
+vlan 254
+ name 254-TO-BITEK
+!
+vlan 255
+ name 255-GOESAR-BITEK
+!
+vlan 1100
+ name 1100-Main-IPTV
+!
+vlan 1101
+ name 1101-Backup-IPTV
+!
+!
+!
+!
+!
+!
+interface FastEthernet0
+ no ip address
+ shutdown
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface GigabitEthernet0/3
+!
+interface GigabitEthernet0/4
+!
+interface GigabitEthernet0/5
+!
+interface GigabitEthernet0/6
+!
+interface GigabitEthernet0/7
+!
+interface GigabitEthernet0/8
+!         
+interface GigabitEthernet0/9
+!
+interface GigabitEthernet0/10
+!
+interface GigabitEthernet0/11
+!
+interface GigabitEthernet0/12
+!
+interface GigabitEthernet0/13
+!
+interface GigabitEthernet0/14
+!
+interface GigabitEthernet0/15
+!
+interface GigabitEthernet0/16
+!
+interface GigabitEthernet0/17
+!
+interface GigabitEthernet0/18
+!
+interface GigabitEthernet0/19
+!
+interface GigabitEthernet0/20
+!
+interface GigabitEthernet0/21
+!
+interface GigabitEthernet0/22
+!
+interface GigabitEthernet0/23
+ description TO-BACKUP-SW-BITEK
+ switchport access vlan 1100
+ switchport mode access
+!
+interface GigabitEthernet0/24
+ description TO-ONT-GOESAR
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 94,255,262,1100
+ switchport mode trunk
+!
+interface GigabitEthernet1/1
+!         
+interface GigabitEthernet1/2
+!
+interface GigabitEthernet1/3
+!
+interface GigabitEthernet1/4
+!
+interface TenGigabitEthernet1/1
+ description TRUNK-TO-BITSNET
+ switchport trunk encapsulation dot1q
+ switchport trunk allowed vlan 94,255,262,1100
+ switchport mode trunk
+!
+interface TenGigabitEthernet1/2
+ description ACCESS-TO-BITEK
+ switchport access vlan 255
+ switchport mode access
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan94
+ ip address 10.203.1.2 255.255.255.252
+!
+interface Vlan262
+ ip address 10.123.123.3 255.255.255.248
+!
+ip http server
+ip http secure-server
+ip route 0.0.0.0 0.0.0.0 10.203.1.1
+snmp-server community cirebon RO
+!
+!
+line con 0
+ exec-timeout 0 0
+line vty 0 4
+ password 7 052A3C2F2249465E14
+ login
+line vty 5 15
+ password 7 047A31260C24441904
+ login    
+!
+end
