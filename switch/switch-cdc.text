@@ -1,7 +1,7 @@
 sw-cdc.bitsnet.id# show running-config
 
 !Command: show running-config
-!Time: Fri Jan  7 11:38:03 2022
+!Time: Fri Feb  4 15:39:30 2022
 
 version 6.0(2)U2(9Z)
 hostname sw-cdc.bitsnet.id
@@ -223,8 +223,7 @@ hardware profile portmode 48x10G+4x40G
 
 snmp-server user admin network-admin auth md5 0xd3d17e4fdc494c1f3325827766d24ee9 priv 0xd3d17e4fdc494c1f3325827766d24ee9 localizedkey
 snmp-server user bitsnet network-admin auth md5 0xd3d17e4fdc494c1f3325827766d24ee9 priv 0xd3d17e4fdc494c1f3325827766d24ee9 localizedkey
-snmp-server user support network-operator auth md5 0xc6b8121ee78f32c165543c39e79fc972 priv 0xc6b8121ee78f32c165543c39e79fc972 localizedke
-y
+snmp-server user support network-operator auth md5 0xc6b8121ee78f32c165543c39e79fc972 priv 0xc6b8121ee78f32c165543c39e79fc972 localizedkey
 snmp-server host 10.254.7.10 informs version 2c jakarta
 snmp-server enable traps callhome event-notify
 snmp-server enable traps callhome smtp-send-fail
@@ -474,6 +473,8 @@ vlan 1802
   name 1802-OIXP-DIST-4
 vlan 1803
   name 1803-OIXP-DIST-3-MIKRO
+vlan 1926
+  name 1926-HSP-TERISI-PANDY
 vlan 2000
   name 2000-GOR-CITRA-PASIFIK
 vlan 2010
@@ -484,10 +485,16 @@ vlan 2100
   name 2100-BITS-IIX-10G
 vlan 2222
   name 2222-TES-UPLINK-OLT
+vlan 2433
+  name 2433-XL-NGANJUK
+vlan 2434
+  name 2434-XL-BANYUWANGI
 vlan 2591
   name 2591-IPTR-MVNET
 vlan 3000
   name 3000-GGC
+vlan 3001
+  name 3001-GGC-SMART-CONNECT
 vlan 3145
   name 3145-INTEGRASIA
 vlan 3146
@@ -498,6 +505,10 @@ vlan 3501
   name 3501-MGT-JNP
 vlan 3502
   name 3502-MGT-JNP
+vlan 3506
+  name 3506-IFORTE-BROADBAND
+vlan 3507
+  name 3507-FS-BROADBAND
 vlan 3600
   name 3600-DIST4-TO-TENDA
 vlan 3703
@@ -648,7 +659,7 @@ interface Ethernet1/24
 interface Ethernet1/25
   description TO-JUNOS-xe-0/1/6
   switchport mode trunk
-  switchport trunk allowed vlan 1576
+  switchport trunk allowed vlan 59,1576
 
 interface Ethernet1/26
   description TO-JUNOS-xe-0/1/7
@@ -759,14 +770,13 @@ interface Ethernet1/48
 interface Ethernet1/49
   description CDC-TO-APJII
   switchport mode trunk
-  switchport trunk allowed vlan 59,105,212-213,344,365,499,501-502,509,516,536,551,572-573,575,581,584-585,587-589,701,890,952-953,1246-1
-261,1270,1301-1304,1346,1401-1404,1457,1507,1510-1516,1574,1600-1602,1700-1701,1703-1705,1888,2000,2010,2041,2100,2222,2363,3145-3146,350
-1,3703-3704,4090
+  switchport trunk allowed vlan 59,105,212-213,344,365,499,501-502,509,516,536,551,572-573,575,581,584-585,587-589,701,890,952-953,1246-1261,1270,1301-1304,1346,1401-1404,1457,1507,1510-1516,
+1574,1600-1602,1700-1701,1703-1705,1888,1926,2000,2010,2041,2100,2222,2363,2433-2434,3001,3145-3146,3501,3506-3507,3703-3704,4090
 
 interface Ethernet1/50
   description TO-JUNOS
   switchport mode trunk
-  switchport trunk allowed vlan 365,573,584,587-589,880,882-889,891,952-953,1346,1507,1510-1516,2000,2010,2041,3000
+  switchport trunk allowed vlan 365,573,584,587-589,880,882-889,891,952-953,1346,1507,1510-1516,1926,2000,2010,2041,2433-2434,3000-3001,3506-3507
 
 interface Ethernet1/51
   shutdown
