@@ -1,0 +1,110 @@
+[bitsnet@distribusi-bdg-bits.net.id] > ip address pr
+Flags: X - disabled, I - invalid, D - dynamic 
+ #   ADDRESS            NETWORK         INTERFACE                                
+ 0   10.254.15.1/30     10.254.15.0     613-FENGTAY                              
+ 1   103.19.56.33/28    103.19.56.32    606-HOLIDAY IIN BITEK                    
+ 2   103.19.56.153/32   103.19.56.82    607-TGI-BITEK                            
+ 3   103.19.56.169/32   103.19.56.170   617-AITI                                 
+ 4   ;;; LPSE
+     103.19.57.209/29   103.19.57.208   604-LPSE                                 
+ 5   ;;; MGT-SW-LT.6
+     10.254.11.5/30     10.254.11.4     26-MGT-SW-LT-6                           
+ 6   10.254.11.49/28    10.254.11.48    621-CCTV                                 
+ 7   ;;; MGT-SWITCH LT 8
+     10.254.11.29/30    10.254.11.28    27-MGT-SW-LT-8                           
+ 8   10.254.15.5/30     10.254.15.4     616-INTERCONTINENTAL                     
+ 9 X ;;; GCTRA
+     10.254.11.69/30    10.254.11.68    2000-GOR-CITRA-PASIFIK                   
+10   ;;; MG-SW-CNDC
+     10.254.11.25/30    10.254.11.24    28-MGT-SW-CNDC                           
+11   103.19.56.97/32    103.19.56.98    626-KAMBOTI-HOTEL-GOESAR                 
+12   ;;; SKP-POS-OFFICE
+     103.19.58.72/32    103.19.58.73    421-SKP-POS-OFFICE                       
+13   ;;; SKP-BANDARA-HUSEIN
+     103.19.58.72/32    103.19.58.74    424-SKP-BANDARA-HUSEIN                   
+14   ;;; SKP-PUSAT
+     103.19.58.65/29    103.19.58.64    423-SKP-PUSAT                            
+15   103.19.56.117/30   103.19.56.116   615-GH-UNIVERSAL                         
+16   10.254.15.13/30    10.254.15.12    605-MOXY-HOTEL-BITEK                     
+17   10.254.15.17/30    10.254.15.16    625-MOXY-HOTEL-GOESAR                    
+18   103.19.56.97/32    103.19.56.96    702-SEKRETARIAT-APJII                    
+19   ;;; PULLMAN-HOTEL-BITEK
+     10.254.15.21/30    10.254.15.20    618-BITEK-PULLMAN                        
+20   ;;; IP-LOOPBACK
+     103.19.56.153/32   103.19.56.153   loopback                                 
+21   10.254.15.25/30    10.254.15.24    3702-MGT-RO-FIBERCONN                    
+22   103.19.56.145/30   103.19.56.144   2000-GOR-CITRA-PASIFIK                   
+23   103.19.56.113/30   103.19.56.112   584-SANBE                                
+24   ;;; RB-MONITORING-BDG
+     10.254.15.9/30     10.254.15.8     ether5                                   
+25 X 172.16.56.1/30     172.16.56.0     628-BOD-GOESAR-BDG                       
+26   103.19.56.65/30    103.19.56.64    627-KYTOS-HOTEL-GOESAR                   
+27   ;;; OFFICE BITS BDG
+     103.19.56.97/32    103.19.56.120   3700-OFFICE-LT-7                         
+28   ;;; PULLMAN-HOTEL-MSN
+     10.254.15.29/30    10.254.15.28    883-MSN-PULMAN                           
+29   ;;; MGT-SWITCH LT7-NEXUS
+     10.254.11.33/30    10.254.11.32    25-MGT-SW-LT-7-NEXUS                     
+30 X 192.168.2.1/30     192.168.2.0     ether1                                   
+31 X ;;; PULLMAN-HOTEL-MSN ( BOD )
+     103.19.56.97/32    103.19.56.99    883-MSN-PULMAN                           
+32   103.19.56.97/32    103.19.56.83    608-BALMON-BITEK                         
+33   10.254.15.37/30    10.254.15.36    885-MSN-HARRIS-CITYLINK                  
+34   10.254.15.41/30    10.254.15.40    629-HOTEL-HARRIS-GOESAR                  
+35   103.19.56.79/32    103.19.56.80    2002-BOD-GOR-C-TRA-GOESAR                
+36   10.254.15.45/30    10.254.15.44    624-HOTEL TJOKRO-GOESAR                  
+37   103.19.56.97/32    103.19.56.123   886-DISKOMINFO                           
+38   10.254.15.49/30    10.254.15.48    612-HOTEL-TJOKRO-BITEK                   
+39   103.19.56.97/32    103.19.56.97    loopback                                 
+40   10.254.11.65/30    10.254.11.64    20-MGT-JUNIPER-BDG                       
+41 X 172.16.222.2/29    172.16.222.0    1401-DUMMY-INTEGRASIA                    
+42 X 103.19.56.198/30   103.19.56.196   3500-TO-CORE-BANDUNG                     
+43   ;;; LOOPBACK
+     103.19.58.79/32    103.19.58.79    loopback                                 
+44   ;;; TO-KARANTINA-KERTAJATI
+     103.19.58.79/32    103.19.58.75    2090-TO-CNDC                             
+45   ;;; TO-KGX-CIREBON
+     103.19.58.79/32    103.19.58.80    2090-TO-CNDC                             
+46   ;;; TO-BPR-ASJAP
+     103.19.58.79/32    103.19.58.84    2090-TO-CNDC                             
+47   ;;; TO-BALMON-SLAVE-CILEUNYI
+     103.19.58.79/32    103.19.56.85    2090-TO-CNDC                             
+48   ;;; TO-BALMON-SLAVE-CIGONDEWA
+     103.19.58.79/32    103.19.56.86    2090-TO-CNDC                             
+49   ;;; TO-DIST-KERTASMAYA
+     10.11.12.9/30      10.11.12.8      2090-TO-CNDC                             
+50   ;;; TO-SKINSOL-CIWARUGA
+     103.19.58.79/32    103.19.56.102   2090-TO-CNDC                             
+51   ;;; TO-KGX-MAJALENGKA
+     103.19.58.79/32    103.19.58.81    2090-TO-CNDC                             
+52   ;;; TO-KGX-JATIBARANG
+     103.19.58.79/32    103.19.58.82    2090-TO-CNDC                             
+53   ;;; HORISON-KERTAJATI
+     103.19.58.79/32    103.19.58.83    2090-TO-CNDC                             
+54   ;;; TO-DISKOMINFO-IMY
+     103.19.58.79/32    103.19.58.85    2090-TO-CNDC                             
+55   ;;; TO-BALMON-SLAVE-LEMBANG
+     103.19.58.79/32    103.19.56.87    2090-TO-CNDC                             
+56   ;;; TO-BALMON-SLAVE-LEMBANG
+     103.19.56.89/30    103.19.56.88    2090-TO-CNDC                             
+57   ;;; TO-BALMON-CIREBON
+     103.19.58.79/32    103.19.58.77    2090-TO-CNDC                             
+58   ;;; ADS-CAMAT-ARJASARI
+     103.19.58.79/32    103.19.58.86    2090-TO-CNDC                             
+59   10.100.210.2/30    10.100.210.0    552-ABW-IX                               
+60 X 10.254.11.9/30     10.254.11.8     ether3                                   
+61 X 10.5.2.1/24        10.5.2.0        29-APART-AGENG                           
+62 X 10.10.11.1/29      10.10.11.0      30-APART                                 
+63   10.5.2.1/29        10.5.2.0        3705-AP-SEKRE-APJII                      
+64   10.10.11.1/29      10.10.11.0      3705-AP-SEKRE-APJII                      
+65   ;;; KEC-KERTASARI
+     10.254.11.73/30    10.254.11.72    1950-BACKHAUL-ICON                       
+66   ;;; PUSKESMAS-SENTOSA
+     10.254.15.57/30    10.254.15.56    1950-BACKHAUL-ICON                       
+67   103.19.56.166/30   103.19.56.164   1507-FIBERSTAR-BANDUNG                   
+68   103.19.56.178/30   103.19.56.176   1512-IFORTE-BANDUNG                      
+69   103.19.56.193/30   103.19.56.192   2093-TO-NCIX-LEMBONG                     
+70   ;;; PUSKESMAS-KERTASARI
+     10.254.11.77/30    10.254.11.76    1950-BACKHAUL-ICON                       
+71 X ;;; BOD-HARRIS
+     103.19.56.97/32    103.19.56.100   629-HOTEL-HARRIS-GOESAR 
