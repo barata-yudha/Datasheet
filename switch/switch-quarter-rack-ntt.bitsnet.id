@@ -1,0 +1,404 @@
+switch-ntt-bitsnet.id(config)# show running-config 
+
+!Command: show running-config
+!Time: Fri Jul 22 09:46:40 2022
+
+version 6.0(2)U2(9Z)
+hostname switch-ntt-bitsnet.id
+
+feature telnet
+feature interface-vlan
+feature lacp
+feature lldp
+
+username admin password 5 $1$.jPT9xVJ$TFGBK8786MGe8ThY1TW6x.  role network-admin
+username bitsnet password 5 $1$8Oy/gizs$tFysxPmL6leOEU6jbHRON1  role network-admin
+username niam password 5 $1$H8YTHcta$FQ4RWSzaRaoJjx2SlqQSI0  role network-operator
+username niam role network-admin
+ip domain-lookup
+ip access-list copp-system-acl-eigrp
+  10 permit eigrp any 224.0.0.10/32
+ipv6 access-list copp-system-acl-eigrp6
+  10 permit 88 any ff02::000a/128
+ip access-list copp-system-acl-icmp
+  10 permit icmp any any
+ip access-list copp-system-acl-igmp
+  10 permit igmp any any
+ip access-list copp-system-acl-ntp
+  10 permit udp any any eq ntp
+  20 permit udp any eq ntp any
+ip access-list copp-system-acl-pimreg
+  10 permit pim any any
+ip access-list copp-system-acl-ping
+  10 permit icmp any any echo
+  20 permit icmp any any echo-reply
+ip access-list copp-system-acl-routingproto1
+  10 permit tcp any gt 1024 any eq bgp
+  20 permit tcp any eq bgp any gt 1024
+  30 permit udp any 224.0.0.0/24 eq rip
+  40 permit tcp any gt 1024 any eq 639
+  50 permit tcp any eq 639 any gt 1024
+  70 permit ospf any any
+  80 permit ospf any 224.0.0.5/32
+  90 permit ospf any 224.0.0.6/32
+ip access-list copp-system-acl-routingproto2
+  10 permit udp any 224.0.0.0/24 eq 1985
+  20 permit 112 any 224.0.0.0/24
+ip access-list copp-system-acl-snmp
+  10 permit udp any any eq snmp
+  20 permit udp any any eq snmptrap
+ip access-list copp-system-acl-ssh
+  10 permit tcp any any eq 22
+  20 permit tcp any eq 22 any
+ip access-list copp-system-acl-stftp
+  10 permit udp any any eq tftp
+  20 permit udp any any eq 1758
+  30 permit udp any eq tftp any
+  40 permit udp any eq 1758 any
+  50 permit tcp any any eq 115
+  60 permit tcp any eq 115 any
+ip access-list copp-system-acl-tacacsradius
+  10 permit tcp any any eq tacacs
+  20 permit tcp any eq tacacs any
+  30 permit udp any any eq 1812
+  40 permit udp any any eq 1813
+  50 permit udp any any eq 1645
+  60 permit udp any any eq 1646
+  70 permit udp any eq 1812 any
+  80 permit udp any eq 1813 any
+  90 permit udp any eq 1645 any
+  100 permit udp any eq 1646 any
+ip access-list copp-system-acl-telnet
+  10 permit tcp any any eq telnet
+  20 permit tcp any any eq 107
+  30 permit tcp any eq telnet any
+  40 permit tcp any eq 107 any
+ipv6 access-list copp-system-acl-v6routingProto2
+  10 permit udp any ff02::0066/128 eq 2029
+  20 permit udp any ff02::00fb/128 eq 5353
+ipv6 access-list copp-system-acl-v6routingproto1
+  10 permit 89 any ff02::0005/128
+  20 permit 89 any ff02::0006/128
+  30 permit udp any ff02::0009/128 eq 521
+ip access-list copp-system-dhcp-relay
+  10 permit udp any eq bootps any eq bootps
+class-map type control-plane match-any copp-icmp
+  match access-group name copp-system-acl-icmp
+class-map type control-plane match-any copp-ntp
+  match access-group name copp-system-acl-ntp
+class-map type control-plane match-any copp-s-arp
+class-map type control-plane match-any copp-s-bfd
+class-map type control-plane match-any copp-s-bpdu
+class-map type control-plane match-any copp-s-dai
+class-map type control-plane match-any copp-s-default
+class-map type control-plane match-any copp-s-dhcpreq
+class-map type control-plane match-any copp-s-dhcpresp
+  match access-group name copp-system-dhcp-relay
+class-map type control-plane match-any copp-s-dpss
+class-map type control-plane match-any copp-s-eigrp
+  match access-group name copp-system-acl-eigrp
+  match access-group name copp-system-acl-eigrp6
+class-map type control-plane match-any copp-s-glean
+class-map type control-plane match-any copp-s-igmp
+  match access-group name copp-system-acl-igmp
+class-map type control-plane match-any copp-s-ipmcmiss
+class-map type control-plane match-any copp-s-l2switched
+class-map type control-plane match-any copp-s-l3destmiss
+class-map type control-plane match-any copp-s-l3mtufail
+class-map type control-plane match-any copp-s-l3slowpath
+class-map type control-plane match-any copp-s-pimautorp
+class-map type control-plane match-any copp-s-pimreg
+  match access-group name copp-system-acl-pimreg
+class-map type control-plane match-any copp-s-ping
+  match access-group name copp-system-acl-ping
+class-map type control-plane match-any copp-s-ptp
+class-map type control-plane match-any copp-s-routingProto1
+  match access-group name copp-system-acl-routingproto1
+  match access-group name copp-system-acl-v6routingproto1
+class-map type control-plane match-any copp-s-routingProto2
+  match access-group name copp-system-acl-routingproto2
+class-map type control-plane match-any copp-s-selfIp
+class-map type control-plane match-any copp-s-ttl1
+class-map type control-plane match-any copp-s-v6routingProto2
+  match access-group name copp-system-acl-v6routingProto2
+class-map type control-plane match-any copp-s-vxlan
+class-map type control-plane match-any copp-snmp
+  match access-group name copp-system-acl-snmp
+class-map type control-plane match-any copp-ssh
+  match access-group name copp-system-acl-ssh
+class-map type control-plane match-any copp-stftp
+  match access-group name copp-system-acl-stftp
+class-map type control-plane match-any copp-tacacsradius
+  match access-group name copp-system-acl-tacacsradius
+class-map type control-plane match-any copp-telnet
+  match access-group name copp-system-acl-telnet
+policy-map type control-plane copp-system-policy 
+  class copp-s-selfIp
+    police pps 500 
+  class copp-s-default
+    police pps 400 
+  class copp-s-l2switched
+    police pps 200 
+  class copp-s-ping
+    police pps 100 
+  class copp-s-l3destmiss
+    police pps 100 
+  class copp-s-glean
+    police pps 500 
+  class copp-s-l3mtufail
+    police pps 100 
+  class copp-s-ttl1
+    police pps 100 
+  class copp-s-ipmcmiss
+    police pps 400 
+  class copp-s-l3slowpath
+    police pps 100 
+  class copp-s-dhcpreq
+    police pps 300 
+  class copp-s-dhcpresp
+    police pps 300 
+  class copp-s-dai
+    police pps 300 
+  class copp-s-igmp
+    police pps 400 
+  class copp-s-routingProto2
+    police pps 1300 
+  class copp-s-v6routingProto2
+    police pps 1300 
+  class copp-s-eigrp
+    police pps 200 
+  class copp-s-pimreg
+    police pps 200 
+  class copp-s-pimautorp
+    police pps 200 
+  class copp-s-routingProto1
+    police pps 1000 
+  class copp-s-arp
+    police pps 200 
+  class copp-s-ptp
+    police pps 1000 
+  class copp-s-vxlan
+    police pps 1000 
+  class copp-s-bfd
+    police pps 350 
+  class copp-s-bpdu
+    police pps 12000 
+  class copp-s-dpss
+    police pps 1000 
+  class copp-icmp
+    police pps 200 
+  class copp-telnet
+    police pps 500 
+  class copp-ssh
+    police pps 500 
+  class copp-snmp
+    police pps 500 
+  class copp-ntp
+    police pps 100 
+  class copp-tacacsradius
+    police pps 400 
+  class copp-stftp
+    police pps 400 
+control-plane
+  service-policy input copp-system-policy 
+hardware profile portmode 48x10G+4x40G
+
+snmp-server user niam network-operator auth md5 0x2b8bdb52c0c451b643e5346a6736a668 priv 0x2b8bdb52c0c451b643e5346a6736a668 localizedkey
+snmp-server user niam network-admin
+snmp-server user admin network-admin auth md5 0x75e9a9a4b86842def9d3569af15553c5 priv 0x75e9a9a4b86842def9d3569af15553c5 localizedkey
+snmp-server user bitsnet network-admin auth md5 0x571bdb091bd2146f16e469f91728b402 priv 0x571bdb091bd2146f16e469f91728b402 localizedkey
+snmp-server host 10.254.7.22 informs version 2c jakarta 
+snmp-server community jakarta group network-operator
+
+vrf context management
+vlan 1
+vlan 59
+  name 59-APJII-TO-CDN
+vlan 101
+  name 101-MGT-VPS1-NTT
+vlan 102
+  name 102-MGT-VPS2-NTT
+vlan 501
+  name 501-MGT
+vlan 502
+  name 502-MGT-MMR-NTT
+vlan 509
+  name 509-VPS-FIBERCONNECT
+vlan 513
+  name 513-MGT-VPS2-NTT
+vlan 551
+  name 551-APJII-TO-CDN
+vlan 581
+  name 581-VPS
+vlan 1345
+  name 1345-IPTR-SDI
+vlan 1600
+  name 1600-FACEBOOK
+vlan 1601
+  name 1601-JKT-IX
+vlan 1602
+  name 1602-MGT-JUNOS
+vlan 1610
+  name 1610-IX-NTT-TO-DIST1
+vlan 1611
+  name 1611-IX-NTT-TO-DIST2
+vlan 1703
+  name 1703-FB-Distribusi-2-JUNOS
+vlan 1704
+  name 1704-FB-Distribusi-1-JUNOS
+vlan 1705
+  name 1705-FB-Distribusi-3-Mikrotik
+vlan 2100
+  name 2100-APJII-TO-CDN
+vlan 2591
+  name 2591-APJII-TO-CDN
+vlan 3704
+  name 3704-VPS-FIBERCONNECT
+vlan 4090
+  name 4090-VPS-PRIVATE
+
+interface Vlan1
+
+interface Vlan501
+  no shutdown
+  ip address 10.254.7.22/30
+
+interface Ethernet1/1
+
+interface Ethernet1/2
+  description TO-VPS2-PORT-1-MGT
+  switchport mode trunk
+  switchport trunk allowed vlan 102,509,513,3704,4090
+  speed 1000
+
+interface Ethernet1/3
+  description TO-VPS1-PORT-1-MGT
+  switchport mode trunk
+  switchport trunk allowed vlan 101,509,581,3704,4090
+  speed 1000
+
+interface Ethernet1/4
+
+interface Ethernet1/5
+  description TO-JKT-IX
+  switchport access vlan 1601
+
+interface Ethernet1/6
+
+interface Ethernet1/7
+
+interface Ethernet1/8
+
+interface Ethernet1/9
+
+interface Ethernet1/10
+
+interface Ethernet1/11
+
+interface Ethernet1/12
+
+interface Ethernet1/13
+
+interface Ethernet1/14
+
+interface Ethernet1/15
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+
+interface Ethernet1/18
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+
+interface Ethernet1/21
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+
+interface Ethernet1/25
+
+interface Ethernet1/26
+
+interface Ethernet1/27
+
+interface Ethernet1/28
+
+interface Ethernet1/29
+
+interface Ethernet1/30
+
+interface Ethernet1/31
+
+interface Ethernet1/32
+
+interface Ethernet1/33
+
+interface Ethernet1/34
+
+interface Ethernet1/35
+
+interface Ethernet1/36
+
+interface Ethernet1/37
+
+interface Ethernet1/38
+
+interface Ethernet1/39
+
+interface Ethernet1/40
+
+interface Ethernet1/41
+
+interface Ethernet1/42
+
+interface Ethernet1/43
+
+interface Ethernet1/44
+
+interface Ethernet1/45
+  description TO-JUNOS-xe-0/1/0
+  switchport mode trunk
+  switchport trunk allowed vlan 1602
+
+interface Ethernet1/46
+  description TO-JUNOS-xe-0/1/1
+  switchport mode trunk
+  switchport trunk allowed vlan 1704
+
+interface Ethernet1/47
+  description TO-JUNOS-xe-0/1/2
+  switchport mode trunk
+  switchport trunk allowed vlan 1703
+
+interface Ethernet1/48
+
+interface Ethernet1/49
+  description TO-MMR-40G
+  switchport mode trunk
+  switchport trunk allowed vlan 502,1345,1600
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+  description TO-JUNOS-40G
+  switchport mode trunk
+  switchport trunk allowed vlan 102,502,1345,1600-1611
+
+interface Ethernet1/52
+  description TO-CAGE-I-APJIII
+  switchport mode trunk
+  switchport trunk allowed vlan 59,102,501,551,581,1601-1602,1610-1611,1703-1705,2100,2591,3704,4090
+
+interface mgmt0
+  vrf member management
+line console
+line vty
+boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U2.9Z.bin 
+boot system bootflash:/n3000-uk9.6.0.2.U2.9Z.bin 
+ip route 0.0.0.0/0 10.254.7.21
