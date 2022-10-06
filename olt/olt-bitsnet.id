@@ -1,12 +1,12 @@
-OLT-BITSNET-ID#show running-config 
+OLT-C300-BITSNET-ID#show running-config
 Building configuration...
 olleh
-timestamp_write: 02:59:47 11/15/2002
+timestamp_write: 02:54:56 10/07/2022
 config-version 2.1
 !
 crtv disable
 !
-load-balance enable
+load-balance disable
 !
 operator-mode NORMAL
 !
@@ -15,20 +15,20 @@ system-forwarding-mode normal-mode
 !
 !
 set-pnp enable
-add-rack rackno 1 racktype C320Rack
-add-shelf rackno 1 shelfno 1 shelftype C320_SHELF
-add-card rackno 1 shelfno 1 slotno 1 GTGH
-add-subcard rackno 1 shelfno 1 slotno 3 subcardno 1 UCDC/3
-add-subcard rackno 1 shelfno 1 slotno 4 subcardno 1 UCDC/1
+add-rack rackno 1 racktype IEC19
+add-shelf rackno 1 shelfno 1 shelftype IEC_SHELF
+add-card rackno 1 shelfno 1 slotno 2 GTGH
+add-card rackno 1 shelfno 1 slotno 3 GTGH
+add-card rackno 1 shelfno 1 slotno 19 HUVQ
+add-card rackno 1 shelfno 1 slotno 20 HUVQ
 !
-ip tcp finwait-time 600 
-ip tcp queuemax 5 
-ip tcp synwait-time 30 
-ip tcp window-size 2144 
+ip tcp finwait-time 600
+ip tcp queuemax 5
+ip tcp synwait-time 30
+ip tcp window-size 2144
 !
-urpf log off 
+urpf log off
 !
-fan control temp_level 30 35 40 50 rackno 1 shelfno 1
 !
 !
 !
@@ -38,45 +38,199 @@ mac monitor-period 10
 mac usage-threshold 70
 !
 eth-switch max-frame-length  1600
+system-monitor hardware-abnormal-check disable
 port diaglog status-info disable
 !
-system-monitor watchdog rackno 1 shelfno 1 slotno 3 disable
-system-monitor watchdog rackno 1 shelfno 1 slotno 4 disable
+system-monitor watchdog rackno 1 shelfno 1 slotno 10 disable
+system-monitor watchdog rackno 1 shelfno 1 slotno 11 disable
 sdisk disable
 !
 auto-update backup disable
 auto-update activate disable
+file-server performance-server download  server-index 1  ftp ipaddress 136.1.1.1   user target password `M^SQ`
+file-server performance-server upload  server-index 1  ftp ipaddress 136.1.1.1   user target password `M^SQ`
+file-server boot-server    ftp ipaddress 136.1.1.1   user target password `M^SQ`
 !
 !
 !
 !
 !
 gpon
-  profile tcont 10M type 1 fixed 10000
-  profile tcont 15M type 1 fixed 15000
-  profile tcont 20M type 1 fixed 20000
-  profile tcont 30M type 1 fixed 30000
-  profile tcont 50M type 1 fixed 50000
-  profile tcont 100M type 1 fixed 100000
-  profile tcont 200M type 1 fixed 200000
-  profile tcont 300M type 1 fixed 300000
-  profile tcont 400M type 1 fixed 400000
-  profile tcont 500M type 1 fixed 500000
+  profile tcont 10M type 4 maximum 10096
+  profile tcont 15M type 4 maximum 15096
+  profile tcont 20M type 4 maximum 20096
+  profile tcont 30M type 4 maximum 30096
+  profile tcont 50M type 4 maximum 50096
+  profile tcont 100M type 4 maximum 100096
+  profile tcont 200M type 4 maximum 200096
+  profile tcont 300M type 4 maximum 300096
+  profile tcont 400M type 4 maximum 400096
+  profile tcont 500M type 4 maximum 500096
   profile tcont 1G type 1 fixed 1000000
-  profile traffic 10M sir 10000 pir 10000
-  profile traffic 15M sir 15000 pir 15000
-  profile traffic 20M sir 20000 pir 20000
-  profile traffic 30M sir 30000 pir 30000
-  profile traffic 50M sir 50000 pir 50000
-  profile traffic 100M sir 100000 pir 100000
-  profile traffic 200M sir 200000 pir 200000
-  profile traffic 300M sir 300000 pir 300000
-  profile traffic 400M sir 400000 pir 400000
-  profile traffic 500M sir 500000 pir 500000
-  profile traffic 1G sir 100000 pir 1000000
+  profile tcont 5M type 4 maximum 5096
+  profile tcont 900M type 4 maximum 900096
+  profile tcont 2M type 4 maximum 2096
+  profile tcont 3M type 4 maximum 3096
+  profile tcont 25M type 4 maximum 25096
+  profile tcont 70M type 4 maximum 70096
+  profile tcont 150M type 4 maximum 150096
+  profile tcont 850M type 4 maximum 850096
+  profile tcont 800M type 4 maximum 800096
+  profile tcont 750M type 4 maximum 750096
+  profile tcont 700M type 4 maximum 700096
+  profile tcont 650M type 4 maximum 650096
+  profile tcont 600M type 4 maximum 600096
+  profile tcont 550M type 4 maximum 550096
+  profile tcont 450M type 4 maximum 450096
+  profile tcont 1000M type 4 maximum 1002148
+  profile tcont 8M type 4 maximum 8096
+  profile tcont 1M type 4 maximum 1096
+  profile tcont 4M type 4 maximum 4096
+  profile tcont 6M type 4 maximum 6096
+  profile tcont 7M type 4 maximum 7096
+  profile tcont 9M type 4 maximum 9096
+  profile tcont 11M type 4 maximum 11096
+  profile tcont 12M type 4 maximum 12096
+  profile tcont 13M type 4 maximum 13096
+  profile tcont 14M type 4 maximum 14096
+  profile tcont 16M type 4 maximum 16096
+  profile tcont 17M type 4 maximum 17096
+  profile tcont 18M type 4 maximum 18096
+  profile tcont 19M type 4 maximum 19096
+  profile tcont 21M type 4 maximum 21096
+  profile tcont 22M type 4 maximum 22096
+  profile tcont 23M type 4 maximum 23096
+  profile tcont 24M type 4 maximum 24096
+  profile tcont 26M type 4 maximum 26096
+  profile tcont 27M type 4 maximum 27096
+  profile tcont 28M type 4 maximum 28096
+  profile tcont 29M type 4 maximum 29096
+  profile tcont 35M type 4 maximum 35096
+  profile tcont 40M type 4 maximum 40096
+  profile tcont 45M type 4 maximum 45096
+  profile tcont 55M type 4 maximum 55096
+  profile tcont 60M type 4 maximum 60096
+  profile tcont 65M type 4 maximum 65096
+  profile tcont 75M type 4 maximum 75096
+  profile tcont 80M type 4 maximum 80096
+  profile tcont 85M type 4 maximum 85096
+  profile tcont 90M type 4 maximum 90096
+  profile tcont 95M type 4 maximum 95096
+  profile tcont 125M type 4 maximum 125096
+  profile tcont 175M type 4 maximum 175096
+  profile tcont 225M type 4 maximum 225096
+  profile tcont 250M type 4 maximum 250096
+  profile tcont 275M type 4 maximum 275096
+  profile tcont 325M type 4 maximum 325096
+  profile tcont 350M type 4 maximum 350096
+  profile tcont 375M type 4 maximum 375096
+  profile tcont 425M type 4 maximum 425096
+  profile tcont 475M type 4 maximum 475096
+  profile tcont 525M type 4 maximum 525096
+  profile tcont 575M type 4 maximum 575096
+  profile tcont 625M type 4 maximum 625096
+  profile tcont 675M type 4 maximum 675096
+  profile tcont 725M type 4 maximum 725096
+  profile tcont 775M type 4 maximum 775096
+  profile tcont 825M type 4 maximum 825096
+  profile tcont 875M type 4 maximum 875096
+  profile tcont 925M type 4 maximum 925096
+  profile tcont 950M type 4 maximum 950096
+  profile tcont 975M type 4 maximum 975096
+  profile traffic 10M sir 10096 pir 10096
+  profile traffic 15M sir 15096 pir 15096
+  profile traffic 20M sir 20096 pir 20096
+  profile traffic 30M sir 30096 pir 30096
+  profile traffic 50M sir 50096 pir 50096
+  profile traffic 100M sir 100096 pir 100096
+  profile traffic 200M sir 200096 pir 200096
+  profile traffic 300M sir 300096 pir 300096
+  profile traffic 400M sir 400096 pir 400096
+  profile traffic 500M sir 500096 pir 500096
+  profile traffic 1G sir 1000000 pir 1000000
+  profile traffic 5M sir 5096 pir 5096
+  profile traffic 900M sir 900096 pir 900096
+  profile traffic 2M sir 2096 pir 2096
+  profile traffic 3M sir 3096 pir 3096
+  profile traffic 25M sir 25096 pir 25096
+  profile traffic 70M sir 70096 pir 70096
+  profile traffic 150M sir 150096 pir 150096
+  profile traffic 800M sir 800096 pir 800096
+  profile traffic 1000M sir 1002148 pir 1002148
+  profile traffic 8M sir 8096 pir 8096
+  profile traffic 1M sir 1096 pir 1096
+  profile traffic 4M sir 4096 pir 4096
+  profile traffic 6M sir 6096 pir 6096
+  profile traffic 7M sir 7096 pir 7096
+  profile traffic 9M sir 9096 pir 9096
+  profile traffic 11M sir 11096 pir 11096
+  profile traffic 12M sir 12096 pir 12096
+  profile traffic 13M sir 13096 pir 13096
+  profile traffic 14M sir 14096 pir 14096
+  profile traffic 16M sir 16096 pir 16096
+  profile traffic 17M sir 17096 pir 17096
+  profile traffic 18M sir 18096 pir 18096
+  profile traffic 19M sir 19096 pir 19096
+  profile traffic 21M sir 21096 pir 21096
+  profile traffic 22M sir 22096 pir 22096
+  profile traffic 23M sir 23096 pir 23096
+  profile traffic 24M sir 24096 pir 24096
+  profile traffic 26M sir 26096 pir 26096
+  profile traffic 27M sir 27096 pir 27096
+  profile traffic 28M sir 28096 pir 28096
+  profile traffic 29M sir 29096 pir 29096
+  profile traffic 35M sir 35096 pir 35096
+  profile traffic 40M sir 40096 pir 40096
+  profile traffic 45M sir 45096 pir 45096
+  profile traffic 55M sir 55096 pir 55096
+  profile traffic 60M sir 60096 pir 60096
+  profile traffic 65M sir 65096 pir 65096
+  profile traffic 75M sir 75096 pir 75096
+  profile traffic 80M sir 80096 pir 80096
+  profile traffic 85M sir 85096 pir 85096
+  profile traffic 90M sir 90096 pir 90096
+  profile traffic 95M sir 95096 pir 95096
+  profile traffic 125M sir 125096 pir 125096
+  profile traffic 175M sir 175096 pir 175096
+  profile traffic 225M sir 225096 pir 225096
+  profile traffic 250M sir 250096 pir 250096
+  profile traffic 275M sir 275096 pir 275096
+  profile traffic 325M sir 325096 pir 325096
+  profile traffic 350M sir 350096 pir 350096
+  profile traffic 375M sir 375096 pir 375096
+  profile traffic 425M sir 425096 pir 425096
+  profile traffic 450M sir 450096 pir 450096
+  profile traffic 475M sir 475096 pir 475096
+  profile traffic 525M sir 525096 pir 525096
+  profile traffic 550M sir 550096 pir 550096
+  profile traffic 575M sir 575096 pir 575096
+  profile traffic 600M sir 600096 pir 600096
+  profile traffic 625M sir 625096 pir 625096
+  profile traffic 650M sir 650096 pir 650096
+  profile traffic 675M sir 675096 pir 675096
+  profile traffic 700M sir 700096 pir 700096
+  profile traffic 725M sir 725096 pir 725096
+  profile traffic 750M sir 750096 pir 750096
+  profile traffic 775M sir 775096 pir 775096
+  profile traffic 825M sir 825096 pir 825096
+  profile traffic 850M sir 850096 pir 850096
+  profile traffic 875M sir 875096 pir 875096
+  profile traffic 925M sir 925096 pir 925096
+  profile traffic 950M sir 950096 pir 950096
+  profile traffic 975M sir 975096 pir 975096
 !
 !
 gpon
+  onu profile ip 3333-BOD gateway 172.16.1.1 primary-dns 103.19.56.10 second-dns 103.19.56.11
+  onu profile ip 1203 gateway 172.16.1.221 primary-dns 103.19.56.10 second-dns 103.19.56.11
+  onu profile ip 1202 gateway 172.16.1.213 primary-dns 103.19.56.10 second-dns 103.19.56.11
+  onu profile ip 908-BBWS-PRIVATE gateway 172.16.1.225 primary-dns 103.19.56.10 second-dns 103.19.56.11
+  onu profile ip 3334-VLAN-TEST-ONU gateway 172.16.2.225 primary-dns 103.19.56.10 second-dns 103.19.56.11
+  onu profile ip 3335-REMOTE-ONU gateway 10.10.11.1 primary-dns 103.19.56.10 second-dns 103.19.56.11
+  onu profile ip 905-MITRA10-PRIVATE gateway 172.16.1.229 primary-dns 103.19.56.10 second-dns 103.19.56.11
+  onu profile ip IMF gateway 172.16.1.81 primary-dns 103.19.56.10 second-dns 103.19.56.11
+  onu profile ip 415-DIAN-MARTHA-PRAMESA gateway 172.16.1.9 primary-dns 103.19.56.10 second-dns 103.19.56.11
+  onu profile vlan 601 tag-mode tag cvlan 601 pri 7
   onu profile vlan 1100 tag-mode tag cvlan 1100 pri 7
   onu profile vlan 2010 tag-mode tag cvlan 2010 pri 7
   onu profile vlan 3100 tag-mode tag cvlan 3100 pri 7
@@ -87,11 +241,27 @@ gpon
   onu profile vlan 401 tag-mode tag cvlan 401 pri 7
   onu profile vlan 2005 tag-mode tag cvlan 2005 pri 7
   onu profile vlan 2003 tag-mode tag cvlan 2003 pri 7
+  onu profile vlan 3333-VLAN-BOD tag-mode tag cvlan 3333 pri 7
+  onu profile vlan 404 tag-mode tag cvlan 404 pri 7
+  onu profile vlan 405 tag-mode tag cvlan 405 pri 7
+  onu profile vlan 255 tag-mode tag cvlan 255 pri 7
+  onu profile vlan 407 tag-mode tag cvlan 407 pri 7
+  onu profile vlan 1203 tag-mode tag cvlan 1203 pri 7
+  onu profile vlan 1202 tag-mode tag cvlan 1202 pri 7
+  onu profile vlan 908-BBWS-PRIVATE tag-mode tag cvlan 908 pri 7
+  onu profile vlan 909-BBWS-PUBLIC tag-mode tag cvlan 909 pri 7
+  onu profile vlan 3334-VLAN-TEST-ONU tag-mode tag cvlan 3334 pri 7
+  onu profile vlan 3335-REMOTE-ONU tag-mode tag cvlan 3335 pri 7
+  onu profile vlan 905-MITRA10-PRIVATE tag-mode tag cvlan 905 pri 7
+  onu profile vlan 906-MITRA10-PUBLIC tag-mode tag cvlan 906 pri 7
+  onu profile vlan 412-IMF tag-mode tag cvlan 412 pri 7
+  onu profile vlan 413-MUP-PC24 tag-mode tag cvlan 2 pri 7
+  onu profile vlan 415-DIAN-MARTHA-PRAMESA tag-mode tag cvlan 415 pri 7
 !
 !
 epon
 !
-!        
+!
 pon
   onu-type ALL gpon
   onu-type ALL gpon max-tcont 7
@@ -108,7 +278,7 @@ pon
   onu-type-if ALL wifi_0/2
   onu-type-if ALL wifi_0/3
   onu-type-if ALL wifi_0/4
-  uncfg-onu-display-info model sn pw 
+  uncfg-onu-display-info model sn pw
 !
 !
 onu-pnp
@@ -118,9 +288,11 @@ no vlan-reserve 4092 in-voip
 no vlan-reserve 4094 gpon
 !
 vlan database
-  vlan 1,90-91,245,401
-  vlan 1100,2001-2005,2010
-  vlan 3100
+  vlan 1,90,245-246,255
+  vlan 401-415,601,905-906
+  vlan 908-909,1100,1200
+  vlan 1202-1204,2001-2004
+  vlan 2010,3100,3333-3335
 !
 vlan 90
   name MGT-SW-DKIS
@@ -128,16 +300,88 @@ vlan 90
 vlan 245
   name MGT-ZTE
 !
+vlan 246
+  name MGT-OLT
+!
+vlan 255
+  name BROADBAND
+!
 vlan 401
   name ASTON-CRB
 !
+vlan 402
+  name TELERING-CRB
+!
+vlan 403
+  name TIKI-BRIGJEN-DARSONO
+!
+vlan 404
+  name TIKI-CRB
+!
+vlan 405
+  name IVAN-S
+!
+vlan 406
+  name bentani
+!
+vlan 407
+  name METLAND-CIREBON
+!
+vlan 408
+  name AMARIS-HOTEL-CRB
+!
+vlan 409
+  name MITRA-10-CRB
+!
+vlan 410
+  name BBWS-CRB
+!
+vlan 411
+  name KELOLA-JASA-ARTHA-KEJAR
+!
+vlan 412
+  name INTERNATIONAL-MITRA-FUTURES
+!
+vlan 413
+  name MUP-PC24
+!
+vlan 414
+  name SAPADIA
+!
+vlan 601
+  name FNAPSAT
+!
+vlan 905
+  name MITRA10-PRIVATE
+!
+vlan 906
+  name MITRA10-PUBLIC
+!
+vlan 908
+  name BBWS-PRIVATE
+!
+vlan 909
+  name BBWS-PUBLIC
+!
 vlan 1100
   name IPTV_1100
-  multicast-packet flood-all
+  multicast-packet drop-unknown
+!
+vlan 1200
+  name AGENG-MTH
+!
+vlan 1202
+  name YOGI-MTH
+!
+vlan 1203
+  name POS-SATPAM-MTH
+!
+vlan 1204
+  name CCTV-MTH
 !
 vlan 2001
   name DKIS-STATIC-2001
-!        
+!
 vlan 2002
   name FTTH-BITSNET-PPPoE
 !
@@ -150,6 +394,15 @@ vlan 2004
 vlan 2010
   name PEMKOT-CIREBON
 !
+vlan 3333
+  name VLAN-BOD
+!
+vlan 3334
+  name VLAN-TEST-ONU
+!
+vlan 3335
+  name VLAN-REMOTE-ONU
+!
 !
 !
 his-performance sample enable
@@ -160,7 +413,7 @@ his-performance auto-upload disable
 clock
 !
 !
-         
+
 !
 clock
 !
@@ -172,7 +425,7 @@ ptp
 !
 ip dhcp snooping control-port enable
 port-identification access-node-id-type inband-mac
-port-identification rackno 1 frameno 1
+port-identification rackno 0 frameno 0
 !
 igmp enable
 igmp log enable
@@ -200,13 +453,13 @@ ipv6 nd snooping disable
 security port-protect enable
 !
 !
-acl standard name bitsnet
+!
+
+!
+gpon
+sn cc1a0Xfad09145
 !
 !
-virtual-mac flexible-syntax-profile MT
-add Ctrl-Byte 0 width 6 index 6
-exit
-virtual-mac access-node-id 0
 !
 epm
  mode passthrough
@@ -219,212 +472,1761 @@ epm
 !
 !
 interface mng1
-  ip address 10.202.0.30 255.255.255.252
+  ip address 136.1.1.100 255.255.255.0
   config-filename startrun.dat
   negotiation auto
   tag-mode untag
 !
-interface vlan 245
-  ip address 10.203.2.2 255.255.255.252
+interface vlan 246
+  ip address 10.203.2.6 255.255.255.252
 !
 interface null1
 !
-interface gpon-olt_1/1/1
+interface gpon-olt_1/2/1
   no shutdown
   linktrap disable
 !
-interface gpon-olt_1/1/2
+interface gpon-olt_1/2/2
   no shutdown
   linktrap disable
+  onu 1 type ALL sn ZTEGCD2C00E8
+  onu 2 type ALL sn ZTEGC1301402
+  onu 5 type ALL sn ZTEGC1301607
 !
-interface gpon-olt_1/1/3
+interface gpon-onu_1/2/2:1
+  name TELERING-CIREBON
+  description 2$$TELERING-CIREBON$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 20M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 402 vlan 402
+!
+interface gpon-onu_1/2/2:2
+  name 32740000120-Yeni
+  description 2$$32740000120-Yeni$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/2:5
+  name 32740000177-Burhan Jaenudin
+  description 2$$32740000177-Burhan Jaenudin$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 1G
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/3
   no shutdown
   linktrap disable
+  onu 1 type ALL sn ZTEGC51E8DBA
+  onu 2 type ALL sn ZTEGCD28EC14
+  onu 6 type ALL sn ZTEGC1301592
+  onu 8 type ALL sn ZTEGC1301568
 !
-interface gpon-olt_1/1/4
-  no shutdown
-  linktrap disable
-  onu 2 type ALL sn ZTEGC51E8DBA
-!
-interface gpon-onu_1/1/4:2
+interface gpon-onu_1/2/3:1
   name ONU-OWNER-ASTON
   description 2$$ONU-OWNER-ASTON$$
   sn-bind enable sn
-  tcont 1 name T1 profile 1G
+  tcont 1 name T1 profile 400M
+  tcont 1 gap mode2
   gemport 1 name G1 tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
-  service-port 1 vport 1 user-vlan 2002 vlan 2002 
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 2002 vlan 2002
 !
-interface gpon-olt_1/1/5
-  no shutdown
-  linktrap disable
-  onu 2 type ALL sn ZTEGC7718119
-!
-interface gpon-onu_1/1/5:2
-  name ONU-DKIS-SUDARSONO
-  description 2$$ONU-DKIS-SUDARSONO$$
+interface gpon-onu_1/2/3:2
+  name ONU-IVAN-SUSANTO
+  description 2$$ONU-IVAN-SUSANTO$$
   sn-bind enable sn
-  tcont 1 name T1 profile 200M
+  tcont 1 name T1 profile 10M
+  tcont 1 gap mode2
   gemport 1 name G1 tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
-  service-port 1 vport 1 user-vlan 2004 vlan 2004 
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 405 vlan 405
 !
-interface gpon-olt_1/1/6
+interface gpon-onu_1/2/3:6
+  name 32740000173-Malikhatin
+  description 2$$32740000173-Malikhatin$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/3:8
+  name 32740000178-Shofwana_Hafidh-ODP-CM-04
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/4
   no shutdown
   linktrap disable
-  onu 2 type ALL sn HWTCCD4BEE9C
+  onu 1 type ALL sn HWTCCD4BEE9C
+  onu 2 type ALL sn ZTEGCD2C7070
+  onu 5 type ALL sn ZTEGC1301693
 !
-interface gpon-onu_1/1/6:2
+interface gpon-onu_1/2/4:1
   name TRIAL-SBP
   description 2$$TRIAL-SBP$$
   sn-bind enable sn
-  tcont 1 name SBP profile 1G
+  tcont 1 name SBP profile 900M
+  tcont 1 gap mode2
   gemport 1 name SBP tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
+  gemport 1 traffic-limit upstream 1G downstream 1G
   encrypt 1 enable downstream
-  service-port 1 vport 1 user-vlan 2003 vlan 2003 
+  service-port 1 vport 1 user-vlan 2003 vlan 2003
 !
-interface gpon-olt_1/1/7
-  no shutdown
-  linktrap disable
-!
-interface gpon-olt_1/1/8
-  no shutdown
-  linktrap disable
-  onu 1 type ALL sn ZTEGCC574FA6
-  onu 2 type ALL sn ZTEGC960C2C7
-!
-interface gpon-onu_1/1/8:1
-  name ONU-DKIS-PEMKOT-CIREBON
-  description ONU-DKIS-PEMKOT
+interface gpon-onu_1/2/4:2
+  name 3274000073-Patmuji
+  description 2$$3274000073-Patmuji$$
   sn-bind enable sn
-  tcont 2 name tconf1 profile 400M
-  gemport 1 tcont 2
-  gemport 1 traffic-limit upstream 1G downstream 1G 
-  gemport 2 tcont 2
-  gemport 2 traffic-limit upstream 1G downstream 1G 
-  gemport 3 tcont 2
-  gemport 3 traffic-limit upstream 1G downstream 1G 
-  service-port 1 vport 1 user-vlan 90 vlan 90 
-  service-port 2 vport 2 user-vlan 2010 vlan 2010 
+  tcont 1 name Patmuji profile 50M
+  gemport 1 name Patmuji tcont 1
+  gemport 1 traffic-limit upstream 50M downstream 50M
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
 !
-interface gpon-onu_1/1/8:2
-  name ONU-DKIS-BROADBAND
-  description ONU-DKIS-BROADBAND
+interface gpon-onu_1/2/4:5
+  name Taufiq Ramadhani Idayu-32740000105
+  description 2$$Taufiq Ramadhani Idayu-32740000105$$
   sn-bind enable sn
-  tcont 1 name dkis-broadband profile 400M
-  gemport 1 tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
-  service-port 1 vport 1 user-vlan 2001 vlan 2001 
-!
-interface gpon-olt_1/1/9
-  no shutdown
-  linktrap disable
-  onu 2 type ALL sn HWTC098F629E
-  onu 4 type ALL sn HWTCB864B69A
-!
-interface gpon-onu_1/1/9:2
-  name BOD-ASTON
-  description 2$$BOD-ASTON$$
-  sn-bind enable sn
-  tcont 1 name t1 profile 400M
+  tcont 1 name t1 profile 50M
   gemport 1 name g1 tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
-  service-port 1 vport 1 user-vlan 3100 vlan 3100 
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
 !
-interface gpon-onu_1/1/9:4
-  name ONU-ASTON-CIREBON
-  description 2$$ONU-ASTON-CIREBON$$
+interface gpon-olt_1/2/5
+  no shutdown
+  linktrap disable
+  onu 1 type ALL sn ELWGC9507A55
+  onu 2 type ALL sn ZTEGC1301162
+  onu 5 type ALL sn ZTEGC1301307
+  onu 6 type ALL sn ZTEGC1300932
+!
+interface gpon-onu_1/2/5:1
+  name ONU-TIKI-CRB
+  description 1$$ONU-TIKI-CRB$$
   sn-bind enable sn
-  tcont 1 name T1 profile 400M
+  tcont 1 name T1 profile 100M
+  tcont 1 gap mode2
   gemport 1 name G1 tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
-  service-port 1 vport 1 user-vlan 401 vlan 401 
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 403 vlan 403
 !
-interface gpon-olt_1/1/10
+interface gpon-onu_1/2/5:2
+  name BBWS CIREBON
+  description 2$$BBWS CIREBON$$BBWS CIREBON
+  sn-bind enable sn
+  tcont 1 name T1 profile 55M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 3 vport 1 user-vlan 3335 vlan 3335
+  service-port 4 vport 1 user-vlan 410 vlan 410
+  service-port 4 description 410
+!
+interface gpon-onu_1/2/5:5
+  name 32740000080 Ratimah
+  description 2$$32740000080 Ratimah$$
+  sn-bind enable sn
+  tcont 1 name 32740000080 profile 10M
+  tcont 1 gap mode2
+  gemport 1 name G-32740000080 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/5:6
+  name 32740000162-Agus Sulaeman
+  description 2$$32740000162-Agus Sulaeman$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 11M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/6
   no shutdown
   linktrap disable
-!        
-interface gpon-olt_1/1/11
+  onu 1 type ALL sn ZTEGC1E932A7
+  onu 2 type ALL sn ZTEGC1301593
+!
+interface gpon-onu_1/2/6:1
+  description oman
+  sn-bind enable sn
+  tcont 1 profile 1G
+  gemport 1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 404 vlan 404
+  service-port 2 vport 1 user-vlan 3100 vlan 3100
+  service-port 3 vport 1 user-vlan 255 vlan 255
+!
+interface gpon-onu_1/2/6:2
+  name 32740000084-Dwi Indriyani-ODP PUI
+  description 2$$32740000084-Dwi Indriyani-ODP PUI$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/7
   no shutdown
   linktrap disable
+  onu 1 type ALL sn ZTEGCD2CB893
+  onu 2 type ALL sn ZTEGCD2CADFB
+  onu 3 type ALL sn ZTEGCD2C0030
+  onu 4 type ALL sn ZTEGC1301583
+  onu 5 type ALL sn ELWGC9502BF1
+  onu 6 type ALL sn ZTEGC1301494
 !
-interface gpon-olt_1/1/12
-  no shutdown
-  linktrap disable
-!
-interface gpon-olt_1/1/13
-  no shutdown
-  linktrap disable
-!
-interface gpon-olt_1/1/14
-  no shutdown
-  linktrap disable
-  onu 2 type ALL sn ZTEGCD2CB893
-!
-interface gpon-onu_1/1/14:2
+interface gpon-onu_1/2/7:1
   name ONU-10000001481
   description 2$$ONU-10000001481$$
   sn-bind enable sn
   tcont 1 name T1 profile 10M
+  tcont 1 gap mode2
   gemport 1 name 1 tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
-  service-port 1 vport 1 user-vlan 3100 vlan 3100 
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
 !
-interface gpon-olt_1/1/15
-  no shutdown
-  linktrap disable
-!
-interface gpon-olt_1/1/16
-  no shutdown
-  linktrap disable
-  onu 2 type ALL sn ZTEGCD2C8C3F
-  onu 4 type ALL sn ZTEGCD2C89CA
-  onu 5 type ALL sn ZTEGCD2C5330
-!
-interface gpon-onu_1/1/16:2
-  name Irwan-Kurniawan-10000001180
-  description 2$$Irwan-Kurniawan-10000001180$$
+interface gpon-onu_1/2/7:2
+  name 10000001597-Novel Alkaff-ODP-14
+  description 2$$10000001597-Novel Alkaff-ODP-14$$
   sn-bind enable sn
-  tcont 1 name t profile 10M
-  gemport 1 name g tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
-  service-port 1 vport 1 user-vlan 3100 vlan 3100 
-!        
-interface gpon-onu_1/1/16:4
+  tcont 1 name t1 profile 20M
+  tcont 1 gap mode2
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/7:3
+  name 32740000066-Lamtiur-Sinaga
+  description 32740000066-Lamtiur-Sinaga
+  sn-bind enable sn
+  tcont 1 profile 20M
+  tcont 1 gap mode2
+  gemport 1 tcont 1
+  gemport 1 traffic-limit upstream 20M downstream 20M
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/7:4
+  name 32740000096-Muhammad-Iqbal-Saefudin
+  description 2$$32740000096-Muhammad-Iqbal-Saefudin$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/7:5
+  name 32740000130-Triaji Dimas Maulana
+  description 2$$32740000130-Triaji Dimas Maulana$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/7:6
+  name 32740000131-Suhartono
+  description 2$$32740000131-Suhartono$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/8
+  no shutdown
+  linktrap disable
+  onu 1 type ALL sn ZTEGCD2CA5D6
+  onu 2 type ALL sn ZTEGCD2C89CA
+  onu 3 type ALL sn ZTEGCD2C5330
+  onu 4 type ALL sn ZTEGCD2CA95A
+  onu 5 type ALL sn ZTEGCD2C2359
+  onu 6 type ALL sn ZTEGCD2C8C3F
+  onu 7 type ALL sn ZTEGCD2CA6B8
+  onu 8 type ALL sn ZTEGC1300245
+  onu 9 type ALL sn ZTEGC1300231
+  onu 10 type ALL sn ZTEGC1300246
+  onu 11 type ALL sn ZTEGC1300367
+  onu 15 type ALL sn ZTEGC1301565
+  onu 17 type ALL sn ZTEGC1301378
+!
+interface gpon-onu_1/2/8:1
+  name 32740000057 Ndaru Pratama
+  description 2$$32740000057 Ndaru Pratama$$
+  sn-bind enable sn
+  tcont 1 name 32740000057 profile 100M
+  tcont 1 gap mode2
+  gemport 1 name 32740000057 tcont 1
+  gemport 1 traffic-limit upstream 100M downstream 100M
+  encrypt 1 enable downstream
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+  service-port 1 description 32740000057
+!
+interface gpon-onu_1/2/8:2
   name Sandrea Yunapri-10000001254
   description 2$$Sandrea Yunapri-10000001254$$
   sn-bind enable sn
   tcont 1 name t1 profile 10M
+  tcont 1 gap mode2
   gemport 1 name g1 tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
-  service-port 1 vport 1 user-vlan 3100 vlan 3100 
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
 !
-interface gpon-onu_1/1/16:5
+interface gpon-onu_1/2/8:3
   name 10000001352 -Yuyun-ODP-Depan_kantor
   description 2$$10000001352 -Yuyun-ODP-Depan_kantor$$
   sn-bind enable sn
   tcont 1 name T1 profile 20M
+  tcont 1 gap mode2
   gemport 1 name 10000001352 tcont 1
-  gemport 1 traffic-limit upstream 1G downstream 1G 
+  gemport 1 traffic-limit upstream 1G downstream 1G
   encrypt 1 enable downstream
-  service-port 1 vport 1 user-vlan 3100 vlan 3100 
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
   service-port 1 description 10000001352
 !
-interface gei_1/3/1
-  no shutdown
-  hybrid-attribute fiber
-  negotiation auto
-  flowcontrol disable
-  linktrap enable
-  description UPLINK_1G
-  switchport mode hybrid
-  switchport vlan 90,245,401,1100 tag
-  switchport vlan 2001-2004,2010,3100 tag
-  port-protect disable
-  uplink-isolate disable
+interface gpon-onu_1/2/8:4
+  name 32740000045 Zaimah
+  description 2$$32740000045 Zaimah$$
+  sn-bind enable sn
+  tcont 1 name 32740000045 profile 100M
+  tcont 1 gap mode2
+  gemport 1 name 32740000045 tcont 1
+  gemport 1 traffic-limit upstream 100M downstream 100M
+  encrypt 1 enable downstream
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+  service-port 1 description 32740000045
 !
-interface xgei_1/3/2
+interface gpon-onu_1/2/8:5
+  name 32740000037-Mohamad-Saefurrahman
+  description 32740000037-Mohamad-Saefurrahman
+  sn-bind enable sn
+  tcont 1 profile 15M
+  tcont 1 gap mode2
+  gemport 1 tcont 1
+  gemport 1 traffic-limit upstream 15M downstream 15M
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/8:6
+  name 10000001180 Irwan Kurniawan
+  description 10000001180 Irwan Kurniawan
+  sn-bind enable sn
+  tcont 1 name 10000001180 profile 100M
+  tcont 1 gap mode2
+  gemport 1 name 10000001180 tcont 1
+  gemport 1 traffic-limit upstream 100M downstream 100M
+  encrypt 1 enable downstream
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/8:7
+  name 32740000064-iin
+  description 32740000064-iin
+  sn-bind enable sn
+  tcont 1 profile 10M
+  tcont 1 gap mode2
+  gemport 1 tcont 1
+  gemport 1 traffic-limit upstream 10M downstream 10M
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/8:8
+  name 32740000092-     Atinu
+  description 2$$32740000092-   Atinu$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/8:9
+  name 32740000089-Ahmad Muhaemi
+  description 2$$32740000089-Ahmad Muhaemi$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/8:10
+  name 32740000093-Gading-Umbaran-Haryanto
+  description 2$$32740000093-Gading-Umbaran-Haryanto$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 20M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1 queue 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/8:11
+  name 32740000094-Christie Alline Feronica
+  description 2$$32740000094-Christie Alline Feronica$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/8:15
+  name 32740000126 - Astri Susanti
+  description 2$$32740000126 - Astri Susanti$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/8:17
+  name 32740000175-Sukirno
+  description 2$$32740000175-Sukirno$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 1G
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/9
+  no shutdown
+  linktrap disable
+  onu 1 type ALL sn ZTEGC7718119
+  onu 2 type ALL sn ZTEGC1300928
+!
+interface gpon-onu_1/2/9:1
+  name ONU-DKIS-SUDARSONO
+  description 2$$ONU-DKIS-SUDARSONO$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 200M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 2004 vlan 2004
+  service-port 2 vport 1 user-vlan 3335 vlan 3335
+!
+interface gpon-onu_1/2/9:2
+  name 32740000172-Adam Subagja
+  description 2$$32740000172-Adam Subagja$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 1G
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/10
+  no shutdown
+  linktrap disable
+  onu 1 type ALL sn ELWGC9501AEF
+  onu 2 type ALL sn ZTEGC960C2C7
+!
+interface gpon-onu_1/2/10:1
+  name ONU-DKIS-PEMKOT-CIREBON
+  description ONU-DKIS-PEMKOT
+  sn-bind enable sn
+  tcont 2 name tconf1 profile 500M
+  tcont 2 gap mode2
+  gemport 1 tcont 2
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  gemport 2 tcont 2
+  gemport 2 traffic-limit upstream 1G downstream 1G
+  gemport 3 tcont 2
+  gemport 3 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 90 vlan 90
+  service-port 2 vport 2 user-vlan 2010 vlan 2010
+!
+interface gpon-onu_1/2/10:2
+  name ONU-DKIS-BROADBAND
+  description ONU-DKIS-BROADBAND
+  sn-bind enable sn
+  tcont 1 name dkis-broadband profile 500M
+  tcont 1 gap mode2
+  gemport 1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 2001 vlan 2001
+  service-port 2 vport 1 user-vlan 3335 vlan 3335
+!
+interface gpon-olt_1/2/11
+  no shutdown
+  linktrap disable
+  onu 1 type ALL sn HWTCB864B69A
+  onu 2 type ALL sn ZTEGCD2C5335
+  onu 4 type ALL sn ELWGC9502BF1
+  onu 5 type ALL sn ZTEGCD2C7070
+!
+interface gpon-onu_1/2/11:1
+  name ONU-ASTON-CIREBON
+  description 2$$ONU-ASTON-CIREBON$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 400M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 401 vlan 401
+!
+interface gpon-onu_1/2/11:2
+  name KAMAR-SULTAN-ASTON
+  description 2$$KAMAR-SULTAN-ASTON$$
+  sn-bind enable sn
+  tcont 1 name SULTAN profile 200M
+  tcont 1 gap mode2
+  gemport 1 name sultan tcont 1
+  gemport 1 traffic-limit upstream 200M downstream 200M
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/11:4
+  name ONU-BOD-ASTON-DIAMON6
+  description 2$$ONU-BOD-ASTON-DIAMON6$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 100M downstream 100M
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/11:5
+  name ONU-BOD-ASTON-ONYX-ROOM
+  description 2$$ONU-BOD-ASTON-ONYX-ROOM$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 100M downstream 100M
+  service-port 1 vport 1 user-vlan 3333 vlan 3333
+!
+interface gpon-olt_1/2/12
+  no shutdown
+  linktrap disable
+  description 98210000114DIAN-MARTHA-PRAMESA
+  name 98210000114-DIAN-MARTHA-PRAMESA
+  onu 1 type ALL sn ZTEGC1301328
+  onu 2 type ALL sn ZTEGC1300353
+  onu 4 type ALL sn ZTEGC1301523
+  onu 5 type ALL sn ZTEGC1301344
+  onu 6 type ALL sn ZTEGC1301320
+  onu 7 type ALL sn ZTEGC1301385
+  onu 8 type ALL sn ZTEGC1300864
+  onu 9 type ALL sn ZTEGC1300347
+!
+interface gpon-onu_1/2/12:1
+  name 98210000114-DIAN-MARTHA-PRAMESA
+  description 98210000114DIAN-MARTHA-PRAMESA
+  sn-bind enable sn
+  tcont 1 name t1 profile 150M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 415 vlan 415
+!
+interface gpon-onu_1/2/12:2
+  name 32740000088-Nadiyah
+  description 2$$32740000088-Nadiyah$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  tcont 1 gap mode2
+  gemport 2 name G1 tcont 1
+  gemport 2 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 2 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/12:4
+  name 327400000101-Agus Setya Nugraha
+  description 2$$327400000101-Agus Setya Nugraha$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/12:5
+  name 414-SAPADIA-HOTEL
+  description 2$$414-SAPADIA-HOTEL$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  tcont 1 gap mode1
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 414 vlan 414
+  service-port 1 description 414-Publik
+  service-port 2 vport 1 user-vlan 3335 vlan 3335
+  service-port 2 description 3335-remote
+!
+interface gpon-onu_1/2/12:6
+  name 32740000099-Elfi Rosanti
+  description 2$$32740000099-Elfi Rosanti$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/12:7
+  name MUP-PC24
+  description 2$$MUP-PC24$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  tcont 1 gap mode2
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 413 vlan 413
+  service-port 2 vport 1 user-vlan 3335 vlan 3335
+!
+interface gpon-onu_1/2/12:8
+  name 32740000158-Lisye Mariyana
+  description 2$$32740000158-Lisye Mariyana$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/12:9
+  name 32740000163-Hendro Wirawan
+  description 2$$32740000163-Hendro Wirawan$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/13
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGCD2C6B48
+  onu 4 type ALL sn ZTEGC1301474
+  onu 5 type ALL sn ZTEGCD2C8FFB
+  onu 6 type ALL sn ELWGC950AB52
+  onu 7 type ALL sn ZTEGCD28EC0D
+  onu 9 type ALL sn ZTEGC1301699
+  onu 10 type ALL sn ZTEGC1301383
+!
+interface gpon-onu_1/2/13:2
+  name POS-SATPAM-MTH
+  description 2$$POS-SATPAM-MTH$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  tcont 1 gap mode2
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 10M downstream 10M
+  service-port 1 vport 1 user-vlan 1203 vlan 1203
+  service-port 2 vport 1 user-vlan 1204 vlan 1204
+!
+interface gpon-onu_1/2/13:4
+  name 32740000138-Kresnawati
+  description 2$$32740000138-Kresnawati$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 55M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/13:5
+  name 32740000068-Waanah-(Salon-Citra-Ayu)
+  description 2$$32740000068-Waanah-(Salon-Citra-Ayu)$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 20M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/13:6
+  name AGENG-MTH
+  description 1$$AGENG-MTH$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 1G
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 1200 vlan 1200
+!
+interface gpon-onu_1/2/13:7
+  name YOGI-MTH-NEW
+  description 2$$YOGI-MTH-NEW$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 30M
+  tcont 1 gap mode2
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 1202 vlan 1202
+!
+interface gpon-onu_1/2/13:9
+  name Fathurrochman-Jati-Kusuma-327400000104
+  description 2$$Fathurrochman-Jati-Kusuma-327400000104$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/13:10
+  name 32740000135-Armi Arif
+  description 2$$32740000135-Armi Arif$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/14
+  no shutdown
+  linktrap disable
+  description 2$$TEST-ONU-4$$
+  name TEST-ONU-4
+  onu 1 type ALL sn ZTEGC06AE081
+  onu 2 type ALL sn ZTEGC0436D16
+  onu 3 type ALL sn ZTEGC0A85B15
+  onu 4 type ALL sn ZTEGC0C227DB
+!
+interface gpon-onu_1/2/14:1
+  name TEST-ONU-1
+  description 1$$TEST-ONU-1$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 150M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3334 vlan 3334
+!
+interface gpon-onu_1/2/14:2
+  name TEST-ONU-2
+  description 2$$TEST-ONU-2$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 150M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3334 vlan 3334
+!
+interface gpon-onu_1/2/14:3
+  name TEST-ONU-3
+  description 2$$TEST-ONU-3$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 150M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3334 vlan 3334
+!
+interface gpon-onu_1/2/14:4
+  name TEST-ONU-4
+  description 2$$TEST-ONU-4$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 150M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3334 vlan 3334
+!
+interface gpon-olt_1/2/15
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGC1301597
+  onu 4 type ALL sn ZTEGC1301588
+!
+interface gpon-onu_1/2/15:2
+  name International-Mitra-Futures-ONU
+  description 2$$International-Mitra-Futures-ONU$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 200M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3335 vlan 3335
+  service-port 2 vport 1 user-vlan 412 vlan 412
+!
+interface gpon-onu_1/2/15:4
+  name 32740000098-Nurmayati
+  description 2$$32740000098-Nurmayati$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/2/16
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGC1300244
+  onu 4 type ALL sn ZTEGC1300313
+  onu 5 type ALL sn ZTEGC1300373
+  onu 6 type ALL sn ZTEGC1301632
+  onu 7 type ALL sn ZTEGC1300364
+  onu 8 type ALL sn ZTEGC1301386
+  onu 9 type ALL sn ZTEGC1301585
+  onu 15 type ALL sn ZTEGC1301361
+!
+interface gpon-onu_1/2/16:2
+  name 32740000074 - Suranto
+  description 2$$32740000074 - Suranto$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/16:4
+  name 32740000083- Abdurrohim -ODP-FLAT Perjuangan
+  description 2$$32740000083- Abdurrohim -ODP-FLAT Perjuangan$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/16:5
+  name 32740000090-Intan-Novitaningrum
+  description 2$$32740000090-Intan-Novitaningrum$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/16:6
+  name 32740000113-Febriono Wahid Kholil
+  description 2$$32740000113-Febriono Wahid Kholil$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/16:7
+  name 32740000169-Imam Firmansyah
+  description 2$$32740000169-Imam Firmansyah$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 11M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/16:8
+  name 32740000142-SMK Informatika Al-Irsyad 1
+  description 2$$32740000142-SMK Informatika Al-Irsyad 1$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/16:9
+  name 32740000125-Awaludin
+  description 2$$32740000125-Awaludin$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/2/16:15
+  name 32740000143-SMK Informatika Al-Irsyad 2
+  description 2$$32740000143-SMK Informatika Al-Irsyad 2$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 125M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/1
+  no shutdown
+  linktrap disable
+  onu 1 type ALL sn ELWGC950EB70
+  onu 2 type ALL sn ZTEGCD2C905F
+  onu 4 type ALL sn ZTEGC1301167
+  onu 5 type ALL sn ZTEGC1301164
+  onu 6 type ALL sn ZTEGC1300345
+  onu 7 type ALL sn ZTEGC1301334
+  onu 8 type ALL sn ZTEGC1301587
+  onu 9 type ALL sn ZTEGC1300906
+  onu 10 type ALL sn ZTEGC1301343
+  onu 11 type ALL sn ZTEGC1300824
+  onu 12 type ALL sn ZTEGC1301350
+  onu 13 type ALL sn ZTEGC1301629
+  onu 15 type ALL sn ZTEGC1300903
+  onu 16 type ALL sn ZTEGC1301363
+  onu 17 type ALL sn ZTEGC0F49F96
+  onu 20 type ALL sn ZTE
+!
+interface gpon-onu_1/3/1:1
+  name FNA-PSAT
+  description FNA-PSAT
+  sn-bind enable sn
+  tcont 1 profile 900M
+  tcont 1 gap mode2
+  gemport 1 tcont 1
+  gemport 1 traffic-limit upstream 900M downstream 900M
+  service-port 1 vport 1 user-vlan 601 vlan 601
+!
+interface gpon-onu_1/3/1:2
+  name 32740000067 - Andi Trisnandi Prasetia
+  description 2$$32740000067 - Andi Trisnandi Prasetia$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  tcont 1 gap mode2
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:4
+  name 32740000077-Budi-Santoso
+  description 2$$32740000077-Budi-Santoso$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:5
+  name MITRA10 CIREBON
+  description MITRA10 CIREBON
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 3 vport 1 user-vlan 409 vlan 409
+  service-port 3 description 409-Public
+  service-port 4 vport 1 user-vlan 3335 vlan 3335
+  service-port 4 description 3335-Private-remote
+!
+interface gpon-onu_1/3/1:6
+  name 32740000087-Sumiati-ODP-009
+  description 2$$32740000087-Sumiati-ODP-009$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 55M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:7
+  name PT-KEJAR
+  description 2$$PT-KEJAR$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 15M
+  tcont 1 gap mode2
+  gemport 1 name g` tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 411 vlan 411
+  service-port 1 description 411-PUBLIK
+  service-port 2 vport 1 user-vlan 3335 vlan 3335
+  service-port 2 description 3335-Private-Remote
+!
+interface gpon-onu_1/3/1:8
+  name 32740000124-Aep Syaiful Rochman
+  description 2$$32740000124-Aep Syaiful Rochman$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 30M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:9
+  name 32740000148-Yudi Cahyadi S
+  description 2$$32740000148-Yudi Cahyadi S$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:10
+  name Dheny Indra Lesmana-32740000140
+  description 2$$Dheny Indra Lesmana-32740000140$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:11
+  name 32740000146-R.Rahdian Angga Maulana
+  description 2$$32740000146-R.Rahdian Angga Maulana$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:12
+  name 32740000150-Nengsih Sulastri
+  description 2$$32740000150-Nengsih Sulastri$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  tcont 1 gap mode1
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:13
+  name 32740000155-Ambardi
+  description 2$$32740000155-Ambardi$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:15
+  name 32740000165-Fatma Juwita
+  description 2$$32740000165-Fatma Juwita$$
+  sn-bind enable sn
+  tcont 1 name r1 profile 55M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:16
+  name 32740000179-Ade-Raodotul-Jannah
+  description 32740000179-Ade-Raodotul-Jannah
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:17
+  name 32740000182-Angky-Ari-Wibowo
+  description 32740000182-Angky-Ari-Wibowo
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/1:20
+  name 32740000168-Kasmiati
+  description 2$$32740000168-Kasmiati$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 1G
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/2
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGC1300229
+  onu 4 type ALL sn ZTEGC1300225
+  onu 6 type ALL sn ZTEGC1301356
+  onu 11 type ALL sn ZTEGC1300368
+!
+interface gpon-onu_1/3/2:2
+  name 32740000095-Muhammad-Ismail-ODP-021
+  description 2$$32740000095-Muhammad-Ismail-ODP-021$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 30M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/2:4
+  name 32740000106 - Rayi Dadan Gumilar
+  description 2$$32740000106 - Rayi Dadan Gumilar$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/2:6
+  name 32740000147-Ali Zainal Abidin
+  description 2$$32740000147-Ali Zainal Abidin$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/2:11
+  name 32740000170-Sigit Pamungkas
+  description 2$$32740000170-Sigit Pamungkas$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 1G
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/3
+  no shutdown
+  linktrap disable
+  description 32740000181-Mohamad-Andy-Hazairin
+  name 32740000181-Mohamad-Andy-Hazairin
+  onu 1 type ALL sn ELWGC950BB40
+  onu 2 type ALL sn ELWGC95063B6
+  onu 3 type ALL sn ZTEGCD2CAEF4
+  onu 4 type ALL sn ZTEGCD2CA72F
+  onu 5 type ALL sn ZTEGC1301335
+  onu 6 type ALL sn ZTEGC1300226
+  onu 7 type ALL sn ZTEGC1301309
+  onu 8 type ALL sn ZTEGC1301163
+  onu 9 type ALL sn ZTEGC1301331
+  onu 10 type ALL sn ZTEGC1300933
+  onu 11 type ALL sn ZTEGC1301347
+  onu 12 type ALL sn ZTEGC1300931
+  onu 13 type ALL sn ZTEGC04293CC
+!
+interface gpon-onu_1/3/3:1
+  name Bentani
+  description Bentani
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 406 vlan 406
+!
+interface gpon-onu_1/3/3:2
+  name Hotel Metland Cirebon
+  description Hotel Metland Cirebon
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 407 vlan 407
+!
+interface gpon-onu_1/3/3:3
+  name ONU-10000000211-OYO
+  description 3$$ONU-10000000211-OYO$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  tcont 1 gap mode2
+  gemport 1 name 1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/3:4
+  name ONU-AMARIS-HOTEL
+  description 2$$ONU-AMARIS-HOTEL$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 408 vlan 408
+  service-port 2 vport 1 user-vlan 3335 vlan 3335
+  service-port 2 description 3335
+!
+interface gpon-onu_1/3/3:5
+  name 32740000112-Merry Astuti
+  description 2$$32740000112-Merry Astuti$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/3:6
+  name 32740000091-Sasmoko Budi
+  description 2$$32740000091-Sasmoko Budi$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/3:7
+  name 32740000121-Mochamad Rizal Pahlevi
+  description 2$$32740000121-Mochamad Rizal Pahlevi$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/3:8
+  name 32740000072 - Dwiky Prayogi
+  description 2$$32740000072 - Dwiky Prayogi$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/3:9
+  name 32740000123-Ninno Giovano
+  description 2$$32740000123-Ninno Giovano$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 60M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/3:10
+  name 32740000160-Dimas Novrana Wijaya
+  description 2$$32740000160-Dimas Novrana Wijaya$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 1G
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/3:11
+  name 32740000157-Firman
+  description 2$$32740000157-Firman$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 11M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/3:12
+  name 32740000171-Dian Permatasari
+  description 2$$32740000171-Dian Permatasari$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/3:13
+  name 32740000181-Mohamad-Andy-Hazairin
+  description 32740000181-Mohamad-Andy-Hazairin
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/4
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/3/5
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGC1301696
+  onu 3 type ALL sn ZTEGC1301694
+  onu 4 type ALL sn ZTEGC1301315
+  onu 5 type ALL sn ZTEGC1301311
+  onu 6 type ALL sn ZTEGC1301354
+  onu 7 type ALL sn ZTEGC1301339
+  onu 9 type ALL sn ZTEGC1301310
+!
+interface gpon-onu_1/3/5:2
+  name 32740000076-Govin Septian Pratama-ODP-37
+  description 2$$32740000076-Govin Septian Pratama-ODP-37$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 1G
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/5:3
+  name 32740000070-Rinawati-ODP-30
+  description 32740000070-Rinawati-ODP-30
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  tcont 1 gap mode2
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/5:4
+  name 32740000078-Nurdiah Indra Wulan-ODP-38
+  description 2$$32740000078-Nurdiah Indra Wulan-ODP-38$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/5:5
+  name 32740000100-Amrin Kestury (Benteng Motor)
+  description 2$$32740000100-Amrin Kestury (Benteng Motor)$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/5:6
+  name 32740000152-Diyatika
+  description 2$$32740000152-Diyatika$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/5:7
+  name 32740000156-Deny Christian
+  description 2$$32740000156-Deny Christian$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 21M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/5:9
+  name 32740000154-suyudi
+  description 2$$32740000154-suyudi$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/6
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGCD2C66D0
+  onu 3 type ALL sn ZTEGCD2C957D
+  onu 5 type ALL sn ZTEGC1301349
+!
+interface gpon-onu_1/3/6:2
+  name 32740000058-Sukirman (Salon Citra Ayu)
+  description 2$$32740000058-Sukirman (Salon Citra Ayu)$$
+  sn-bind enable sn
+  tcont 1 name 32740000058 profile 100M
+  tcont 1 gap mode2
+  gemport 1 name 32740000058 tcont 1
+  gemport 1 traffic-limit upstream 100M downstream 100M
+  encrypt 1 enable downstream
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+  service-port 1 description 32740000058
+!
+interface gpon-onu_1/3/6:3
+  name 32740000063-Suja
+  description 32740000063-Suja
+  sn-bind enable sn
+  tcont 1 profile 20M
+  tcont 1 gap mode2
+  gemport 1 tcont 1
+  gemport 1 traffic-limit upstream 20M downstream 20M
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/6:5
+  name 32740000153-Fathir Fadli Zou
+  description 2$$32740000153-Fathir Fadli Zou$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 55M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/7
+  no shutdown
+  linktrap disable
+  onu 1 type ALL sn ZTEGC1301440
+  onu 2 type ALL sn ZTEGC1301600
+!
+interface gpon-onu_1/3/7:1
+  name 32740000180-Nuraeni
+  description 32740000180-Nuraeni
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/7:2
+  name 32740000085 -  Ismail
+  description 2$$32740000085 -  Ismail$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/8
+  no shutdown
+  linktrap disable
+  onu 1 type ALL sn ZTEGCC574FA6
+  onu 2 type ALL sn ZTEGC960C2C7
+  onu 4 type ALL sn ZTEGCD28EBFB
+  onu 5 type ALL sn ZTEGC1301695
+  onu 6 type ALL sn ZTEGC1301599
+  onu 7 type ALL sn ZTEGC1301318
+  onu 8 type ALL sn ZTEGC1301327
+  onu 10 type ALL sn ZTEGC1301650
+  onu 12 type ALL sn ZTEGC1301590
+!
+interface gpon-onu_1/3/8:1
+  name ONU-DKIS-PEMKOT-CIREBON
+  description ONU-DKIS-PEMKOT
+  sn-bind enable sn
+  tcont 2 name tconf1 profile 500M
+  tcont 2 gap mode2
+  gemport 1 tcont 2
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  gemport 2 tcont 2
+  gemport 2 traffic-limit upstream 1G downstream 1G
+  gemport 3 tcont 2
+  gemport 3 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 90 vlan 90
+  service-port 2 vport 2 user-vlan 2010 vlan 2010
+!
+interface gpon-onu_1/3/8:2
+  name ONU-DKIS-BROADBAND
+  description ONU-DKIS-BROADBAND
+  sn-bind enable sn
+  tcont 1 name dkis-broadband profile 400M
+  tcont 1 gap mode2
+  gemport 1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 2001 vlan 2001
+!
+interface gpon-onu_1/3/8:4
+  name 32740000069-Muhamad-Irvan-(UD-Sinergi-Farm)
+  description 2$$32740000069-Muhamad-Irvan-(UD-Sinergi-Farm)$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 20M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/8:5
+  name 32740000082 -  Lukman-El-Hakim
+  description 2$$32740000082 -  Lukman-El-Hakim$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/8:6
+  name 32740000081-Reza Ardiansyah-ODP-63 Jagasatru
+  description 2$$32740000081-Reza Ardiansyah-ODP-63 Jagasatru$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/8:7
+  name 32740000149-Sahidin
+  description 2$$32740000149-Sahidin$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 55M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/8:8
+  name 32740000110 -Moh Irfan
+  description 2$$32740000110 -Moh Irfan$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/8:10
+  name 32740000136-Amilia
+  description 2$$32740000136-Amilia$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/8:12
+  name 32740000129-Budiman
+  description 2$$32740000129-Budiman$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name T1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/9
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGC1300217
+  onu 4 type ALL sn ZTEGC1301329
+  onu 5 type ALL sn ZTEGC1300374
+  onu 6 type ALL sn ZTEGC1301564
+  onu 7 type ALL sn ZTEGC1301554
+  onu 8 type ALL sn ZTEGC1301322
+  onu 24 type ALL sn ZTEGC1300835
+!
+interface gpon-onu_1/3/9:2
+  name 32740000075- Abidin-ODP-60
+  description 2$$32740000075- Abidin-ODP-60$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/9:4
+  name 32740000086- Johan-Wahyudi
+  description 7$$32740000086- Johan-Wahyudi$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  tcont 1 gap mode2
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/9:5
+  name 32740000097-Haryadi
+  description 2$$32740000097-Haryadi$$
+  sn-bind enable sn
+  tcont 1 name T` profile 50M
+  tcont 1 gap mode2
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/9:6
+  name 32740000102-Sri Mulyati
+  description 2$$32740000102-Sri Mulyati$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 30M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/9:7
+  name 32740000103-Ruli Widianto
+  description 2$$32740000103-Ruli Widianto$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/9:8
+  name 32740000133-Robby
+  description 2$$32740000133-Robby$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/9:24
+  name 32740000164-Ronaldo Brilian Wijaya
+  description 2$$32740000164-Ronaldo Brilian Wijaya$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/10
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/3/11
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/3/12
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/3/13
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGCD2C94F7
+  onu 4 type ALL sn ZTEGC1301606
+  onu 5 type ALL sn ZTEGC1301330
+  onu 6 type ALL sn ZTEGC1301333
+  onu 7 type ALL sn ZTEGC1301649
+  onu 8 type ALL sn ZTEGC1301595
+  onu 9 type ALL sn ZTEGC1301348
+  onu 10 type ALL sn ZTEGC1300942
+  onu 11 type ALL sn ZTEGC1301353
+  onu 12 type ALL sn ZTEGC1300871
+  onu 14 type ALL sn ZTE
+!
+interface gpon-onu_1/3/13:2
+  name 32740000061-Asep Saeful-ODP-JB-FAT-KESAMBI
+  description 2$$32740000061-Asep Saeful-ODP-JB-FAT-KESAMBI$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 1G
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:4
+  name 32740000079-Andrianto Wilarang-ODP-46
+  description 2$$32740000079-Andrianto Wilarang-ODP-46$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:5
+  name 32740000109-Ade Sucipno-ODP: lap.bola kesambi dalam
+  description 2$$32740000109-Ade Sucipno-ODP: lap.bola kesambi dalam$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:6
+  name 32740000118-Taufik Hidayat
+  description 2$$32740000118-Taufik Hidayat$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:7
+  name 32740000132-Kasnadi (Warmindo Sari Rasa)
+  description 2$$32740000132-Kasnadi (Warmindo Sari Rasa)$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:8
+  name 32740000115-Junita Sidik Yusup
+  description 2$$32740000115-Junita Sidik Yusup$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 200M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:9
+  name 32740000111-Indra-Firdaus
+  description 2$$32740000111-Indra-Firdaus$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:10
+  name 32740000139-Iyus Rusminah
+  description 2$$32740000139-Iyus Rusminah$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 55M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:11
+  name 32740000144-Moch-Panji-Afdili
+  description 2$$32740000144-Moch-Panji-Afdili$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 10M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:12
+  name 32740000166-Een Nuraeni
+  description 2$$32740000166-Een Nuraeni$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/13:14
+  name 32740000167-Retno Nawang Wulan
+  description 2$$32740000167-Retno Nawang Wulan$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 55M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/14
+  no shutdown
+  linktrap disable
+!
+interface gpon-olt_1/3/15
+  no shutdown
+  linktrap disable
+  onu 2 type ALL sn ZTEGCD2CB11C
+  onu 4 type ALL sn ZTEGC1301316
+  onu 5 type ALL sn ZTEGC1301894
+  onu 7 type ALL sn ZTEGC1301346
+  onu 8 type ALL sn ZTEGC1300912
+  onu 9 type ALL sn ZTEGC1301301
+  onu 10 type ALL sn ZTEGC1301304
+  onu 16 type ALL sn ZTEGC1301364
+!
+interface gpon-onu_1/3/15:2
+  name 32740000062-Nia Suniasih-ODP-JB-FAT
+  description 2$$32740000062-Nia Suniasih-ODP-JB-FAT$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  tcont 1 gap mode2
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/15:4
+  name 32740000071-Ramdan Mubarok
+  description 2$$32740000071-Ramdan Mubarok$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/15:5
+  name 32740000114-Ichlas Ardhanur
+  description 2$$32740000114-Ichlas Ardhanur$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 50M
+  gemport 1 name G1 tcont 1 queue 1
+  gemport 1 traffic-limit downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/15:7
+  name 32740000116-Ati Komalasari
+  description 2$$32740000116-Ati Komalasari$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 50M
+  tcont 1 gap mode1
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/15:8
+  name 32740000159-Febbi Cahya Pribadi
+  description 2$$32740000159-Febbi Cahya Pribadi$$
+  sn-bind enable sn
+  tcont 1 name T1 profile 100M
+  gemport 1 name G1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/15:9
+  name 32740000117-Ai Lina
+  description 2$$32740000117-Ai Lina$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 20M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/15:10
+  name 32740000145-Rusyatin
+  description 2$$32740000145-Rusyatin$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 11M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-onu_1/3/15:16
+  name Poetra Ebeline-32740000151
+  description 2$$Poetra Ebeline-32740000151$$
+  sn-bind enable sn
+  tcont 1 name t1 profile 100M
+  gemport 1 name g1 tcont 1
+  gemport 1 traffic-limit upstream 1G downstream 1G
+  service-port 1 vport 1 user-vlan 3100 vlan 3100
+!
+interface gpon-olt_1/3/16
+  no shutdown
+  linktrap disable
+!
+interface xgei_1/19/1
   phy-attribute lan
   no shutdown
   hybrid-attribute fiber
@@ -433,64 +2235,97 @@ interface xgei_1/3/2
   duplex full
   flowcontrol disable
   linktrap enable
-  description UPLINK_OLT
-  switchport mode hybrid
+  description UPLINK-10G-NEXUS
+  switchport mode trunk
+  switchport vlan 1,90,245-246,255 tag
+  switchport vlan 401-415,601,905-906 tag
+  switchport vlan 908-909,1100,1200 tag
+  switchport vlan 1202-1204,2001-2004 tag
+  switchport vlan 2010,3100,3333-3335 tag
   port-protect disable
   uplink-isolate disable
 !
-interface gei_1/3/3
+interface xgei_1/19/2
+  phy-attribute lan
   no shutdown
-  hybrid-attribute copper
-  negotiation auto
+  hybrid-attribute fiber
+  no negotiation auto
+  speed 10000
+  duplex full
   flowcontrol disable
   linktrap enable
   switchport mode hybrid
   port-protect disable
   uplink-isolate disable
 !
-interface gei_1/4/1
+interface gei_1/19/3
   no shutdown
   hybrid-attribute fiber
   negotiation auto
   flowcontrol disable
   linktrap enable
-  switchport mode trunk
-  switchport vlan 1 tag
+  switchport mode hybrid
   port-protect disable
   uplink-isolate disable
 !
-interface gei_1/4/2
-  shutdown
+interface gei_1/19/4
+  no shutdown
   hybrid-attribute fiber
   negotiation auto
   flowcontrol disable
   linktrap enable
-  switchport mode trunk
-  switchport vlan 1 tag
+  switchport mode hybrid
   port-protect disable
   uplink-isolate disable
 !
-interface gei_1/4/3
-  shutdown
-  hybrid-attribute copper
+interface xgei_1/20/1
+  phy-attribute lan
+  no shutdown
+  hybrid-attribute fiber
+  no negotiation auto
+  speed 10000
+  duplex full
+  flowcontrol disable
+  linktrap enable
+  switchport mode hybrid
+  port-protect disable
+  uplink-isolate disable
+!
+interface xgei_1/20/2
+  phy-attribute lan
+  no shutdown
+  hybrid-attribute fiber
+  no negotiation auto
+  speed 10000
+  duplex full
+  flowcontrol disable
+  linktrap enable
+  switchport mode hybrid
+  port-protect disable
+  uplink-isolate disable
+!
+interface gei_1/20/3
+  no shutdown
+  hybrid-attribute fiber
   negotiation auto
   flowcontrol disable
   linktrap enable
-  switchport mode trunk
-  switchport vlan 1 tag
+  switchport mode hybrid
+  port-protect disable
+  uplink-isolate disable
+!
+interface gei_1/20/4
+  no shutdown
+  hybrid-attribute fiber
+  negotiation auto
+  flowcontrol disable
+  linktrap enable
+  switchport mode hybrid
   port-protect disable
   uplink-isolate disable
 !
 !
-mpls ldp dynamic-capability
-!
-!
-!
-!
-!
-!
-!
-ip route 0.0.0.0 0.0.0.0 10.203.2.1
+ip route 0.0.0.0 0.0.0.0 10.203.2.5
 !
 ipoa inatmarp-interval 10
 ipoa gateway-arp-interval 10
@@ -501,89 +2336,911 @@ mpnat onu-ftp aging-time 5
 mpnat onu-snmp aging-time 30
 mpnat onu-ftp-data aging-time 5
 mpnat onu-mng-port auto-alloc disable
-mpnat modem-telnet idle-time 3
 !
 pon
 !
-!        
-pon-onu-mng gpon-onu_1/1/4:2
+!
+pon-onu-mng gpon-onu_1/2/2:1
+  service S1 gemport 1 vlan 402
+  vlan port eth_0/1 mode hybrid def-vlan 402 def-pri 1
+!
+pon-onu-mng gpon-onu_1/2/2:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000120 password DR5KVF8W vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/2:5
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000177 password G4LF6Z1E vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/3:1
   service S1 gemport 1 vlan 2002
-  wan-ip 1 mode pppoe username onweraston password 6TVIER7D vlan-profile 2002 ho
-st 1
+  wan-ip 1 mode pppoe username onweraston password 6TVIER7D vlan-profile 2002 host 1
   wan-ip 1 ping-response enable traceroute-response enable
 !
-pon-onu-mng gpon-onu_1/1/5:2
-  service S1 gemport 1 vlan 2004
-  wan-ip 1 mode pppoe username dkissudasono password 7F41S9OB vlan-profile 2004 
-host 1
-  wan-ip 1 ping-response enable traceroute-response enable
-  vlan port eth_0/1 mode hybrid def-vlan 2004 def-pri 1
-  security-mgmt 212 state enable mode forward protocol web 
+pon-onu-mng gpon-onu_1/2/3:2
+  service ServiceName gemport 1 vlan 405
+  security-mgmt 212 state enable mode forward protocol web
 !
-pon-onu-mng gpon-onu_1/1/6:2
+pon-onu-mng gpon-onu_1/2/3:6
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000173 password 5VCZ1USD vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/3:8
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000178 password CUWATN4R vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/4:1
   service SBP gemport 1 vlan 2003
 !
-pon-onu-mng gpon-onu_1/1/8:1
+pon-onu-mng gpon-onu_1/2/4:2
+  service Patmuji gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000073 password 91TMHZ8N vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/4:5
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000105 password B8PA5HTL vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/5:1
+  service S1 gemport 1 vlan 403
+  vlan port eth_0/1 mode tag vlan 403
+  vlan port eth_0/2 mode tag vlan 403
+  vlan port eth_0/3 mode tag vlan 403
+  vlan port eth_0/4 mode tag vlan 403
+!
+pon-onu-mng gpon-onu_1/2/5:2
+  service Private gemport 1 vlan 3335
+  service Public gemport 1 vlan 410
+  wan-ip 1 mode static ip-profile 3335-REMOTE-ONU ip-address 10.10.11.3 mask 255.255.255.0 vlan-profile 3335-REMOTE-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode hybrid def-vlan 410
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/5:5
+  service 32740000080 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000080 password 8ZWVC3XA vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/5:6
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000162 password 36FDBJSW vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/6:1
+  service ServiceName gemport 1 vlan 404
+  service ServiceName2 gemport 1 vlan 3100
+  service ServiceName3 gemport 1 vlan 255
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/6:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000084 password SX1VNHJ3 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/7:1
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 10000001481 password C1NZT9KI vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/7:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 10000001597 password RDGFZJUQ vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/7:3
+  service pppoe gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000066 password LA5JVBGX vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/7:4
+  service s1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000096 password DRMHPJFY vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/7:5
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000130 password 6ISPY9B7 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/7:6
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000131 password K7PW81M2 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/8:1
+  service 32740000057 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000057 password XJW37PF9 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/8:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 10000001254 password BR6PVT8Q vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/8:3
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 10000001352 password X9V4EYNT vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/8:4
+  service 32740000045 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000045 password BYLKSAVI vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/8:5
+  service pppoe gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000037 password X2FIK9AS vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/8:6
+  service 1000001180 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 10000001180 password W7F3Q2GD vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/8:7
+  service pppoe gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000064 password 6PEYWX1F vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/8:8
+  service s1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000092 password B3ER1JXP vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/8:9
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000089 password BCX3F862 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/8:10
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000093 password 4D26WPF5 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/8:11
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000094 password KQ2TRL3W vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/8:15
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000126 password HDQG3VPU vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/8:17
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000175 password YNKPSBMT vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/9:1
+  service S1 gemport 1 vlan 2004
+  service ServiceName2 gemport 1 vlan 3335
+  wan-ip 1 mode pppoe username dkissudasono password 7F41S9OB vlan-profile 2004 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  wan-ip 2 mode static ip-profile 3335-REMOTE-ONU ip-address 10.10.11.10 mask 255.255.255.0 vlan-profile 3335-REMOTE-ONU host 2
+  wan-ip 2 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode hybrid def-vlan 2004 def-pri 1
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/9:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000172 password 95YBTVGJ vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/10:1
   service MGT-SW-DKIS gemport 1 vlan 90
   service pemkot gemport 2 vlan 2010
-  vlan port eth_0/1 mode trunk
-  vlan port eth_0/2 mode hybrid def-vlan 2010 def-pri 1
-  vlan port eth_0/1 vlan 90,2004
+  vlan port eth_0/1 mode hybrid def-vlan 2010 def-pri 1
+  vlan port eth_0/2 mode hybrid
+  vlan port eth_0/2 vlan 90,2004
 !
-pon-onu-mng gpon-onu_1/1/8:2
+pon-onu-mng gpon-onu_1/2/10:2
   service static gemport 1 vlan 2001
-  vlan port eth_0/1 mode hybrid def-vlan 2001 def-pri 1
+  service ServiceName2 gemport 1 vlan 3335
+  wan-ip 1 mode static ip-profile 3335-REMOTE-ONU ip-address 10.10.11.9 mask 255.255.255.0 vlan-profile 3335-REMOTE-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode hybrid def-vlan 2001
+  vlan port eth_0/2 mode hybrid def-vlan 2001
+  vlan port eth_0/3 mode hybrid def-vlan 2001
+  vlan port eth_0/4 mode hybrid def-vlan 2001
+  security-mgmt 212 state enable mode forward protocol web
 !
-pon-onu-mng gpon-onu_1/1/9:2
-  service s1 gemport 1 vlan 3100
-!
-pon-onu-mng gpon-onu_1/1/9:4
+pon-onu-mng gpon-onu_1/2/11:1
   service ServiceName gemport 1 vlan 401
   vlan port eth_0/1 mode tag vlan 401
   vlan port eth_0/2 mode tag vlan 401
   vlan port eth_0/3 mode tag vlan 401
   vlan port eth_0/4 mode tag vlan 401
 !
-pon-onu-mng gpon-onu_1/1/14:2
+pon-onu-mng gpon-onu_1/2/11:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username testuser password 7895123ok vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/11:4
   service S1 gemport 1 vlan 3100
-  wan-ip 1 mode pppoe username 10000001481 password C1NZT9KI vlan-profile 3100 h
-ost 1
+  wan-ip 1 mode pppoe username testaston password EGH0PZ8H vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/11:5
+  service S1 gemport 1 vlan 3333
+  wan-ip 1 mode static ip-profile 3333-BOD ip-address 172.16.1.2 mask 255.255.255.252 vlan-profile 3333-VLAN-BOD host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/12:1
+  service S1 gemport 1 vlan 415
+  wan-ip 1 mode static ip-profile 415-DIAN-MARTHA-PRAMESA ip-address 172.16.1.10 mask 255.255.255.248 vlan-profile 415-DIAN-MARTHA-PRAMES
+A host 1
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/12:2
+  service S1 gemport 2 vlan 3100
+  wan-ip 1 mode pppoe username 32740000088 password PR5K4CDS vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/12:4
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000101 password AFEL5J63 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/12:5
+  service S1 gemport 1 vlan 414
+  service S2 gemport 1 vlan 3335
+  wan-ip 1 mode static ip-profile 3335-REMOTE-ONU ip-address 10.10.11.8 mask 255.255.255.0 vlan-profile 3335-REMOTE-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode hybrid def-vlan 414
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/12:6
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000099 password 8FBMR6LV vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/12:7
+  service ServiceName gemport 1 vlan 413
+  service ServiceName2 gemport 1 vlan 3335
+  wan-ip 1 mode static ip-profile 3335-REMOTE-ONU ip-address 10.10.11.7 mask 255.255.255.0 vlan-profile 3335-REMOTE-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode tag vlan 413
+!
+pon-onu-mng gpon-onu_1/2/12:8
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000158 password QIU7DBFP vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/12:9
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000163 password 1B6WFLC8 vlan-profile 3100 host 1
   wan-ip 1 ping-response enable traceroute-response enable
 !
-pon-onu-mng gpon-onu_1/1/16:2
-  service ServiceName gemport 1 vlan 3100
-  wan-ip 1 mode pppoe username 10000001180 password W7F3Q2GD vlan-profile 3100 h
-ost 1
+pon-onu-mng gpon-onu_1/2/13:2
+  service s1 gemport 1 vlan 1203
+  service ServiceName gemport 1 vlan 1204
+  wan-ip 1 mode static ip-profile 1203 ip-address 172.16.1.222 mask 255.255.255.252 vlan-profile 1203 host 1
   wan-ip 1 ping-response enable traceroute-response enable
-  security-mgmt 212 state enable mode forward protocol web 
+  vlan port eth_0/1 mode tag vlan 1204 pri 1
+  security-mgmt 212 state enable mode forward protocol web
 !
-pon-onu-mng gpon-onu_1/1/16:4
+pon-onu-mng gpon-onu_1/2/13:4
   service ServiceName gemport 1 vlan 3100
-  wan-ip 1 mode pppoe username 10000001254 password BR6PVT8Q vlan-profile 3100 h
-ost 1
+  wan-ip 1 mode pppoe username 32740000138 password XT2HG73Y vlan-profile 3100 host 1
   wan-ip 1 ping-response enable traceroute-response enable
 !
-pon-onu-mng gpon-onu_1/1/16:5
+pon-onu-mng gpon-onu_1/2/13:5
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000068 password UYTLZF2I vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/13:6
+  service s1 gemport 1 vlan 1200
+  vlan port eth_0/1 mode trunk
+  vlan port eth_0/1 vlan 1200
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/13:7
+  service 1202 gemport 1 vlan 1202
+  vlan port eth_0/1 mode trunk
+  vlan port eth_0/1 vlan 1202
+!
+pon-onu-mng gpon-onu_1/2/13:9
   service ServiceName gemport 1 vlan 3100
-  wan-ip 1 mode pppoe username 10000001352 password X9V4EYNT vlan-profile 3100 h
-ost 1
+  wan-ip 1 mode pppoe username 32740000104 password E35KPQ1W vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/13:10
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000135 password YK6CNDW5 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/14:1
+  service ServiceName gemport 1 vlan 3334
+  voip protocol sip
+  voip config method omci
+  voip config server 10.253.1.135
+  voip-ip mode static ip-profile 3334-VLAN-TEST-ONU ip 172.16.2.227 mask 255.255.255.248 vlan-profile 3334-VLAN-TEST-ONU host 2
+  voip-ip ping-response enable traceroute-response enable
+  wan-ip 1 mode static ip-profile 3334-VLAN-TEST-ONU ip-address 172.16.2.226 mask 255.255.255.248 vlan-profile 3334-VLAN-TEST-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+  wifi enable domain usa
+  ssid auth wpa wifi_0/1 key 7895123ok
+  ssid auth wpa wifi_0/2 key 7895123ok
+!
+pon-onu-mng gpon-onu_1/2/14:2
+  service ServiceName gemport 1 vlan 3334
+  wan-ip 1 mode static ip-profile 3334-VLAN-TEST-ONU ip-address 172.16.2.227 mask 255.255.255.248 vlan-profile 3334-VLAN-TEST-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/14:3
+  service ServiceName gemport 1 vlan 3334
+  wan-ip 1 mode static ip-profile 3334-VLAN-TEST-ONU ip-address 172.16.2.228 mask 255.255.255.248 vlan-profile 3334-VLAN-TEST-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/14:4
+  service ServiceName gemport 1 vlan 3334
+  wan-ip 1 mode static ip-profile 3334-VLAN-TEST-ONU ip-address 172.16.2.229 mask 255.255.255.248 vlan-profile 3334-VLAN-TEST-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/15:2
+  service ServiceName2 gemport 1 vlan 3335
+  service ServiceName gemport 1 vlan 412
+  wan-ip 1 mode static ip-profile 3335-REMOTE-ONU ip-address 10.10.11.6 mask 255.255.255.0 vlan-profile 3335-REMOTE-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode tag vlan 412
+  vlan port eth_0/2 mode tag vlan 412
+  vlan port eth_0/3 mode tag vlan 412
+  vlan port eth_0/4 mode tag vlan 412
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/15:4
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000098 password GPUK5FLI vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/16:2
+  service s1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000074 password JN6RXLA5 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/16:4
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000083 password 4WFBJT2H vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/16:5
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000090 password 2HRT81YA vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/16:6
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000113 password PHXY4BJC vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/16:7
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000169 password NK5LP7JS vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/2/16:8
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000142 password 239Q4KHB vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/16:9
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000125 password 3VYRID6S vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/2/16:15
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000143 password DJE1M7FB vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/1:1
+  service bridge gemport 1 vlan 601
+  vlan port eth_0/1 mode trunk
+  vlan port eth_0/1 vlan 601
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:2
+  service s1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000067 password UJXIR7CL vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/1:4
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000077 password VUE6KJDT vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:5
+  service public gemport 1 vlan 409
+  service private-remote gemport 1 vlan 3335
+  wan-ip 1 mode static ip-profile 3335-REMOTE-ONU ip-address 10.10.11.2 mask 255.255.255.0 vlan-profile 3335-REMOTE-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode hybrid def-vlan 409
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:6
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000087 password FAVLNQR5 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:7
+  service S1 gemport 1 vlan 411
+  service private gemport 1 vlan 3335
+  wan-ip 1 mode static ip-profile 3335-REMOTE-ONU ip-address 10.10.11.5 mask 255.255.255.0 vlan-profile 3335-REMOTE-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode hybrid def-vlan 411
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:8
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000124 password Q27KMU1L vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/1:9
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000148 password 4KP6LVW5 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/1:10
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000140 password WM5EI3AJ vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/1:11
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000146 password KJLPMWG9 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:12
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000150 password 5U8K9VGQ vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:13
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000155 password DLYUFRW9 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/1:15
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000165 password 6HI2R7MV vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:16
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000179 password VWBPARHX vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:17
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000182 password U8ASCL6H vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/1:20
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000168 password ERAB1VXS vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/2:2
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000095 password 27GYW1E3 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/2:4
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000106 password XS6J2GV1 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/2:6
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000147 password 2UKL8ZSC vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/2:11
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000170 password 9TREP34K vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/3:1
+  service bridge gemport 1 vlan 406
+  vlan port eth_0/1 mode hybrid def-vlan 406 def-pri 1
+!
+pon-onu-mng gpon-onu_1/3/3:2
+  service bridge gemport 1 vlan 407
+  vlan port eth_0/1 mode hybrid def-vlan 407 def-pri 1
+!
+pon-onu-mng gpon-onu_1/3/3:3
+  service bridge gemport 1 vlan 3100
+  vlan port eth_0/1 mode tag vlan 3100
+  vlan port eth_0/2 mode tag vlan 3100
+!
+pon-onu-mng gpon-onu_1/3/3:4
+  service Bridge gemport 1 vlan 408
+  service Onu gemport 1 vlan 3335
+  wan-ip 1 mode static ip-profile 3335-REMOTE-ONU ip-address 10.10.11.4 mask 255.255.255.0 vlan-profile 3335-REMOTE-ONU host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  vlan port eth_0/1 mode tag vlan 408
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/3:5
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000112 password UQ5V7RZP vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/3:6
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000091 password D2NVAPWX vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/3:7
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000121 password EHTD7WNL vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/3:8
+  service 3100 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000072 password F6MBC4GS vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/3:9
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000123 password UWFDZGP3 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/3:10
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000160 password 2NUHDFVB vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/3:11
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000157 password FSQLGXJP vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/3:12
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000171 password RHVPQ743 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/3:13
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000181 password WLSC3T48 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/5:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000076 password 6HKSNXQ9 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/5:3
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000070 password HRPS9XQ7 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/5:4
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000078 password CP7TUDXM vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/5:5
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000100 password 89Y3JADQ vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/5:6
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000152 password 5LPN82Y7 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/5:7
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000156 password T3HJK9CP vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/5:9
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000154 password A2F6G57C vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/6:2
+  service 32740000058 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000058 password PX72GWZC vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/6:3
+  service pppoe gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000063 password DY6UR9J2 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/6:5
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000153 password SEI5M7Q6 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/7:1
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000180 password 6LXCGQJZ vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/7:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000085 password XD3B2QI8 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/8:1
+  service MGT-SW-DKIS gemport 1 vlan 90
+  service pemkot gemport 2 vlan 2010
+  vlan port eth_0/1 mode trunk
+  vlan port eth_0/2 mode hybrid def-vlan 2010 def-pri 1
+  vlan port eth_0/1 vlan 90,2004
+!
+pon-onu-mng gpon-onu_1/3/8:2
+  service static gemport 1 vlan 2001
+  vlan port eth_0/1 mode hybrid def-vlan 2001 def-pri 1
+!
+pon-onu-mng gpon-onu_1/3/8:4
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000069 password 5L8IY372 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/8:5
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000082 password S94871KJ vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/8:6
+  service 32740000081-Reza gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000081 password 7N6CDS5V vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/8:7
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000149 password 4XYZI375 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/8:8
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000110 password UL6C3IXP vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/8:10
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000136 password N9UJ2IDL vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/8:12
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000129 password QCAIPRBN vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/9:2
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000075 password 5L8VX9ZC vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/9:4
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000086 password 63S5XTLH vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/9:5
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000097 password RX9FG5Q3 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/9:6
+  service S1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000102 password 5AHCPIV4 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/9:7
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000103 password JRK1TF6W vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/9:8
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000133 password CGRI8W2K vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/9:24
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000164 password 7LYQNTSE vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/13:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000061 password 3KE49JVL vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/13:4
+  service s1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000079 password YWBG5TQ1 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/13:5
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000109 password 3GP6NM1T vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/13:6
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000118 password 1NV3RHEY vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/13:7
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000132 password AF19NGVM vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/13:8
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000115 password DURN9SXM vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/13:9
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000111 password L9GPMS4Y vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/13:10
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000139 password WLSYIE2M vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/13:11
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000144 password MS41IJKH vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/13:12
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000166 password ANIE95P3 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/13:14
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000167 password A8NWYF9M vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/15:2
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000062 password 391RXK5V vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/15:4
+  service s1 gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000071 password GK8T4W72 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/15:5
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000114 password VBCL1U2G vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/15:7
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000116 password QWTZ2ILM vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/15:8
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000159 password AG9P2853 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/15:9
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000117 password 6TZSVF48 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+!
+pon-onu-mng gpon-onu_1/3/15:10
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000145 password MI9LU2P7 vlan-profile 3100 host 1
+  wan-ip 1 ping-response enable traceroute-response enable
+  security-mgmt 212 state enable mode forward protocol web
+!
+pon-onu-mng gpon-onu_1/3/15:16
+  service ServiceName gemport 1 vlan 3100
+  wan-ip 1 mode pppoe username 32740000151 password 5YIZM1DE vlan-profile 3100 host 1
   wan-ip 1 ping-response enable traceroute-response enable
 !
 !
 pon
 !
 !
-igmp mvlan 1100 source-port xgei_1/3/2
-mac vpn 143e.bfbf.c9c5
+ces
 !
 !
 !
-auto-write enable 
+auto-write enable
 auto-write 18:00:00  everyday
 !
 inband-management enable
 !
-username user-suspend mode none 
+username user-suspend mode none
 !
 username high-level-security disable
 username inactivity-day 120
@@ -591,23 +3248,22 @@ username pwd-expire-day 90
 !
 version V4.8.35
 !
-hostname OLT-BITSNET-ID
+hostname OLT-C300-BITSNET-ID
 !
 enable secret level 15 5 RcMLuUKvnFZX9kNAV6A/UA==
 !
 service password-encryption
 !
-!        
-username zte password  7 dnXspUMqxfJOgln2Hm7Olw== privilege 15 first-login true
-username zte password  7 dnXspUMqxfJOgln2Hm7Olw== max-sessions 16
-username zte disable
-username login-range name zte login-begin 00:00:00  login-end 23:59:59
-username expire-date name zte datetime 12-31-2099 23:59:59
-username password-changed name zte is-changed false
+!
+username niam password  7 Gm6n+cwr2h14Qh4RGTjbPQ== privilege 15 first-login true
+username niam password  7 Gm6n+cwr2h14Qh4RGTjbPQ== max-sessions 16
+username niam enable
+username login-range name niam login-begin 00:00:00  login-end 23:59:59
+username expire-date name niam datetime 12-31-2099 23:59:59
+username password-changed name niam is-changed false
 
-username bitsnet password  7 wH3S2Gr20ni64xfR8fdBxQ== privilege 15 first-login t
-rue
-username bitsnet password  7 wH3S2Gr20ni64xfR8fdBxQ== max-sessions 16
+username bitsnet password  7 wq7rIFayDY8R1IC+xvFilA== privilege 15 first-login true
+username bitsnet password  7 wq7rIFayDY8R1IC+xvFilA== max-sessions 16
 username bitsnet enable
 username login-range name bitsnet login-begin 00:00:00  login-end 23:59:59
 username expire-date name bitsnet datetime 12-31-2099 23:59:59
@@ -620,11 +3276,13 @@ user-authentication-type local
 user-authorization-type local
 !
 help message full
-!        
+!
+clock timezone gmt 7 0
+!
 banner incoming @
-*************************************************************************
-Welcome to ZXAN product C320 of ZTE Corporation
-*************************************************************************
+************************************************
+Welcome to ZXAN product C300 of ZTE Corporation
+************************************************
 @
 !
 message-of-day @
@@ -637,48 +3295,40 @@ service timestamps debug datetime localtime
 !
 !
 !
-snmp-server location No.889 BiBo Rd.PuDong District, Shanghai, China
-snmp-server contact +86-21-68895000
+snmp-server location Jl. Prakarsa Muda No.258 Pekiringan, Kec.Kesambi Kota Cirebon Jawa Barat 45131
+snmp-server contact +62231247618 +622318305250
 snmp-server packetsize 8192
 snmp-server engine-id mode mac
-snmp-server group GroupPriv15 v3 priv read AllView write AllView
-snmp-server group GroupPriv10 v3 priv read AllView write ViewPriv10
-snmp-server group GroupPriv5 v3 priv read AllView write ViewPriv5
 snmp-server group GroupPriv0 v3 priv read AllView
-snmp-server community public view allview rw
-snmp-server community bitenetro view AllView ro
-snmp-server community bitsnetrw view AllView rw
-snmp-server view AllView 1.2 included 
-snmp-server view AllView 1.3 included 
-snmp-server view ViewPriv5 1.2 included 
-snmp-server view ViewPriv5 1.3 included 
-snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.10.1 excluded 
-snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.10.10 excluded 
-snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.20.1 excluded 
-snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.20.10 excluded 
-snmp-server view ViewPriv10 1.2 included 
-snmp-server view ViewPriv10 1.3 included 
-snmp-server view ViewPriv10 1.3.6.1.4.1.3902.1082.20.10 excluded 
-snmp-server host 10.253.1.4  version 2c bitsnetro enable NOTIFICATIONS target-ad
-dr-name EMS_10.253.1.4 isnmsserver udp-port 162 trap-report-compatibility v20 
-snmp-server host 10.253.1.5  version 2c bitenetro enable NOTIFICATIONS target-ad
-dr-name EMS_10.253.1.5 isnmsserver udp-port 162 trap-report-compatibility v20 
-snmp-server host 10.253.1.60  version 2c bitenetro enable NOTIFICATIONS target-a
-ddr-name EMS_10.253.1.60 isnmsserver udp-port 162 trap-report-compatibility v20 
-snmp-server host 103.19.57.2  version 2c bitnetro enable NOTIFICATIONS target-ad
-dr-name EMS_103.19.57.2 isnmsserver udp-port 162 trap-report-compatibility v20 
-snmp-server host 10.202.0.134  version 2c bitenetro enable NOTIFICATIONS target-
-addr-name EMS_10.202.0.134 isnmsserver udp-port 162 trap-report-compatibility v2
-0 
+snmp-server group GroupPriv5 v3 priv read AllView write ViewPriv5
+snmp-server group GroupPriv10 v3 priv read AllView write ViewPriv10
+snmp-server group GroupPriv15 v3 priv read AllView write AllView
+snmp-server community bitsnetoltro view AllView ro
+snmp-server community bitsnetoltrw view AllView rw
+snmp-server view AllView 1.2 included
+snmp-server view AllView 1.3 included
+snmp-server view allview 1.3 included
+snmp-server view ViewPriv5 1.2 included
+snmp-server view ViewPriv5 1.3 included
+snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.10.1 excluded
+snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.10.10 excluded
+snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.20.1 excluded
+snmp-server view ViewPriv5 1.3.6.1.4.1.3902.1082.20.10 excluded
+snmp-server view ViewPriv10 1.2 included
+snmp-server view ViewPriv10 1.3 included
+snmp-server view ViewPriv10 1.3.6.1.4.1.3902.1082.20.10 excluded
+snmp-server host 10.253.1.5  version 2c bitsnetoltro enable NOTIFICATIONS target-addr-name EMS_10.253.1.5 isnmsserver udp-port 162 trap-r
+eport-compatibility v20
+snmp-server host 103.19.57.146  version 2c bitsnetoltro enable NOTIFICATIONS target-addr-name EMS_103.19.57.146 isnmsserver udp-port 162
+trap-report-compatibility v20
+snmp-server host 103.19.57.255  version 2c bitsnetoltro enable NOTIFICATIONS target-addr-name EMS_103.19.57.255 isnmsserver udp-port 162
+trap-report-compatibility v20
+snmp-server host 192.168.201.119  version 2c bitsnetoltro enable NOTIFICATIONS target-addr-name EMS_192.168.201.119 isnmsserver udp-port
+162 trap-report-compatibility v20
 !
 !
-no ftp-server enable listen 21 
-ftp-server top-directory  /flash/ 
-!
-ntp server 103.19.56.5 priority 1
-ntp server 203.160.128.59 priority 2
-ntp server 202.162.32.12 priority 3
-ntp enable
+no ftp-server enable listen 21
+ftp-server top-directory  /flash/
 !
 logging alarmlog enable
 logging exc-event auto-write enable
@@ -689,22 +3339,22 @@ logging igmplog disable
 syslog facility local0
 syslog severity 6
 syslog hostname-field hostname
-line console idle-timeout 15 
-line console absolute-timeout 1440 
-line telnet idle-timeout 1000 
-line telnet absolute-timeout 1440 
-line telnet users 16 
+line console idle-timeout 3
+line console absolute-timeout 1440
+line telnet idle-timeout 1000
+line telnet absolute-timeout 1440
+line telnet users 8
 line cli detail-info-show disable
 
-no hotkey ctrl_g 
-no hotkey ctrl_l 
-no hotkey ctrl_o 
-no hotkey ctrl_r 
-no hotkey ctrl_s 
-no hotkey ctrl_t 
+no hotkey ctrl_g
+no hotkey ctrl_l
+no hotkey ctrl_o
+no hotkey ctrl_r
+no hotkey ctrl_s
+no hotkey ctrl_t
 !
 ssh server authentication mode local
-ssh server authentication type pap
+ssh server authentication type chap
 no ssh server only
 ssh server version 2
 !
@@ -712,11 +3362,11 @@ ssh server version 2
 radius attribute vendor-specific vendor-id 3902
 !
 !
-!        
+!
 radius server-port-check on
 !
 !
-tacacs disable 
+tacacs disable
 tacacs-server timeout 5
 tacacs-server deadtime 5
 tacacs-server packet 1024
@@ -724,9 +3374,13 @@ tacacs-server packet 1024
 !
 alarm enable
 alarm confirm
-alarm trap-confirm retry 3 timeout 20 
+alarm trap-confirm retry 1 timeout 30
 nms-hello-trap disable
 alarm report-speed 0
-alarm anti-jitter 0 
+alarm anti-jitter 0
+!
+control-panel
+  packet-limit all 1000
+!
 !
 end
