@@ -1,30 +1,38 @@
 sw-cdc.bitsnet.id# show running-config
 
 !Command: show running-config
-!Time: Fri Aug 12 01:55:04 2022
+!Time: Fri Oct  7 02:58:28 2022
 
-version 6.0(2)U6(5c)
-hostname switch-mmr-apjii-bitsnet.id
+version 6.0(2)U2(9Z)
+hostname sw-cdc.bitsnet.id
 
 feature telnet
 feature interface-vlan
 feature lacp
 feature lldp
 
-username admin password 5 $1$v344qNPr$h9KGicRTr7pS3LUzIHMjq/  role network-admin
-username bitsnet password 5 $1$pradifB4$muy6WeGlAouSoUIpbgvmy1  role network-admin
-username support password 5 $1$7YgRSa0w$ztbLslfsakQIeas5dMv8M0  role network-operator
-username niam password 5 $1$5jQd.kPk$issk0MzLchk/bQbvFwV2j.  role network-admin
-ssh key rsa 2048
+username admin password 5 $1$AuIhvwBX$kO8gj1l8sgU2Qulkfdc400  role network-admin
+username bitsnet password 5 $1$8Wr55CJS$HoPzfxBA67E91iEk1QmMU.  role network-admin
+username support password 5 $1$h1gvyXSu$NqqonHWqWjYpfiuKIfAfw1  role network-operator
+username niam password 5 $1$1J6ZkEPY$qpC0IDR6xwIH/WYuBA9j2/  role network-operator
+username niam role network-admin
 ip domain-lookup
-system default switchport shutdown
+logging event link-status default
+errdisable recovery interval 30
 no errdisable detect cause link-flap
-no errdisable detect cause loopback
-no errdisable detect cause inline-power
+errdisable recovery cause link-flap
 ip access-list copp-system-acl-eigrp
   10 permit eigrp any 224.0.0.10/32
 ipv6 access-list copp-system-acl-eigrp6
   10 permit 88 any ff02::000a/128
+ip access-list copp-system-acl-ftp
+  10 permit tcp any any eq ftp-data
+  20 permit tcp any any eq ftp
+  30 permit tcp any eq ftp-data any
+  40 permit tcp any eq ftp any
+ip access-list copp-system-acl-http
+  10 permit tcp any any eq www
+  20 permit tcp any any eq 443
 ip access-list copp-system-acl-icmp
   10 permit icmp any any
 ip access-list copp-system-acl-igmp
@@ -81,13 +89,13 @@ ip access-list copp-system-acl-telnet
 ipv6 access-list copp-system-acl-v6routingProto2
   10 permit udp any ff02::0066/128 eq 2029
   20 permit udp any ff02::00fb/128 eq 5353
-  30 permit 112 any ff02::0012/128
 ipv6 access-list copp-system-acl-v6routingproto1
   10 permit 89 any ff02::0005/128
   20 permit 89 any ff02::0006/128
   30 permit udp any ff02::0009/128 eq 521
 ip access-list copp-system-dhcp-relay
   10 permit udp any eq bootps any eq bootps
+policy-map type qos Metro-1Gbps
 class-map type network-qos jumbomtu
 policy-map type network-qos jumbomtu
   class type network-qos class-default
@@ -118,7 +126,6 @@ class-map type control-plane match-any copp-s-l2switched
 class-map type control-plane match-any copp-s-l3destmiss
 class-map type control-plane match-any copp-s-l3mtufail
 class-map type control-plane match-any copp-s-l3slowpath
-class-map type control-plane match-any copp-s-mpls
 class-map type control-plane match-any copp-s-pimautorp
 class-map type control-plane match-any copp-s-pimreg
   match access-group name copp-system-acl-pimreg
@@ -198,8 +205,6 @@ policy-map type control-plane copp-system-policy
     police pps 12000
   class copp-s-dpss
     police pps 1000
-  class copp-s-mpls
-    police pps 100
   class copp-icmp
     police pps 200
   class copp-telnet
@@ -218,129 +223,187 @@ control-plane
   service-policy input copp-system-policy
 hardware profile portmode 48x10G+4x40G
 
-snmp-server user niam network-admin auth md5 0x18bc43e18d759a451ef8b898a344582e priv 0x18bc43e18d759a451ef8b898a344582e localizedkey
-snmp-server user admin network-admin auth md5 0x43d9e33a667eb84ba16f6d78fe0602b5 priv 0x43d9e33a667eb84ba16f6d78fe0602b5 localizedkey
-snmp-server user bitsnet network-admin auth md5 0x11df18f27ec94c3a1849c9429568457e priv 0x11df18f27ec94c3a1849c9429568457e localizedk
-ey
-snmp-server user support network-operator auth md5 0xb5cadd2959eee7426f16a71e5b6151a9 priv 0xb5cadd2959eee7426f16a71e5b6151a9 localiz
-edkey
-snmp-server host 10.254.7.6 informs version 2c jakarta
+snmp-server user niam network-operator auth md5 0x6163123f0f43472c5f1f5b82e691be6e priv 0x6163123f0f43472c5f1f5b82e691be6e localizedkey
+snmp-server user niam network-admin
+snmp-server user admin network-admin auth md5 0xd3d17e4fdc494c1f3325827766d24ee9 priv 0xd3d17e4fdc494c1f3325827766d24ee9 localizedkey
+snmp-server user bitsnet network-admin auth md5 0x723483c7857826fa3888c8063e27daea priv 0x723483c7857826fa3888c8063e27daea localizedkey
+snmp-server user support network-operator auth md5 0xc6b8121ee78f32c165543c39e79fc972 priv 0xc6b8121ee78f32c165543c39e79fc972 localizedke
+y
+snmp-server host 10.254.7.10 informs version 2c jakarta
+snmp-server enable traps callhome event-notify
+snmp-server enable traps callhome smtp-send-fail
+snmp-server enable traps cfs state-change-notif
+snmp-server enable traps lldp lldpRemTablesChange
+snmp-server enable traps cfs merge-failure
+snmp-server enable traps aaa server-state-change
+snmp-server enable traps upgrade UpgradeOpNotifyOnCompletion
+snmp-server enable traps upgrade UpgradeJobStatusNotify
+snmp-server enable traps feature-control FeatureOpStatusChange
+snmp-server enable traps sysmgr cseFailSwCoreNotifyExtended
+snmp-server enable traps config ccmCLIRunningConfigChanged
+snmp-server enable traps snmp authentication
+snmp-server enable traps link cisco-xcvr-mon-status-chg
+snmp-server enable traps vtp notifs
+snmp-server enable traps vtp vlancreate
+snmp-server enable traps vtp vlandelete
+snmp-server enable traps bridge newroot
+snmp-server enable traps bridge topologychange
+snmp-server enable traps stpx inconsistency
+snmp-server enable traps stpx root-inconsistency
+snmp-server enable traps stpx loop-inconsistency
+snmp-server enable traps poe portonoff
+snmp-server enable traps poe pwrusageon
+snmp-server enable traps poe pwrusageoff
+snmp-server enable traps poe police
+snmp-server community raisecom group network-operator
 snmp-server community jakarta group network-operator
-no feature ntp
 
+vrf context management
+  ip route 0.0.0.0/0 10.254.7.9
+  ip route 103.19.56.0/22 10.254.7.9
 vlan 1
 vlan 59
   name 59-BITS-OIXP-10G
+vlan 95
+  name 95-IPVPN-ICON
+vlan 102
+  name 102-SUPERXCHANGE
 vlan 365
   name 365-RAPID-AGEMTEGAL
+vlan 498
+  name 498-SERVER-UNTANGLE-TEST
 vlan 499
   name 499-UNTANGLE-TO-CIREBON
 vlan 500
-  name 500-MGT-SWITCH-APJII
+  name 500-MGT-APJII
 vlan 501
-  name 501-MGT-SWITCH-CDC
-vlan 502
-  name 502-MGT-SWITCH-MMR-NTT
+  name MGT-SVR
+vlan 513
+  name 513-UPLINK-MPLS
+vlan 514
+  name 514-PTP-DISTRIBUSI-3-1
 vlan 551
   name 551-BITSNET-ABHINAWA
+vlan 579
+  name 579-LPSEJABAR
+vlan 580
+  name 580-BRIMS
 vlan 581
   name 581-VPS-IP-PUBLIC
+vlan 582
+  name 582-SERVER-UNTANGLE-TEST
+vlan 583
+  name 583-UNTANGEL-WAN
+vlan 584
+  name 584-SANBE
+vlan 585
+  name 585-RB-MONITORING-LISTRIK
 vlan 587
-  name 587-BITS-LDP-CANGGU
+  name 587-LDP-CANGGU
 vlan 588
-  name 588-BITS-FS-MADIUN
+  name FS-MADIUN
 vlan 589
-  name 589-FS-MADIUN-DUMMY-TESTER
+  name 589-FS-IFORTE-DUMMY-TESTER
+vlan 880
+  name 880-HERY-CILACAP-ICON
+vlan 882
+  name 882-BITSNET-MADIUN-ICON
+vlan 883
+  name 883-NURKHOLIS-ICON-BWI
+vlan 885
+  name 885-BINTANGMEDIA-ICON
+vlan 886
+  name 886-WINS-NGANJUK-ICON
+vlan 887
+  name 887-SRAGEN-MEJER-ICON
+vlan 888
+  name 888-LPFNET-SUJI-ICON-BWI
+vlan 889
+  name 889-SELOREJO-MAGETAN-ICON-MDN
 vlan 890
-  name 890-ICON-SMART-CONNECT
+  name 890-ICON-MADURA
+vlan 891
+  name 891-FBC-HARSO-ICON
+vlan 1100
+  name 1100-CDIX
+vlan 1115
+  name 1115-CDN-TO-DIST2
+vlan 1116
+  name 1116-CDN-TO-DIST1
 vlan 1246
-  name 1246-BITS-BTN-BENGKULU
+  name 1246-BTN-BKL
 vlan 1247
-  name 1247-BITS-BTN-MEDAN
+  name 1247-BTN-MED
 vlan 1248
-  name 1248-BITS-BTN-MEDAN-PMD
+  name 1248-BTN-MED-PEMUDA
 vlan 1249
-  name 1249-BITS-BTN-MADIUN
+  name 1249-BTN-MADIUN
 vlan 1250
-  name 1250-BITS-BTN-INDRAMAYU
+  name 1250-BTN-IMY
 vlan 1251
-  name 1251-BITS-BTN-CIANJUR
+  name 1251-BTN-CNJR
 vlan 1252
-  name 1252-BITS-BTN-TASIK
+  name 1252-BTN-TASIK
+vlan 1253
+  name 1253-BTN-PALEMBANG-SDM
 vlan 1254
-  name 1254-BITS-BTN-CIKAMPEK
+  name 1254-BTN-CIKAMPEK
 vlan 1255
-  name 1255-BITS-BTN-PALEMBANG-KCS
+  name 1255-BTN-PALEMBANG-KCS
 vlan 1256
-  name 1256-BITS-BTN-CIJERAH
+  name 1256-BTN-CIJERAH
+vlan 1257
+  name 1257-BTN-SUBANG
 vlan 1258
-  name 1258-BITS-BTN-PURWAKARTA
+  name 1258-BTN-PURWAKARTA
 vlan 1259
-  name 1259-BITS-BTN-BENGKULU-KCS
+  name 1259-BTN-BENGKULU-KCS
 vlan 1260
-  name 1260-BITS-BTN-PALEMBANG-SYARIAH
+  name 1260-BTN-SYARIAH-PALEMBANG
 vlan 1261
-  name 1261-BITS-BTN-CIREBON-KC
+  name 1261-BTN-KC-CIREBON
 vlan 1270
-  name 1270-BITS-SURYALAYA
+  name 1270-AGTI-SURYALAYA-CIREBON
 vlan 1301
   name 1301-SIAP-KGX-CRB
 vlan 1302
-  name 1302-SIAP-KGX-MAJALENGKA
+  name 1302-KGX-MAJALENGKA
 vlan 1303
-  name 1303-SIAP-KGX-JATIBARANG
-vlan 1304
-  name 1304-INTEGRASIA
+  name 1303-KGX-JATIBARANG
 vlan 1311
   name 1311-ADS-CAMAT-ARJASARI
 vlan 1346
   name 1346-FS-KNSIGMA-KAMPUNG-KALI
-vlan 1401
-  name 1401-INTERGRASIA-SURGE
-vlan 1402
-  name 1402-INTEGRASIA
-vlan 1403
-  name 1403-INTERGRASIA-FS
-vlan 1410
-  name 1410-FIBERSTAR-CIREBON-NEW
-vlan 1412
-  name 1412-IFORTE-BDG
-vlan 1413
-  name 1413-IFORTE-CIREBON-NEW
-vlan 1477
-  name 1477-JLM-BDG
+vlan 1501
+  name 1501-FIBERSTAR-BDG-JNP
+vlan 1502
+  name 1502-WEAVE-BDG-JNP
 vlan 1506
-  name 1506-DUMMY-SURGE
+  name 1506-WEAVE-BANDUNG
 vlan 1507
   name 1507-FIBERSTAR-FBC
-vlan 1508
-  name 1508-BITS-SKYLINE
-vlan 1509
-  name 1509-BITS-SKYLINE
 vlan 1510
-  name 1510-BITS-FS-CIREBON
+  name 1510-FSCRB
 vlan 1511
   name 1511-FS-TULUNGAGUNG
 vlan 1512
-  name 1512-BITS-IFORTE-BANDUNG
+  name 1512-IFORTE-BANDUNG
 vlan 1513
   name 1513-IFORTE-CIREBON-NEW
 vlan 1514
-  name 1514-BITS-HSP
+  name 1514-HSP-PATROL
 vlan 1515
   name 1515-HSP-JATIBARANG
 vlan 1516
-  name 1516-IFORTE-MADIUN
+  name 1516-BITS-IFORTE-MADIUN
 vlan 1517
   name 1517-HSP-KRISMELL
-vlan 1570
-  name 1570-AGTI-SURYALAYA-CIREBON
+vlan 1518
+  name 1518-RAPID-FS-CILACAP
 vlan 1574
-  name 1574-IPTR-JLM-BDG
-vlan 1575
-  name 1575-BITS-IPTR-JLM
-vlan 1600
-  name 1600-NTT-MMR
+  name 1574-IPTR-JLM
+vlan 1576
+  name 1576-IPTR-FIBERCONNECT
 vlan 1601
   name 1601-JKT-IX
 vlan 1602
@@ -349,38 +412,30 @@ vlan 1610
   name 1610-DIST1-IX-NTT
 vlan 1611
   name 1611-DIST2-IX-NTT
-vlan 1700
-  name 1700-FB-NEW-DIST-1
-vlan 1701
-  name 1701-FB-NEW-DIST-2
-vlan 1702
-  name 1702-FB-NEW-DIST-3
 vlan 1703
-  name 1703-FB-NEW-DIST-4
+  name 1703-FB-DIST-2
 vlan 1704
-  name 1704-FB-NEW-DIST-5
+  name 1704-FB-DIST-1
 vlan 1705
-  name 1705-FB-NEW-DIST-3-MIKRO
-vlan 1810
-  name 1810-BITS-KING-IPTV
+  name 1705-FB-DIST-3
 vlan 1917
   name 1917-IFORTE-BWI
 vlan 1926
   name 1926-HSP-TERISI-PANDY
 vlan 2000
-  name 2000-BITS-GOR-CITRA-PASIFIK
+  name 2000-GOR-CITRA-PASIFIK
 vlan 2010
   name 2010-PEMKOT-CIREBON
 vlan 2041
-  name 2041-BITS-ICON
+  name 2041-ICONPOLAR
 vlan 2100
   name 2100-BITS-IIX-10G
-vlan 2222
-  name 2222-TES-UPLINK-OLT
 vlan 2433
   name 2433-XL-NGANJUK
 vlan 2434
   name 2434-XL-BANYUWANGI
+vlan 2497
+  name 2497-JIX
 vlan 2513
   name 2513-TRANSIT-SDI
 vlan 2514
@@ -388,7 +443,9 @@ vlan 2514
 vlan 2515
   name 2515-MULTI-CONNECT
 vlan 2591
-  name 2591-IPTR-SIMS-BACKUP
+  name 2591-IPTR-MVNET
+vlan 3000
+  name 3000-GGC
 vlan 3001
   name 3001-KONTEN-SMARTCONNECT
 vlan 3002
@@ -399,10 +456,12 @@ vlan 3004
   name 3004-KONTEN-SIDNET
 vlan 3005
   name 3005-KONTEN-IDCLOUD
-vlan 3145
-  name 3145-INTEGRASIA
-vlan 3146
-  name 3146-INTEGRASIA
+vlan 3006
+  name 3006-IDCLOUD-EXCHANGE
+vlan 3110
+  name 3110-IX-FBC-TO-CDN-BITS
+vlan 3500
+  name 3500-MGT-JNP
 vlan 3501
   name 3501-MGT-JNP
 vlan 3506
@@ -412,328 +471,268 @@ vlan 3507
 vlan 3703
   name 3703-FS-FIBERCONNECT-JKT
 vlan 3704
-  name 3704-VPS-FBC-NTT1-2
+  name 3704-IP-PUBLIC-FBC
 vlan 3705
   name 3705-IFORTE-CRB-FBC
 vlan 3706
   name 3706-FS-CRB-FBC
+vlan 3803
+  name 3803-FS-BITS-BDROADBAND-BDG
 vlan 4090
   name 4090-VPS-IP-PRIVATE
 no spanning-tree vlan 1-3967,4048-4093
-vrf context management
-  ip route 0.0.0.0/0 192.168.168.1
 
 
 interface Vlan1
 
-interface Vlan59
-  no shutdown
-  ip address 192.168.168.3/24
-
-interface Vlan500
-  no shutdown
-  ip address 10.254.7.6/30
-
-interface Vlan536
-  ip address 10.10.11.6/29
-
-interface Vlan1510
-  no shutdown
-  ip address 172.18.12.3/29
+interface Vlan514
+  ip address 192.192.192.2/29
 
 interface Vlan1512
   no shutdown
-  ip address 172.16.11.9/24
+  ip address 172.16.11.8/24
+
+interface Vlan1577
+  no shutdown
+  ip address 172.8.8.2/29
 
 interface Vlan1601
   no shutdown
-  ip address 10.10.10.3/29
+  ip address 10.10.10.2/29
 
 interface Vlan1610
   no shutdown
-  ip address 10.1.1.2/29
+  ip address 10.1.1.1/29
+
+interface Vlan3704
 
 interface Ethernet1/1
+  description TO-CDIX
+  switchport access vlan 1100
   speed 1000
-  description BITS-JABARMAYA
-  switchport mode trunk
-  switchport trunk allowed vlan 531,536
-  no shutdown
 
 interface Ethernet1/2
   speed 1000
-  description BITS-LDP-CANGGU
-  switchport mode trunk
-  switchport trunk allowed vlan 587
-  no shutdown
 
 interface Ethernet1/3
   speed 1000
-  description BITS-ICON
-  switchport mode trunk
-  switchport trunk allowed vlan 2041
-  no shutdown
 
 interface Ethernet1/4
   speed 1000
-  switchport access vlan 589
-  no shutdown
 
 interface Ethernet1/5
   speed 1000
-  description BITS-IFORTE-BANDUNG
-  switchport mode trunk
-  switchport trunk allowed vlan 531,536,581,1412,1512
-  no shutdown
 
 interface Ethernet1/6
   speed 1000
-  description BITS-SKYLINE
-  switchport mode trunk
-  switchport trunk allowed vlan 1508-1509
-  no shutdown
 
 interface Ethernet1/7
+  description LPSEJABAR
+  switchport access vlan 579
   speed 1000
-  no shutdown
 
 interface Ethernet1/8
+  description BRIMS
+  switchport access vlan 580
   speed 1000
-  description BITS-XL
-  switchport mode trunk
-  switchport trunk allowed vlan 952-953
-  no shutdown
 
 interface Ethernet1/9
   speed 1000
-  switchport mode trunk
-  switchport trunk allowed vlan 573,576,584,1346,2000,3145
-  no shutdown
 
 interface Ethernet1/10
-  speed 1000
-  description BITS-IFORTE-CIREBON
+  description TO-CORE-MPLS-ether12
   switchport mode trunk
-  switchport trunk allowed vlan none
-  no shutdown
+  switchport trunk allowed vlan 95,365,1246-1261,1270,1301-1303,1311
+  speed 1000
 
 interface Ethernet1/11
-  no shutdown
+  description NGFirewal-WAN
+  switchport access vlan 583
+  speed 1000
 
 interface Ethernet1/12
+  description NGFirewal-LAN
+  switchport mode trunk
+  switchport trunk allowed vlan 498-499,579-580,582
   speed 1000
-  description BITS-KING-IPTV
-  switchport access vlan 1810
-  no shutdown
 
 interface Ethernet1/13
-  speed 1000
-  description BITS-TRIGATRA
+  description TRUNK-TO-VPS-CDC
   switchport mode trunk
-  switchport trunk allowed vlan 1246-1252,1254-1256,1258-1261
-  no shutdown
+  switchport trunk allowed vlan 498,582,3704
+  speed 1000
 
 interface Ethernet1/14
   speed 1000
-  description TO-RAPID-TELKOM
-  switchport mode trunk
-  switchport trunk allowed vlan 365
-  no shutdown
 
 interface Ethernet1/15
+  description TO-VPS-IP-PUBLIK-AND-MGMT-VPS
+  switchport access vlan 581
   speed 1000
-  description BITS-ABHINAWA
-  switchport mode trunk
-  switchport trunk allowed vlan 551
-  no shutdown
 
 interface Ethernet1/16
+  description TO-PATCH-PANEL5-PT-SANO
+  switchport mode trunk
+  switchport trunk allowed vlan 881
   speed 1000
-  description BITS-AGTI
-  switchport access vlan 1270
-  no shutdown
 
 interface Ethernet1/17
-  no shutdown
+  description RB-MONITOIRNG-LISTRIK
+  switchport access vlan 585
+  speed 100
 
 interface Ethernet1/18
+  speed 1000
 
 interface Ethernet1/19
   speed 1000
-  no shutdown
 
 interface Ethernet1/20
-  speed 1000
-  description BITSNET-SIAPNETWORK
+  description UPLINK-MPLS
   switchport mode trunk
-  switchport trunk allowed vlan 1301-1303
-  no shutdown
+  switchport trunk allowed vlan 513
+  speed 1000
 
 interface Ethernet1/21
+  speed 100
 
 interface Ethernet1/22
+  speed 1000
 
 interface Ethernet1/23
+  speed 1000
 
 interface Ethernet1/24
+  speed 1000
 
 interface Ethernet1/25
+  description TO-JUNOS-xe-0/1/6
+  switchport mode trunk
+  switchport trunk allowed vlan 59,1576
 
 interface Ethernet1/26
-  description TO-SIDNET
-  switchport access vlan 3004
-  no shutdown
+  description TO-JUNOS-xe-0/1/7
+  switchport mode trunk
+  switchport trunk allowed vlan 509,3703-3704
 
 interface Ethernet1/27
-  speed 1000
-  description TO-INTREGRASIA
+  description TO-JUNOS-xe-0/1/4
   switchport mode trunk
-  switchport trunk allowed vlan 1401-1403,3145-3146
-  no shutdown
+  switchport trunk allowed vlan 1703-1704
 
 interface Ethernet1/28
+  description TO-JUNOS-xe-0/1/5
+  switchport mode trunk
+  switchport trunk allowed vlan 1115-1116
 
 interface Ethernet1/29
-  speed 1000
-  no shutdown
+  description TO-JUNOS-xe-0/1/2
+  switchport mode trunk
+  switchport trunk allowed vlan 2497,2591
 
 interface Ethernet1/30
-  description TRIAL-GGC-GOESAR
-  switchport access vlan 3003
-  no shutdown
+  description TO-JUNOS-xe-0/1/3
 
 interface Ethernet1/31
-  speed 1000
-  no shutdown
+  description TO-JUNOS-xe-0/1/0
+  switchport mode trunk
+  switchport trunk allowed vlan 514,581,3500
 
 interface Ethernet1/32
-  speed 1000
-  no shutdown
+  description TO-JUNOS-xe-0/1/1
+  switchport mode trunk
+  switchport trunk allowed vlan 1574
 
 interface Ethernet1/33
-  description TO-SDI
+  description TO-DIST3-NEW-MIKRO
   switchport mode trunk
-  switchport trunk allowed vlan 2513-2515
-  no shutdown
+  switchport trunk allowed vlan 95,500-501,504,513-516,579-580,583,585,588,880,882-883,885,887-891,952,1106,1117,1511-1512,1602,1705,1801
+,1803,1917,3500
 
 interface Ethernet1/34
-  no shutdown
+  description TO-GGC-NODE-1
+  switchport access vlan 3000
 
 interface Ethernet1/35
-  no lldp transmit
-  no lldp receive
-  description TO-FIBERSTAR-10G
-  switchport mode trunk
-  switchport trunk allowed vlan 499,588-589,1346,1403,1410,1507,1510-1511,2010,3507,3703,3706
-  no shutdown
+  description TO-GGC-NODE-2
+  switchport access vlan 3000
 
 interface Ethernet1/36
-  no lldp transmit
-  no lldp receive
-  description BITSNET-XL-10G
+  description TO-CDN-sfp-sfpplus2
   switchport mode trunk
-  switchport trunk allowed vlan 2433-2434
-  no shutdown
+  switchport trunk allowed vlan 59,102,551,1100,1601,2100
 
 interface Ethernet1/37
-  description BACKUP-IPTR-SIMS
+  description TO-MVNET
   switchport mode trunk
   switchport trunk allowed vlan 2591
-  no shutdown
 
 interface Ethernet1/38
-  description TO-SURGE
-  switchport mode trunk
-  switchport trunk allowed vlan 1401-1402,1506,3145-3146
-  no shutdown
 
 interface Ethernet1/39
-  description BITS-SMARTCONNECT
-  switchport mode trunk
-  switchport trunk allowed vlan 890,1311,3001
-  no shutdown
 
 interface Ethernet1/40
-  description BITS-OIXP-10G
+  description PTP-ICON-INTERKONEKSI-BARU
   switchport mode trunk
-  switchport trunk allowed vlan 59
-  no shutdown
+  switchport trunk allowed vlan 887-891
 
 interface Ethernet1/41
-  no lldp transmit
-  no lldp receive
-  description BITS-IIX-10G
-  switchport access vlan 2100
-  no shutdown
 
 interface Ethernet1/42
-  description IFORTE-MADIUN
+  description TO-CDN-sfp-sfpplus1
   switchport mode trunk
-  switchport trunk allowed vlan 1516,1917
-  no shutdown
+  switchport trunk allowed vlan 102,1115-1116,3110
 
 interface Ethernet1/43
-  description BITS-HSP
+  description TO-VPS-VmNIC-2
   switchport mode trunk
-  switchport trunk allowed vlan 1514-1515,1517,1926
-  no shutdown
+  switchport trunk allowed vlan 581,3704,4090
 
 interface Ethernet1/44
-  description IFORTE-CIREBON-2G
+  description TO-VPS-VmNIC-3
   switchport mode trunk
-  switchport trunk allowed vlan 516,581,1413,1508-1509,1513,1704,1810,2222,3501,3506,3705
-  no shutdown
+  switchport trunk allowed vlan 581,3704
 
 interface Ethernet1/45
-  description TO-IDCLOUD
+  description PTP-ICON-INTERKONEKSI-LAMA
   switchport mode trunk
-  switchport trunk allowed vlan 3005
-  no shutdown
+  switchport trunk allowed vlan 95,880-886
 
 interface Ethernet1/46
-  description BITS-IPTR-JLM
-  switchport mode trunk
-  switchport trunk allowed vlan 1574-1575
-  no shutdown
 
 interface Ethernet1/47
-  description BITS-NTT-10G
-  switchport mode trunk
-  switchport trunk allowed vlan 501-502,577,581,1600-1602,1700-1705,3704,4090
+  description CDC-TO-APJII
 
 interface Ethernet1/48
-  description BITS-CDC
-  switchport mode trunk
-  switchport trunk allowed vlan 500
-  no shutdown
+  description TO-JLM-10G
 
 interface Ethernet1/49
-  description BITS-CDC
+  description CDC-TO-APJII
   switchport mode trunk
-  switchport trunk allowed vlan 59,365,499,501-502,509,516,536,551,573,576-577,581,584,587-589,890,952-953,1246-1252,1254-1256,1258-1
-261,1270,1301-1304,1311,1346,1506-1507,1510-1517,1574-1575,1600-1602,1610-1611,1700-1705,1917,1926,2000,2010,2041,2100,2222,2433-2434
-,2513-2515,3001-3005,3456,3501,3506-3507,3703-3706,4090
-  no shutdown
+  switchport trunk allowed vlan 59,102,365,499-501,551,581,584-585,587-589,890,1246-1261,1270,1301-1303,1311,1346,1501-1502,1506-1507,151
+0-1518,1601-1602,1610-1611,1703-1705,1917,1926,2000,2010,2041,2100,2433-2434,2513-2515,3001-3006,3501,3506-3507,3703-3706,3803,4090
 
 interface Ethernet1/50
+  description TO-JUNOS
+  switchport mode trunk
+  switchport trunk allowed vlan 365,573,584,587-589,880,882-889,891,952-953,1346,1501-1502,1506-1507,1510-1518,1610-1611,1917,1926,2000,2
+010,2041,2433-2434,2513-2515,3000-3006,3110,3506-3507,3705-3706,3803
 
 interface Ethernet1/51
-  no lldp transmit
-  no lldp receive
-  description TO-NTT-40G
+  description TO-JLM-40G
   switchport mode trunk
-  switchport trunk allowed vlan 501-502,509,577,581,1600-1602,1610-1611,1700-1705,3704,4090
-  no shutdown
+  switchport trunk allowed vlan 1574,2497
 
 interface Ethernet1/52
-  no shutdown
+  shutdown
 
 interface mgmt0
-  vrf member management
-  ip address 192.168.168.2/30
+  ip address 10.254.7.10/30
 line console
 line vty
-boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U6.5c.bin
-boot system bootflash:/n3000-uk9.6.0.2.U6.5c.bin
-ip route 0.0.0.0/0 10.254.7.5
+  session-limit 10
+boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U2.9z.bin
+boot system bootflash:/n3000-uk9.6.0.2.U2.9z.bin
+ip route 0.0.0.0/0 10.254.7.9
 logging server 103.19.56.12
+
