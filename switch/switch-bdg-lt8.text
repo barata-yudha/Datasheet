@@ -1,437 +1,570 @@
-switch-bdg-lt8-bitsnet.id#show running-config
+SWITCH-LT-8.BITSNET.ID# show running-config
 
- Being processed.This may take a few minutes,please wait......
+!Command: show running-config
+!Time: Fri Oct  7 02:46:48 2022
 
- System current configuration:
-!command in view_mode
-!
-!command in config_mode first-step
-create vlan 10,27,330,421-424,531,536,581,584,601,604-608,612-613,615-618,624-629,702,986,1304,1401-1402,1412,1477,1512,1574-1578,1603-1604,1951,1970-1972,2000-2002,2088,2338-2339,2387-2388,3101,3145-3146,3703-3704 active
-!
-!command in qos mapping mode
-!
-!command in sred mode
-!
-!command in vrf_mode
-!
-!command in acl-ipv4-basic mode
-!
-!command in acl-ipv4-advanced mode
-!
-!command in acl-mac mode
-!
-!command in acl-map mode
-!
-!command in acl-ipv6 mode
-!
-!command in acl-advanced mode
-!
-!command in traffic policer mode
-!
-!command in cmap_mode
-!
-!command in pmap_mode
-!
-!command in bandwidth profile mode
-!
-!command in hcos_mode
-!
-!command in hvlan_mode
-!
-!command in enable_mode
-enable password cipher $@!!92db2f495087f23ed0aafea83193ff7f
-user name bitsnet password cipher $@!!92db2f495087f23ed0aafea83193ff7f
-user name raisecom password cipher $@!!b4a47de862e42a090b7baa343535d390
-user name raisecom privilege 7
-user name support password cipher $@!!248c5b65af9b3e059db8746a69630bff
-user name support privilege 4
-hostname switch-bdg-lt8-bitsnet.id
-clock timezone + 7 0 Jakarta
-clock display utc
-!
-!command in region_mode
-!
-!command in ip igmp profile mode
-!
-!command in mld profile mode
-!
-!command in tunnel interface mode
-!
-!command in outband_mode
-!
-interface fastethernet 1/0/1
-shutdown
-ip address 10.254.11.2 255.255.255.252
-!
-!command in NULL_mode
-!
-!command in l2cp profile mode
-!
-!command in aggregation_mode
-!
-!command in vlan configuration mode
-!
-vlan 10
-name 10-VLAN-NATIVE
-!
+version 6.0(2)U6(6)
+hostname SWITCH-LT-8.BITSNET.ID
+
+no feature telnet
+feature interface-vlan
+feature lacp
+feature lldp
+
+username admin password 5 $1$GfrLj8MM$EGStb7T5wVtT3cJ0HcY82.  role network-admin
+username bitsnet password 5 $1$Sz.oDps1$A.z35OOe6CvK5Ef8jgiLe.  role network-admin
+ip domain-lookup
+system default switchport shutdown
+service unsupported-transceiver
+no errdisable detect cause link-flap
+no errdisable detect cause loopback
+no errdisable detect cause inline-power
+ip access-list copp-system-acl-eigrp
+  10 permit eigrp any 224.0.0.10/32
+ipv6 access-list copp-system-acl-eigrp6
+  10 permit 88 any ff02::000a/128
+ip access-list copp-system-acl-icmp
+  10 permit icmp any any
+ip access-list copp-system-acl-igmp
+  10 permit igmp any any
+ip access-list copp-system-acl-ntp
+  10 permit udp any any eq ntp
+  20 permit udp any eq ntp any
+ip access-list copp-system-acl-pimreg
+  10 permit pim any any
+ip access-list copp-system-acl-ping
+  10 permit icmp any any echo
+  20 permit icmp any any echo-reply
+ip access-list copp-system-acl-routingproto1
+  10 permit tcp any gt 1024 any eq bgp
+  20 permit tcp any eq bgp any gt 1024
+  30 permit udp any 224.0.0.0/24 eq rip
+  40 permit tcp any gt 1024 any eq 639
+  50 permit tcp any eq 639 any gt 1024
+  70 permit ospf any any
+  80 permit ospf any 224.0.0.5/32
+  90 permit ospf any 224.0.0.6/32
+ip access-list copp-system-acl-routingproto2
+  10 permit udp any 224.0.0.0/24 eq 1985
+  20 permit 112 any 224.0.0.0/24
+ip access-list copp-system-acl-snmp
+  10 permit udp any any eq snmp
+  20 permit udp any any eq snmptrap
+ip access-list copp-system-acl-ssh
+  10 permit tcp any any eq 22
+  20 permit tcp any eq 22 any
+ip access-list copp-system-acl-stftp
+  10 permit udp any any eq tftp
+  20 permit udp any any eq 1758
+  30 permit udp any eq tftp any
+  40 permit udp any eq 1758 any
+  50 permit tcp any any eq 115
+  60 permit tcp any eq 115 any
+ip access-list copp-system-acl-tacacsradius
+  10 permit tcp any any eq tacacs
+  20 permit tcp any eq tacacs any
+  30 permit udp any any eq 1812
+  40 permit udp any any eq 1813
+  50 permit udp any any eq 1645
+  60 permit udp any any eq 1646
+  70 permit udp any eq 1812 any
+  80 permit udp any eq 1813 any
+  90 permit udp any eq 1645 any
+  100 permit udp any eq 1646 any
+ip access-list copp-system-acl-telnet
+  10 permit tcp any any eq telnet
+  20 permit tcp any any eq 107
+  30 permit tcp any eq telnet any
+  40 permit tcp any eq 107 any
+ipv6 access-list copp-system-acl-v6routingProto2
+  10 permit udp any ff02::0066/128 eq 2029
+  20 permit udp any ff02::00fb/128 eq 5353
+  30 permit 112 any ff02::0012/128
+ipv6 access-list copp-system-acl-v6routingproto1
+  10 permit 89 any ff02::0005/128
+  20 permit 89 any ff02::0006/128
+  30 permit udp any ff02::0009/128 eq 521
+ip access-list copp-system-dhcp-relay
+  10 permit udp any eq bootps any eq bootps
+class-map type control-plane match-any copp-icmp
+  match access-group name copp-system-acl-icmp
+class-map type control-plane match-any copp-ntp
+  match access-group name copp-system-acl-ntp
+class-map type control-plane match-any copp-s-arp
+class-map type control-plane match-any copp-s-bfd
+class-map type control-plane match-any copp-s-bpdu
+class-map type control-plane match-any copp-s-dai
+class-map type control-plane match-any copp-s-default
+class-map type control-plane match-any copp-s-dhcpreq
+class-map type control-plane match-any copp-s-dhcpresp
+  match access-group name copp-system-dhcp-relay
+class-map type control-plane match-any copp-s-dpss
+class-map type control-plane match-any copp-s-eigrp
+  match access-group name copp-system-acl-eigrp
+  match access-group name copp-system-acl-eigrp6
+class-map type control-plane match-any copp-s-glean
+class-map type control-plane match-any copp-s-igmp
+  match access-group name copp-system-acl-igmp
+class-map type control-plane match-any copp-s-ipmcmiss
+class-map type control-plane match-any copp-s-l2switched
+class-map type control-plane match-any copp-s-l3destmiss
+class-map type control-plane match-any copp-s-l3mtufail
+class-map type control-plane match-any copp-s-l3slowpath
+class-map type control-plane match-any copp-s-mpls
+class-map type control-plane match-any copp-s-pimautorp
+class-map type control-plane match-any copp-s-pimreg
+  match access-group name copp-system-acl-pimreg
+class-map type control-plane match-any copp-s-ping
+  match access-group name copp-system-acl-ping
+class-map type control-plane match-any copp-s-ptp
+class-map type control-plane match-any copp-s-routingProto1
+  match access-group name copp-system-acl-routingproto1
+  match access-group name copp-system-acl-v6routingproto1
+class-map type control-plane match-any copp-s-routingProto2
+  match access-group name copp-system-acl-routingproto2
+class-map type control-plane match-any copp-s-selfIp
+class-map type control-plane match-any copp-s-ttl1
+class-map type control-plane match-any copp-s-v6routingProto2
+  match access-group name copp-system-acl-v6routingProto2
+class-map type control-plane match-any copp-s-vxlan
+class-map type control-plane match-any copp-snmp
+  match access-group name copp-system-acl-snmp
+class-map type control-plane match-any copp-ssh
+  match access-group name copp-system-acl-ssh
+class-map type control-plane match-any copp-stftp
+  match access-group name copp-system-acl-stftp
+class-map type control-plane match-any copp-tacacsradius
+  match access-group name copp-system-acl-tacacsradius
+class-map type control-plane match-any copp-telnet
+  match access-group name copp-system-acl-telnet
+policy-map type control-plane copp-system-policy
+  class copp-s-selfIp
+    police pps 500
+  class copp-s-default
+    police pps 400
+  class copp-s-l2switched
+    police pps 200
+  class copp-s-ping
+    police pps 100
+  class copp-s-l3destmiss
+    police pps 100
+  class copp-s-glean
+    police pps 500
+  class copp-s-l3mtufail
+    police pps 100
+  class copp-s-ttl1
+    police pps 100
+  class copp-s-ipmcmiss
+    police pps 400
+  class copp-s-l3slowpath
+    police pps 100
+  class copp-s-dhcpreq
+    police pps 300
+  class copp-s-dhcpresp
+    police pps 300
+  class copp-s-dai
+    police pps 300
+  class copp-s-igmp
+    police pps 400
+  class copp-s-eigrp
+    police pps 200
+  class copp-s-pimreg
+    police pps 200
+  class copp-s-pimautorp
+    police pps 200
+  class copp-s-routingProto2
+    police pps 1300
+  class copp-s-v6routingProto2
+    police pps 1300
+  class copp-s-routingProto1
+    police pps 1000
+  class copp-s-arp
+    police pps 200
+  class copp-s-ptp
+    police pps 1000
+  class copp-s-vxlan
+    police pps 1000
+  class copp-s-bfd
+    police pps 350
+  class copp-s-bpdu
+    police pps 12000
+  class copp-s-dpss
+    police pps 1000
+  class copp-s-mpls
+    police pps 100
+  class copp-icmp
+    police pps 200
+  class copp-telnet
+    police pps 500
+  class copp-ssh
+    police pps 500
+  class copp-snmp
+    police pps 500
+  class copp-ntp
+    police pps 100
+  class copp-tacacsradius
+    police pps 400
+  class copp-stftp
+    police pps 400
+control-plane
+  service-policy input copp-system-policy
+hardware profile portmode 48x10G+4x40G
+
+snmp-server user admin network-admin auth md5 0xedd4255058cb09a4025773ef77c324a4 priv 0xedd4255058cb09a4025773ef77c324a4 localizedkey
+snmp-server user bitsnet network-admin auth md5 0x7f2ad9d55d166d8a77885f1672ef3cbb priv 0x7f2ad9d55d166d8a77885f1672ef3cbb localizedkey
+snmp-server community bandung group network-operator
+
+vlan 1
 vlan 27
-name 27-mgmt-lt8
-!
+  name 27-mgmt-lt8
 vlan 330
-name 330-INTEGRASIA
-!
+  name 330-INTEGRASIA
 vlan 421
-name 421-POS-OFFICE
-!
+  name 421-POS-OFFICE
 vlan 422
-name 422-CITY-SQUARE
-!
+  name 422-CITY-SQUARE
 vlan 423
-name 423-SKP-PUSAT
-!
+  name 423-SKP-PUSAT
 vlan 424
-name 424-SKP-BANDARA-HUSEIN
-!
+  name 424-SKP-BANDARA-HUSEIN
 vlan 531
-name 531-BITS-JABARMAYA
-!
+  name 531-BITS-JABARMAYA
 vlan 536
-name 536-BITS-JABARMAYA
-!
+  name 536-BITS-JABARMAYA
 vlan 581
-name 581-VPS-BITSNET
-!
+  name 581-VPS-BITSNET
 vlan 584
-name 584-SANBE-FARMA
-!
+  name 584-SANBE-FARMA
 vlan 601
-name 601-APJII-JABRIX
-!
+  name 601-APJII-JABRIX
 vlan 604
-name 604-LPSE
-!
+  name 604-LPSE
 vlan 605
-name 605-MOXY-HOTEL
-!
+  name 605-MOXY-HOTEL
 vlan 606
-name 606-HOLIDAYIN
-!
+  name 606-HOLIDAYIN
 vlan 607
-name 607-TGI-BITEK
-!
+  name 607-TGI-BITEK
 vlan 608
-name 608-BITEK-BALMON
-!
+  name 608-BITEK-BALMON
 vlan 612
-name 612-HOTEL-TJOKRO-BITEK
-!
+  name 612-HOTEL-TJOKRO-BITEK
 vlan 613
-name 613-FENGTAY-CGS
-!
+  name 613-FENGTAY-CGS
 vlan 615
-name 615-GH-UNIVERSAL
-!
+  name 615-GH-UNIVERSAL
 vlan 616
-name 616-INTERCON-CGS
-!
+  name 616-HOLIDAY-INN-CGS
 vlan 617
-name 617-AITI-LT8
-!
+  name 617-AITI-LT8
 vlan 618
-name 618-BITEK-PULLMAN
-!
+  name 618-BITEK-PULLMAN
 vlan 624
-name 624-HOTEL-TJOKRO-GOESAR
-!
+  name 624-HOTEL-TJOKRO-GOESAR
 vlan 625
-name 625-MOXY-GOESAR
-!
+  name 625-MOXY-GOESAR
 vlan 626
-name 626-KAMBOTI-GOESAR
-!
+  name 626-KAMBOTI-GOESAR
 vlan 627
-name 627-KYTOS-GOESAR
-!
+  name 627-KYTOS-GOESAR
 vlan 628
-name 628-BOD-GOESAR-BDG
-!
+  name 628-BOD-GOESAR-BDG
 vlan 629
-name 629-HOTEL-HARRIS-GOESAR
-!
+  name 629-HOTEL-HARRIS-GOESAR
+vlan 631
+  name 631-BPR-ASTANA-ANYAR-GOESAR
+vlan 632
+  name 632-BPR-PAGARSIH-GOESAR
+vlan 633
+  name 633-BPR-KOSAMBI-GOESAR
+vlan 634
+  name 634-BPR-JL-CIANJUR-GOESAR
+vlan 635
+  name 635-BPR-WASTUKENCANA-GOESAR
+vlan 636
+  name 636-BPR-SUKAMAJU-GOESAR
+vlan 637
+  name 637-BPR-KEBON-JAYANTI-GOESAR
+vlan 638
+  name 638-PERUMDA-BANK-BANDUNG-GOESAR
+vlan 641
+  name 641-PASS-NET
 vlan 702
-name 702-SEKRE-APJII
-!
+  name 702-SEKRE-APJII
 vlan 986
-name 986-VARNION
-!
+  name 986-VARNION
 vlan 1304
-name 1304-INTEGRASIA
-!
+  name 1304-INTEGRASIA
 vlan 1401
-name 1401-INTERGASIA
-!
+  name 1401-INTERGASIA
 vlan 1402
-name 1402-INTERGASIA
-!
+  name 1402-INTERGASIA
 vlan 1412
-name 1412-IFORTE-BANDUNG-NEW
-!
+  name 1412-IFORTE-BANDUNG-NEW
 vlan 1477
-name 1477-JLM-BANDUNG-NEW
-!
+  name 1477-JLM-BANDUNG-NEW
 vlan 1512
-name 1512-IFORTE
-!
+  name 1512-IFORTE
 vlan 1574
-name 1574-IPTR-JLM-BTS-CRB
-!
+  name 1574-IPTR-JLM-BTS-CRB
 vlan 1575
-name 1575-IPTR-JLM-BITSNET
-!
+  name 1575-IPTR-JLM-BITSNET
 vlan 1576
-name 1576-JLM-FIBERCONN
-!
+  name 1576-JLM-FIBERCONN
 vlan 1577
-name 1577-JLM-METRO-BANDUNG
-!
+  name 1577-JLM-METRO-BANDUNG
 vlan 1578
-name 1578-PT-AMBA
-!
+  name 1578-PT-AMBA
 vlan 1603
-name 1603-INTEGRASIA
-!
+  name 1603-INTEGRASIA
 vlan 1604
-name 1604-INTEGRASIA
-!
+  name 1604-INTEGRASIA
 vlan 1951
-name 1951-INTEGRASIA
-!
+  name 1951-INTEGRASIA
 vlan 1970
-name 1970-INTEGRASIA
-!
+  name 1970-INTEGRASIA
 vlan 1971
-name 1971-INTEGRASIA
-!
+  name 1971-INTEGRASIA
 vlan 1972
-name 1972-INTEGRASIA
-!
+  name 1972-INTEGRASIA
 vlan 2000
-name 2000-PASIFIK-GOESAR
-!
+  name 2000-PASIFIK-GOESAR
 vlan 2001
-name 2001-BOD-GOR-C-TRA-GOESAR
-!
+  name 2001-BOD-GOR-C-TRA-GOESAR
 vlan 2002
-name 2002-BOD-GOR-C-TRA-GOESAR
-!
+  name 2002-BOD-GOR-C-TRA-GOESAR
 vlan 2088
-name 2088-TO-TELKOM-P2P
-!
+  name 2088-TO-TELKOM-P2P
 vlan 2338
-name 2338-LINTAS-SATU-VISI
-!
+  name 2338-LINTAS-SATU-VISI
 vlan 2339
-name 2339-COLLOCATION-JLM
-!
+  name 2339-COLLOCATION-JLM
 vlan 2387
-name 2387-COLLOCATION-PSAT
-!
+  name 2387-COLLOCATION-PSAT
 vlan 2388
-name 2388-COLLOCATION-PSAT
-!
+  name 2388-COLLOCATION-PSAT
 vlan 3101
-name 3101-INTEGRASIA
-!
+  name 3101-INTEGRASIA
 vlan 3145
-name 3145-INTEGRASIA
-!
+  name 3145-INTEGRASIA
 vlan 3146
-name 3146-INTEGRASIA
-!
+  name 3146-INTEGRASIA
 vlan 3703
-name 3703-FS-FIBERCONNECT-JKT
-!
+  name 3703-FS-FIBERCONNECT-JKT
 vlan 3704
-name 3704-SERVER-FIBERCONNECT
-!
-!command in port_mode
-!
-interface gigaethernet 1/1/1
-shutdown
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/2
-shutdown
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/3
-shutdown
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/4
-shutdown
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/5
-shutdown
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/6
-shutdown
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/7
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/8
-description "TO-JABRIX NEW"
-switchport access vlan 601
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/9
-description TO-INTEGRASIA
-switchport trunk allowed vlan 330,1304,1401-1402,1603-1604,1951,1970-1972,3101,3145-3146
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/10
-description MSN-DKIS
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/11
-description INTERKONEKSI-TIS
-switchport trunk native vlan 10
-switchport trunk allowed vlan 421-423,986
-switchport mode trunk
-spanning-tree loopguard enable
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/12
-switchport access vlan 1578
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/13
-description TO-JLM-FIBERCONN
-switchport trunk allowed vlan 1576-1578
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/14
-description COLLOCATION-JLM
-switchport access vlan 2339
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/15
-description TO-LINTAS-SATU-VISI
-switchport trunk allowed vlan 2338
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/16
-description TO-SEKRE-APJII
-switchport access vlan 702
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/17
-description TO-BITEK
-switchport trunk allowed vlan 424,584,604-608,612,615,618
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/18
-description BITS-JABARMAYA
-switchport trunk allowed vlan 531,536
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/19
-description TO-TELKOM
-switchport trunk allowed vlan 2088
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/21
-description TO-AITI
-switchport trunk allowed vlan 617
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/22
-description TO-CGS
-switchport trunk native vlan 10
-switchport trunk allowed vlan 613,616
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/23
-description TO-GOESAR
-switchport trunk allowed vlan 624-629,2000-2002
-switchport mode trunk
-loopback-detection action shutdown
-!
-interface gigaethernet 1/1/24
-description UPLINK-TO-IFORTE-JKT
-switchport trunk allowed vlan 531,536,581,1401-1402,1512,3145-3146,3703
-switchport mode trunk
-shutdown
-loopback-detection action shutdown
-!
-interface tengigabitethernet 1/1/25
-shutdown
-!
-interface tengigabitethernet 1/1/26
-shutdown
-!
-interface tengigabitethernet 1/1/27
-shutdown
-!
-interface tengigabitethernet 1/1/28
-description TRUNKING-TO-LT7
-switchport trunk allowed vlan 27,330,421-424,536,581,584,601,604-608,612-613,615-618,624-629,702,986,1304,1401-1402,1512,1576-1578,1603-1604,1951,1970-1972,2000-2002,2088,2338-2339,2387-2388,3101,3145-3146,3703
-switchport mode trunk
-loopback-detection action trap-only log-interval 1
-!
-!command in isf_mode
-!
-!command in dhcp-pool mode
-!
-!command in loopback interface mode
-!
-interface loopback 0
-!
-!command in vlan interface mode
-!
-interface vlan 1
-shutdown
-!
-interface vlan 27
-ip address 10.254.11.30 255.255.255.252
-!
-interface vlan 536
-shutdown
-ip address 10.10.11.5 255.255.255.248
-!
-interface vlan 1512
-ip address 172.16.11.2 255.255.255.0
-!
- --More--
-!
-!command in keychain_mode
-!
-!command in bfd_template_mode
-!
-!command in iccp mode
-!
-!command in mlacp_mode
-!
-!command in config_mode
-snmp-server location BBU-Bandung-LT7
-snmp-server contact noc@bits.net.id
-snmp-server community encryption 0xae46c4be7fc99191 ro
-ip route 0.0.0.0 0.0.0.0 10.254.11.29
-!
-!command in linktrace_mode
-!
-!command in clkmgmt_mode
-!
+  name 3704-SERVER-FIBERCONNECT
+vlan 3705
+  name 3705-AP-SEKRE-APJII
+vlan 3706
+  name 3706-ST-SEKRE-APJII
+vrf context management
+  ip route 0.0.0.0/0 10.254.11.1
+
+interface Vlan1
+
+interface Vlan27
+  no shutdown
+  ip address 10.254.11.30/30
+
+interface Ethernet1/1
+
+interface Ethernet1/2
+
+interface Ethernet1/3
+
+interface Ethernet1/4
+
+interface Ethernet1/5
+
+interface Ethernet1/6
+
+interface Ethernet1/7
+
+interface Ethernet1/8
+
+interface Ethernet1/9
+
+interface Ethernet1/10
+
+interface Ethernet1/11
+
+interface Ethernet1/12
+
+interface Ethernet1/13
+
+interface Ethernet1/14
+
+interface Ethernet1/15
+
+interface Ethernet1/16
+
+interface Ethernet1/17
+
+interface Ethernet1/18
+  description TO-LINTAS-SATU-VISI
+  switchport mode trunk
+  switchport trunk allowed vlan 2338
+  no shutdown
+
+interface Ethernet1/19
+
+interface Ethernet1/20
+
+interface Ethernet1/21
+
+interface Ethernet1/22
+
+interface Ethernet1/23
+
+interface Ethernet1/24
+
+interface Ethernet1/25
+  no shutdown
+
+interface Ethernet1/26
+  no shutdown
+
+interface Ethernet1/27
+  no shutdown
+
+interface Ethernet1/28
+  no shutdown
+
+interface Ethernet1/29
+  no shutdown
+
+interface Ethernet1/30
+  no shutdown
+
+interface Ethernet1/31
+  no shutdown
+
+interface Ethernet1/32
+  no shutdown
+
+interface Ethernet1/33
+  speed 1000
+  description TO-PHAS-NET-GGC
+  switchport mode trunk
+  no shutdown
+
+interface Ethernet1/34
+  speed 1000
+  description TO-CAMBIUM
+  switchport access vlan 3705
+  no shutdown
+
+interface Ethernet1/35
+  speed 1000
+  description TO-JABRIX
+  switchport mode trunk
+  switchport trunk allowed vlan 601
+  no shutdown
+
+interface Ethernet1/36
+  speed 1000
+  description TO-INTERGRASIA
+  switchport mode trunk
+  switchport trunk allowed vlan 330,1304,1401-1402,1603-1604,1951,1970-1972,3101,3145-3146
+  no shutdown
+
+interface Ethernet1/37
+  speed 1000
+  description TO-TIS
+  switchport mode trunk
+  switchport trunk allowed vlan 421-423,986
+  no shutdown
+
+interface Ethernet1/38
+  speed 1000
+  description TO-AMBA
+  switchport access vlan 1578
+  no shutdown
+
+interface Ethernet1/39
+  speed 1000
+  description TO-JLM
+  switchport mode trunk
+  switchport trunk allowed vlan 1576-1578
+  no shutdown
+
+interface Ethernet1/40
+  speed 1000
+  description TO-LINTAS-SATU-VISI
+  switchport mode trunk
+  switchport trunk allowed vlan 2338
+  no shutdown
+
+interface Ethernet1/41
+  speed 1000
+  description TO-SEKRE-APJII
+  switchport access vlan 702
+  no shutdown
+
+interface Ethernet1/42
+  speed 1000
+  description TO-BITEK
+  switchport mode trunk
+  switchport trunk allowed vlan 424,584,604-608,612,615,618
+  no shutdown
+
+interface Ethernet1/43
+  speed 1000
+  description TO-TELKOM
+  switchport mode trunk
+  switchport trunk allowed vlan 2088
+  no shutdown
+
+interface Ethernet1/44
+  speed 100
+  description TO-AITI
+  switchport mode trunk
+  switchport trunk allowed vlan 617
+  no shutdown
+
+interface Ethernet1/45
+  speed 1000
+  description TO-CGS
+  switchport mode trunk
+  switchport trunk allowed vlan 613,616
+  no shutdown
+
+interface Ethernet1/46
+  speed 1000
+  description TO-GOESAR
+  switchport mode trunk
+  switchport trunk allowed vlan 624-629,631-638,2000-2002
+  no shutdown
+
+interface Ethernet1/47
+  speed 1000
+  description IFORTE-JKT
+  switchport mode trunk
+  switchport trunk allowed vlan 531,536,581,1401-1402,1512,3145-3146,3703
+  no shutdown
+
+interface Ethernet1/48
+  description TRUNKING-TO-LT7
+  switchport mode trunk
+  switchport trunk allowed vlan 27,330,421-424,536,581,584,601,604-608,612-613,615-618,624-629,631-638,641,702,986,1304,1401-1402,1512,15
+76-1578,1603-1604,1951,1970-1972,2000-2002,2088,2338-2339,2387-2388,3101,3145-3146,3703,3705-3706
+  no shutdown
+
+interface Ethernet1/49
+
+interface Ethernet1/50
+
+interface Ethernet1/51
+
+interface Ethernet1/52
+
+interface mgmt0
+  vrf member management
+  ip address 10.254.11.2/30
+clock timezone GMT 7 0
+line console
+line vty
+boot kickstart bootflash:/n3000-uk9-kickstart.6.0.2.U6.6.bin
+boot system bootflash:/n3000-uk9.6.0.2.U6.6.bin
+ip route 0.0.0.0/0 10.254.11.29
+
